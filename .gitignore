@@ -1,0 +1,6 @@
+# Ignore auto-generated Lua files
+*.lua
+# Ignore VIM files
+*~
+.*.swp
+
