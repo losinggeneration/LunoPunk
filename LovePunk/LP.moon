@@ -94,7 +94,7 @@ class LP
 
 	@VERSION: ->
 		VERSION
-		
+
 	@gotoIsNull: ->
 	@lerp: (a, b, t) ->
 	@next: (current, options, loop) ->
@@ -120,3 +120,5 @@ class LP
 	@swapScene: ->
 	@timeFlag: ->
 	@tween: (object, values, duration, options) ->
+
+lp = LP!
