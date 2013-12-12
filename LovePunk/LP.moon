@@ -1,6 +1,6 @@
 export ^
 
-class LP
+class lp
 	-- Private
 	BASELAYER = nil
 	DEG = nil
@@ -83,16 +83,16 @@ class LP
 	@getGreen: (color) ->
 	@getRed: (color) ->
 
-	@DEG: ->
+	DEG: ->
 		DEG
 
-	@NUMBER_MAX_VALUE: ->
+	NUMBER_MAX_VALUE: ->
 		NUMBER_MAX_VALUE
 
-	@RAD: ->
+	RAD: ->
 		RAD
 
-	@VERSION: ->
+	VERSION: ->
 		VERSION
 
 	@gotoIsNull: ->
@@ -100,10 +100,10 @@ class LP
 	@next: (current, options, loop) ->
 	@prev: (current, options, loop) ->
 
-	@rand: (amount) ->
+	rand: (amount) ->
 		math.random(amount)
 
-	@randomizeSeed: ->
+	randomizeSeed: ->
 		math.randomseed os.time()
 
 	@resetCamera: ->
@@ -121,4 +121,4 @@ class LP
 	@timeFlag: ->
 	@tween: (object, values, duration, options) ->
 
-lp = LP!
+LP = lp!
