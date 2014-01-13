@@ -2,7 +2,7 @@ export ^
 
 class lp
 	-- Private
-	BASELAYER = nil
+	BASELAYER = 10
 	DEG = nil
 	INT_MAX_VALUE = nil
 	NUMBER_MAX_VALUE = nil
@@ -14,18 +14,18 @@ class lp
 	@_systemTime: nil
 	@_updateTime: nil
 	@assignedFrameRate: nil
-	@blackColor: nil
+	@blackColor: 0x00000000
 	@bounds: nil
 	@buffer: nil
 	@camera: nil
 	@console: nil
-	@defaultFont: nil
+	@defaultFont: "default"
 	@elapsed: nil
 	@engine: nil
 	@entity: nil
 	@fixed: nil
 	@focused: nil
-	@frameRate: nil
+	@frameRate: 0
 	@fullscreen: nil
 	@halfHeight: nil
 	@halfWidth: nil
@@ -38,7 +38,7 @@ class lp
 	@point2: nil
 	@random: nil
 	@randomSeed: nil
-	@rate: nil
+	@rate: 0
 	@rect: nil
 	@renderMode: nil
 	@scene: nil
