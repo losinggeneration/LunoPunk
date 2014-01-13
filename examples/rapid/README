@@ -1,0 +1,1 @@
+I feel like this is never really talked about so here's a breif example that has a Lua->Moonscript bootloader to be used during development. Once the game is ready to be distributed, moonc can be run to compile the everything to Lua.
