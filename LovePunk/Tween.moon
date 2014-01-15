@@ -7,15 +7,12 @@ TweenType = {
 }
 
 class Tween
-	@active = false
-	@percent = 0.0
-	@scale = 0.0
-	@parent = nil
-
-	scale: =>
-		@scale
-
 	new: (duration, type, complete, ease) =>
+		@active = false
+		@percent = 0.0
+		@__scale = 0.0
+		@__parent = nil
+
 		@target = duration
 		@type = if type == nil then "Persist" else type
 		@ease = ease
@@ -24,6 +21,9 @@ class Tween
 		--if complete != nil
 			-- TODO: Add event for when tween is finished
 			-- addEventListener(TweenEvent.FINISH, complete);
+
+	scale: =>
+		@__scale
 
 	update: =>
 		@time += if LP.fixed then 1 else LP.elapsed
@@ -48,7 +48,7 @@ class Tween
 			-- dispatchEvent(new TweenEvent(TweenEvent.START));
 		return
 
-	@finish: =>
+	finish = =>
 		switch @type
 			when "Persist"
 				@time = @target

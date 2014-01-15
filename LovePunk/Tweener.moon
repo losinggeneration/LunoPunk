@@ -18,17 +18,7 @@ class Tweener
 	addTween: (t, start) =>
 		t.parent = @ if t.__class == Tween
 
-
-
 	clearTweens: =>
-		return
-
 	removeTween: (t) =>
-
 	update: =>
-		return
-
 	updateTweens: =>
-		return
-
-	
