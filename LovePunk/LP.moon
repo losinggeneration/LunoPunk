@@ -1,3 +1,4 @@
+require "LovePunk.Scene"
 require "LovePunk.Tweener"
 
 export ^
@@ -10,6 +11,7 @@ class lp
 	NUMBER_MAX_VALUE = nil
 	RAD = nil
 	VERSION = "0.0.1"
+	__scene = nil
 
 	_gameTime: nil
 	_renderTime: nil
@@ -43,7 +45,7 @@ class lp
 	rate: 0
 	rect: nil
 	renderMode: nil
-	scene: nil
+	scene: Scene!
 	screen: nil
 	sprite: nil
 	stage: nil
@@ -101,9 +103,7 @@ class lp
 	VERSION: ->
 		VERSION
 
-	gotoIsNull: ->
-		-- TODO STUB
-		false
+	sceneIsNull: => @scene != @__scene or @__scene == nil
 
 	lerp: (a, b, t) ->
 	next: (current, options, loop) ->
@@ -126,7 +126,7 @@ class lp
 	sign: (value) ->
 	stepTowards: (object, x, y, distance) ->
 	swap: (current, a, b) ->
-	swapScene: ->
+	swapScene: => @__scene = @scene
 	timeFlag: ->
 	tween: (object, values, duration, options) ->
 
