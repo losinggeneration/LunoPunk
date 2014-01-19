@@ -4,20 +4,22 @@ export ^
 
 class Scene extends Tweener
 	new: =>
-		@__typeFirst = nil
+		super!
 		@camera = nil
-		@count = nil
-		@farthest = nil
-		@first = nil
-		@layerFarthest = nil
-		@layerNearest = nil
-		@layers = nil
-		@mouseX = nil
-		@mouseY = nil
-		@nearest = nil
-		@sprite = nil
-		@uniqueTypes = nil
-		@visible = nil
+		@visible = true
+		-- private
+		@__typeFirst = nil
+		@__count = nil
+		@__farthest = nil
+		@__first = nil
+		@__layerFarthest = nil
+		@__layerNearest = nil
+		@__layers = nil
+		@__mouseX = nil
+		@__mouseY = nil
+		@__nearest = nil
+		@__sprite = nil
+		@__uniqueTypes = nil
 
 	add: (e) =>
 	addGraphic: (graphic, layer, x, y) =>
