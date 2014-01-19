@@ -7,7 +7,8 @@ TweenType = {
 }
 
 class Tween
-	new: (duration, type, complete, ease) =>
+	new: (duration, type = TweenType.Persist, complete = nil, ease = nil) =>
+		assert duration != nil, "Cannot create a Tween without a duration"
 		@active = false
 		@percent = 0.0
 		@__scale = 0.0
