@@ -1,0 +1,6 @@
+export ^
+
+RenderMode = {
+	"Buffer",
+	"Hardware",
+}
