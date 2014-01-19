@@ -1,8 +1,10 @@
+require "LovePunk.Tweener"
+
 export ^
 
 class Scene extends Tweener
 	new: =>
-		@_typeFirst = nil
+		@__typeFirst = nil
 		@camera = nil
 		@count = nil
 		@farthest = nil
