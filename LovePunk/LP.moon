@@ -1,3 +1,5 @@
+require "LovePunk.Tweener"
+
 export ^
 
 class lp
@@ -20,10 +22,10 @@ class lp
 	camera: nil
 	console: nil
 	defaultFont: "default"
-	elapsed: nil
+	elapsed: 0
 	engine: nil
 	entity: nil
-	fixed: nil
+	fixed: false
 	focused: nil
 	frameRate: 0
 	fullscreen: nil
@@ -45,7 +47,7 @@ class lp
 	screen: nil
 	sprite: nil
 	stage: nil
-	tweener: nil
+	tweener: Tweener!
 	volume: nil
 	watch: nil
 	width: nil
@@ -100,6 +102,9 @@ class lp
 		VERSION
 
 	gotoIsNull: ->
+		-- TODO STUB
+		false
+
 	lerp: (a, b, t) ->
 	next: (current, options, loop) ->
 	prev: (current, options, loop) ->
