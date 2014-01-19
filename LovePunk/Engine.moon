@@ -1,6 +1,8 @@
 require "LovePunk.Entity"
+require "LovePunk.RenderMode"
 require "LovePunk.Screen"
 require "LovePunk.geometry.Rectangle"
+require "LovePunk.utils.Draw"
 
 export ^
 
@@ -27,7 +29,7 @@ class Engine
 		LP.randomizeSeed! unless LP.randomSeed
 
 		LP.entity = Entity!
-		--LP.time = Lib.getTimer!
+		LP.time = love.timer.getTime!
 
 		---
 		-- Cap on the elapsed time (default at 30 FPS). Raise this to allow for lower framerates (eg. 1 / 10).
@@ -42,10 +44,69 @@ class Engine
 		-- The amount of milliseconds between ticks in fixed framerate mode.
 		@tickRate = 4
 
+		@__frameList = {}
+		@__frameLast = 0
+		@__frameListSum = 0
+
 		-- Do something with the Löve functions...
+		love.draw = @\render
+		love.update = @\update
 
 	focusGained: =>
 	focusLost: =>
 	init: =>
 	render: =>
+		LP.resize LP.windowWidth, LP.windowHeight if LP.screen.needsResize
+
+		-- timing stuff
+		t = love.timer.getDelta!
+
+		@__frameLast = t if @__frameLast == 0
+
+		-- render loop
+		if LP.renderMode == RenderMode.Buffer
+			LP.screen.swap!
+			LP.screen.refresh!
+
+		Draw.resetTarget!
+
+		LP.scene.render! if LP.scene.visible
+
+		LP.screen.redraw! if LP.renderMode == RenderMode.Buffer
+
+		-- more timing stuff
+		t = love.timer.getTime!
+		@__frameList[#@__frameList] = t - @__frameLast
+		@__frameListSum += @__frameList[#@__frameList]
+		if #@__frameList > 10
+			@__frameListSum -= @__frameList[#@__frameList]
+			@__frameList = [frame for frame in *@__frameList[2,]]
+
+		LP.frameRate = 1000 / (@__frameListSum / #@__frameList)
+		@__frameLast = t
+
 	update: =>
+		LP.scene.updateLists!
+		checkScene! if LP\sceneIsNull!
+		LP.tweener.updateTweens! if LP.tweener.active and LP.tweener.hasTween
+
+		if LP.scene.active
+			LP.scene.updateTweens! if LP.scene.hasTween
+			LP.scene.update!
+
+		LP.scene.updateLists false
+
+	checkScene = =>
+		return if not LP\sceneIsNull!
+
+		if LP.scene != nil
+			LP.scene.end!
+			LP.scene.updateLists!
+			LP.scene.clearTweens! if LP.scene.autoClear and LP.scene.hasTween
+			removeChild(LP.scene.sprite) if LP.scene.sprite
+			LP\swapScene!
+			-- TODO
+			-- addChild LP.scene.sprite
+			LP.camera = LP.scene.camera
+			LP.scene.begin!
+			LP.scene.updateLists!
