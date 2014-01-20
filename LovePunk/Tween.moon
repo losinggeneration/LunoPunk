@@ -13,6 +13,7 @@ class Tween
 		@percent = 0.0
 		@__scale = 0.0
 		@__parent = nil
+		@__finish = false
 
 		@target = duration
 		@type = if type == nil then "Persist" else type
@@ -34,7 +35,7 @@ class Tween
 
 		if @time >= @target
 			@t = 1
-			@finish = true
+			@__finish = true
 
 		-- dispatchEvent(new TweenEvent(TweenEvent.UPDATE));
 		return
@@ -64,7 +65,7 @@ class Tween
 				@time = @target
 				@active = false
 				-- parent.removeTween(this);
-		@finish = false
+		@__finish = false
 		-- dispatchEvent(new TweenEvent(TweenEvent.FINISH));
 
 

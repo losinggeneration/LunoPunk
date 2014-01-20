@@ -4,10 +4,11 @@ class Tweener
 	new: =>
 		@active = true
 		@autoClear = false
-		@tween = nil
+		@__tween = nil
 
-	hasTween: =>
-		@tween != nil
+	update: =>
+
+	hasTween: => @__tween != nil
 
 	-- Add the tween to the tween list.
 	--
@@ -16,9 +17,53 @@ class Tweener
 	--
 	-- @return The added tween.
 	addTween: (t, start) =>
-		t.parent = @ if t.__class == Tween
+		assert t.__parent == nil, "Cannot add a Tween object more than once."
 
-	clearTweens: =>
+		t.__parent = @ if t.__class == Tween
+		t.__next = @__tween
+
+		@__tween.__prev = t if @__tween != nil
+		@__tween = t
+
+		@__tween\start! if start
+
+		t
+
+	-- Remove the tween from the tween list.
+	--
+	-- @param	t		The tween to remove.
+	--
+	-- @return	The removed tween.
 	removeTween: (t) =>
-	update: =>
+		assert t.__parent != @, "Core object does not contain Tween."
+
+		t.__next.__prev = t.__prev if t.__next != nil
+
+		if t.__prev != nil
+			t.__prev.__next = t.__prev
+		else
+			@__tween = if t.__next == nil then nil else t.__next
+
+		t.__next, t.__prev = nil, nil
+		t.active = false
+
+		t
+
+	-- Remove all tweens from the tween list.
+	clearTweens: =>
+		t = @__tween
+		n = nil
+		while t != nil
+			n = t.__next
+			removeTween t
+			t = n
+
+	-- Update all contained tweens.
 	updateTweens: =>
+		print @
+		t = @__tween
+		while t != nil
+			if t.active
+				t\update!
+				t\finish! if t.__finish
+			t = t.__next
