@@ -2,7 +2,7 @@ export ^
 
 class Screen
 	new: =>
-		@\init!
+		@init!
 		-- LP.engine\addChild @__sprite if LP.renderMode == RenderMode.Buffer
 
 	init: =>
@@ -10,7 +10,7 @@ class Screen
 		@__originX, @__originY = 0, 0
 		@__angle, @__current = 0, 0
 		@__scale, @__scaleX, @__scaleY = 1, 1, 1
-		@\update!
+		@update!
 
 	addFilter: (filter) =>
 	capture: =>
@@ -26,7 +26,7 @@ class Screen
 		if value != nil
 			return value if @__angle == value * LP.RAD
 			@__angle = value * LP.RAD
-			@\update!
+			@update!
 			return @__angle
 
 		@__angle * LP.DEG

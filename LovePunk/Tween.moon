@@ -60,7 +60,7 @@ class Tween
 				@t = @time/@target
 				if @ease != nil and @t > 0 and @t < 1
 					@t = @ease @t
-				@\start!
+				@start!
 			when "OneShot"
 				@time = @target
 				@active = false

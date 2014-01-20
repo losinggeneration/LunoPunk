@@ -100,12 +100,12 @@ class Scene extends Tweener
 	-- Adds multiple Entities to the scene.
 	-- @param	...list		Several Entities (as arguments) or an Array/Vector of Entities.
 	addList: (list) =>
-		for e in *list do @\add e
+		for e in *list do @add e
 
 	-- Removes multiple Entities from the scene.
 	-- @param	...list		Several Entities (as arguments) or an Array/Vector of Entities.
 	removeList: (list) =>
-		for e in *list do @\remove e
+		for e in *list do @remove e
 
 	-- Adds an Entity to the Scene with the Graphic object.
 	-- @param	graphic		Graphic to assign the Entity.
@@ -119,7 +119,7 @@ class Scene extends Tweener
 		e.layer = layer if layer != LP.BASELAYER
 		e.active = false
 
-		@\add e
+		@add e
 
 	-- Adds an Entity to the Scene with the Mask object.
 	-- @param	mask	Mask to assign the Entity.
@@ -133,7 +133,7 @@ class Scene extends Tweener
 		e.type = type if type != ""
 		e.active, e.visable = false, false
 
-		@\add e
+		@add e
 
 	-- Returns a new Entity, or a stored recycled Entity if one exists.
 	-- @param	classType			The Class of the Entity you want to add.
@@ -149,7 +149,7 @@ class Scene extends Tweener
 		else
 			e = classType ...
 
-		return @\add e if addToScene
+		return @add e if addToScene
 
 		e
 
@@ -159,7 +159,7 @@ class Scene extends Tweener
 	-- @return	The recycled Entity.
 	recycle: (e) =>
 		@__recycle[#@__recycle] = e
-		@\remove e
+		@remove e
 
 	-- Clears stored reycled Entities of the Class type.
 	-- @param	classType		The Class type to clear.
@@ -182,7 +182,7 @@ class Scene extends Tweener
 	-- Clears stored recycled Entities of all Class types.
 	clearRecycledAll: =>
 		for e in *@__recycle do
-			@\clearRecycled e.__class
+			@clearRecycled e.__class
 
 	bringToFront: (e) =>
 	sendToBack: (e) =>
