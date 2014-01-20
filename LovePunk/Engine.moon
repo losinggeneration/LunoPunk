@@ -103,7 +103,8 @@ class Engine
 			LP.scene\endScene!
 			LP.scene\updateLists!
 			LP.scene\clearTweens! if LP.scene.autoClear and LP.scene\hasTween!
-			removeChild(LP.scene.sprite) if LP.scene.sprite
+			-- TODO
+			-- removeChild(LP.scene.sprite) if LP.scene.sprite
 			LP\swapScene!
 			-- TODO
 			-- addChild LP.scene.sprite
