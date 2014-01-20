@@ -47,12 +47,15 @@ class Entity extends Tweener
 		@visible = false
 		-- Width of the Entity's hitbox.
 		@width = 0
-		-- The World object is deprecated
-		@world = nil
 		-- X position of the Entity in the Scene.
 		@x = 0
 		-- Y position of the Entity in the Scene.
 		@y = 0
+
+	-- The World object is deprecated for FlashPunk-like compatibility
+	world: (value) =>
+		@scene = value if value != nil
+		@scene
 
 	addGraphic: (g) =>
 	added: =>
