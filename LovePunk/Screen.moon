@@ -2,52 +2,101 @@ export ^
 
 class Screen
 	new: =>
+		@\init!
+		-- LP.engine\addChild @__sprite if LP.renderMode == RenderMode.Buffer
+
+	init: =>
+		@__x, @__y = 0, 0
+		@__originX, @__originY = 0, 0
+		@__angle, @__current = 0, 0
+		@__scale, @__scaleX, @__scaleY = 1, 1, 1
+		@\update!
+
 	addFilter: (filter) =>
 	capture: =>
 		-- TODO return LovePunk.graphics.Image
-	init: =>
+
 	redraw: =>
 	refresh: =>
 	resize: =>
 	swap: =>
 	update: =>
 
-	get_angle = => @_angle * LP.DEG
-	get_color = => @_color
-	get_mouseX = => @_sprite.mouseX
-	get_mouseY = => @_sprite.mouseY
-	-- return bool
-	-- TODO STUB
-	get_smoothing = => false
+	angle: (value) =>
+		if value != nil
+			return value if @__angle == value * LP.RAD
+			@__angle = value * LP.RAD
+			@\update!
+			return @__angle
+
+		@__angle * LP.DEG
+
+	color: (value) =>
+		@__color = value if value != nil
+		@__color
+
+	mouseX: =>
+	mouseY: =>
+
 	-- value float
 	-- return float
-	set_angle = (value) =>
+	angle = (value) =>
+		@__angle = value if value != nil
+		@__angle
+
 	-- value int
 	-- return int
-	set_color = (value) =>
+	color = (value) =>
+		@__color = value if value != nil
+		@__color
+
 	-- value int
 	-- return int
-	set_originX = (value) =>
+	originX = (value) =>
+		@__originX = value if value != nil
+		@__originX
+
 	-- value int
 	-- return int
-	set_originY = (value) =>
+	originY = (value) =>
+		@__originY = value if value != nil
+		@__originY
+
 	-- value float
 	-- return float
-	set_scale = (value) =>
+	scale = (value) =>
+		@__scale = value if value != nil
+		@__scale
+
 	-- value float
 	-- return float
-	set_scaleX = (value) =>
+	scaleX = (value) =>
+		@__scaleX = value if value != nil
+		@__scaleX
+
 	-- value float
 	-- return float
-	set_scaleY = (value) =>
+	scaleY = (value) =>
+		@__scaleY = value if value != nil
+		@__scaleY
+
 	-- value bool
 	-- return bool
-	set_smoothing = (value) => false
+	smoothing = (value) =>
+		@__smoothing = value if value != nil
+		@__smoothing
+
 	-- value int
 	-- return int
-	set_x = (value) =>
+	x = (value) =>
+		@__x = value if value != nil
+		@__x
+
 	-- value int
 	-- return int
-	set_y = (value) =>
+	y = (value) =>
+		@__y = value if value != nil
+		@__y
+
 	-- bd Bitmap
 	disposeBitmap = (bd) =>
