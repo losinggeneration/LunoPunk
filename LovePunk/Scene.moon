@@ -39,7 +39,8 @@ class Scene extends Tweener
 	collideRect: (type, rX, rY, rWidth, rHeight) =>
 	collideRect: (type, rX, rY, rWidth, rHeight, into) =>
 	create: (classType, addToScene) =>
-	end: =>
+	-- Changed from end because of issues with the name "end" in Lua
+	endScene: =>
 	focusGained: =>
 	focusLost: =>
 	getAll: (into) =>

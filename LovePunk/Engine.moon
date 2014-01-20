@@ -88,25 +88,25 @@ class Engine
 	update: =>
 		LP.scene.updateLists!
 		checkScene! if LP\sceneIsNull!
-		LP.tweener.updateTweens! if LP.tweener.active and LP.tweener.hasTween
+		LP.tweener\updateTweens! if LP.tweener.active and LP.tweener\hasTween!
 
 		if LP.scene.active
-			LP.scene.updateTweens! if LP.scene.hasTween
-			LP.scene.update!
+			LP.scene\updateTweens! if LP.scene\hasTween!
+			LP.scene\update!
 
-		LP.scene.updateLists false
+		LP.scene\updateLists false
 
 	checkScene = =>
 		return if not LP\sceneIsNull!
 
 		if LP.scene != nil
-			LP.scene.end!
-			LP.scene.updateLists!
-			LP.scene.clearTweens! if LP.scene.autoClear and LP.scene.hasTween
+			LP.scene\endScene!
+			LP.scene\updateLists!
+			LP.scene\clearTweens! if LP.scene.autoClear and LP.scene\hasTween!
 			removeChild(LP.scene.sprite) if LP.scene.sprite
 			LP\swapScene!
 			-- TODO
 			-- addChild LP.scene.sprite
 			LP.camera = LP.scene.camera
-			LP.scene.begin!
-			LP.scene.updateLists!
+			LP.scene\begin!
+			LP.scene\updateLists!
