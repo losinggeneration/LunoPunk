@@ -51,6 +51,8 @@ class Engine
 		-- Do something with the Löve functions...
 		love.draw = @\render
 		love.update = @\update
+		if love._version_major >= 0 and love._version_minor >= 9
+			love.resize = @\resize
 
 	focusGained: =>
 	focusLost: =>
@@ -95,6 +97,8 @@ class Engine
 			LP.scene\update!
 
 		LP.scene\updateLists false
+
+	resize: =>
 
 	checkScene = =>
 		return if not LP\sceneIsNull!
