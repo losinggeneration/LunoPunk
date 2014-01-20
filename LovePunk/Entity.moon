@@ -33,7 +33,7 @@ class Entity extends Tweener
 		@originX = 0
 		-- Y origin of the Entity's hitbox.
 		@originY = 0
-		-- The BitmapData target to draw the Entity to. Leave as null to render to the current screen buffer (default).
+		-- The BitmapData target to draw the Entity to. Leave as nil to render to the current screen buffer (default).
 		@renderTarget = nil
 		-- The rightmost position of the Entity's hitbox.
 		@right = 0
