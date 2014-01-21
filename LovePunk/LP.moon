@@ -1,3 +1,6 @@
+require "LovePunk.geometry.Point"
+require "LovePunk.geometry.Rectangle"
+require "LovePunk.geometry.Matrix"
 require "LovePunk.Scene"
 require "LovePunk.Tweener"
 
@@ -35,15 +38,15 @@ class lp
 	halfWidth: nil
 	height: nil
 	log: nil
-	matrix: nil
+	matrix: Matrix!
 	orientations: nil
 	pan: nil
-	point: nil
-	point2: nil
+	point: Point!
+	point2: Point
 	random: -> math.random!
 	randomSeed: nil
 	rate: 0
-	rect: nil
+	rect: Rectangle!
 	renderMode: nil
 	scene: Scene!
 	screen: nil
@@ -56,7 +59,7 @@ class lp
 	windowHeight: nil
 	windowWidth: nil
 	world: nil
-	zero: nil
+	zero: Point!
 
 	alarm: (delay, complete, typeweenType, tweener) ->
 	anchorTo: (object, anchor, distance) ->
