@@ -1,5 +1,5 @@
 export ^
 
 class Point
-	@x
-	@y
+	new: =>
+		@x, @y = 0, 0
