@@ -1,4 +1,4 @@
--- Auto-generated with ./create_everything.sh on 2014-01-21 00:04:33
+-- Auto-generated with ./create_everything.sh on 2014-01-21 02:13:06
 
 export ^
 
@@ -27,6 +27,8 @@ LovePunk.debug.Console = require "LovePunk.debug.Console"
 LovePunk.debug.LayerList = require "LovePunk.debug.LayerList"
 LovePunk.Engine = require "LovePunk.Engine"
 LovePunk.Entity = require "LovePunk.Entity"
+LovePunk.geometry.Matrix = require "LovePunk.geometry.Matrix"
+LovePunk.geometry.Point = require "LovePunk.geometry.Point"
 LovePunk.geometry.Rectangle = require "LovePunk.geometry.Rectangle"
 LovePunk.Graphic = require "LovePunk.Graphic"
 LovePunk.graphics.Animation = require "LovePunk.graphics.Animation"
