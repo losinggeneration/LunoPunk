@@ -113,10 +113,10 @@ class Scene extends Tweener
 	-- @param	y			Y position of the Entity.
 	-- @param	layer		Layer of the Entity.
 	-- @return	The Entity that was added.
-	addGraphic: (graphic, layer = LP.BASELAYER, x = 0, y = 0) =>
+	addGraphic: (graphic, layer = LP.BASELAYER!, x = 0, y = 0) =>
 		e = Entity x, y, graphic
 
-		e.layer = layer if layer != LP.BASELAYER
+		e.layer = layer if layer != LP.BASELAYER!
 		e.active = false
 
 		@add e

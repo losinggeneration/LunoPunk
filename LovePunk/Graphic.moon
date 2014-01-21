@@ -20,7 +20,7 @@ class Graphic
 		-- If the graphic should render at its position relative to its parent Entity's position.
 		@relative = true
 		-- The layer to use for rendering, should only be set by the Entity
-		@__layer = LP.BASELAYER
+		@__layer = LP.BASELAYER!
 		@__scroll = true
 		@__point = Point!
 		@__entity = nil
@@ -45,7 +45,7 @@ class Graphic
 		layer = if entity != nil
 				entity.layer
 			else
-				LP.BASELAYER
+				LP.BASELAYER!
 
 	-- Pause updating this graphic.
 	pause: => @active = false

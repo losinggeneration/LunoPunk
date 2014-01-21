@@ -88,20 +88,19 @@ class lp
 	getRed: (color) ->
 
 	-- read-only
-	DEG: ->
-		DEG
+	DEG: -> DEG
 
 	-- read-only
-	NUMBER_MAX_VALUE: ->
-		NUMBER_MAX_VALUE
+	NUMBER_MAX_VALUE: -> NUMBER_MAX_VALUE
 
 	-- read-only
-	RAD: ->
-		RAD
+	RAD: -> RAD
 
 	-- read-only
-	VERSION: ->
-		VERSION
+	VERSION: -> VERSION
+
+	-- read-only
+	BASELAYER: -> BASELAYER
 
 	sceneIsNull: => @scene != @__scene or @__scene == nil
 
