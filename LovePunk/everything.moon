@@ -1,4 +1,4 @@
--- Auto-generated with ./create_everything.sh on 2014-01-20 15:29:14
+-- Auto-generated with ./create_everything.sh on 2014-01-21 00:04:33
 
 export ^
 
@@ -8,17 +8,18 @@ export ^
 -- This provides two options for getting the class, calling require again and
 -- assigning it to a local variable. Alternatively, the namespaced version can
 -- be used.
+
 LovePunk = {}
 LovePunk.debug = {}
+LovePunk.geometry = {}
 LovePunk.graphics = {}
-LovePunk.graphics.prototype = {}
 LovePunk.graphics.atlas = {}
+LovePunk.graphics.prototype = {}
+LovePunk.masks = {}
 LovePunk.tweens = {}
-LovePunk.tweens.sound = {}
 LovePunk.tweens.misc = {}
 LovePunk.tweens.motion = {}
-LovePunk.geometry = {}
-LovePunk.masks = {}
+LovePunk.tweens.sound = {}
 LovePunk.utils = {}
 
 -- Now load each file to the correctly namespaced table
