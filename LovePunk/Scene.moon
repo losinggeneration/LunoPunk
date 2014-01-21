@@ -55,8 +55,8 @@ class Scene extends Tweener
 		if @__layerSort
 			@__layerList\sort @__layerSort if #@__layerList > 1
 
-		if LP.renderMode == RenderMode.Hardware
-			clearSprites!
+		-- if LP.renderMode == RenderMode.Hardware
+			-- clearSprites!
 			-- AtlasData.setScene(@)
 
 		for layer in *@__layerList do
