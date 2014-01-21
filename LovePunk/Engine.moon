@@ -67,14 +67,14 @@ class Engine
 
 		-- render loop
 		if LP.renderMode == RenderMode.Buffer
-			LP.screen.swap!
-			LP.screen.refresh!
+			LP.screen\swap!
+			LP.screen\refresh!
 
 		Draw.resetTarget!
 
-		LP.scene.render! if LP.scene.visible
+		LP.scene\render! if LP.scene.visible
 
-		LP.screen.redraw! if LP.renderMode == RenderMode.Buffer
+		LP.screen\redraw! if LP.renderMode == RenderMode.Buffer
 
 		-- more timing stuff
 		t = love.timer.getTime!
@@ -88,7 +88,7 @@ class Engine
 		@__frameLast = t
 
 	update: =>
-		LP.scene.updateLists!
+		LP.scene\updateLists!
 		checkScene! if LP\sceneIsNull!
 		LP.tweener\updateTweens! if LP.tweener.active and LP.tweener\hasTween!
 
