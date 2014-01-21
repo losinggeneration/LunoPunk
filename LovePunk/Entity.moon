@@ -45,10 +45,10 @@ class Entity extends Tweener
 		@layer = LP.BASELAYER!
 
 		-- Graphical component to render to the screen.
-		@graphic = graphic if graphic != nil
+		@__graphic = graphic if graphic != nil
 
 		-- An optional Mask component, used for specialized collision. If this is not assigned, collision checks will use the Entity's hitbox by default.
-		@mask = mask if mask != nil
+		@__mask = mask if mask != nil
 
 		@__hitbox\assignTo @
 
@@ -76,10 +76,25 @@ class Entity extends Tweener
 		@scene = value if value != nil
 		@scene
 
+	-- Override this, called when the Entity is added to a Scene.
 	added: =>
+	-- Override this, called when the Entity is removed from a Scene.
 	removed: =>
+	-- Updates the Entity.
 	update: =>
+	-- Renders the Entity. If you override this for special behaviour,
+	-- remember to call super.render() to render the Entity's graphic.
 	render: =>
+		if @__graphic != nil and @__graphic.visable
+			if @__graphic.relative
+				@__point.x = @x!
+				@__point.y = @y!
+			else
+				@__point.x, @__point.y = 0, 0
+				@__camera.x = if @__scene == nil then LP.camera.x else @__scene.camera.x
+				@__camera.y = if @__scene == nil then LP.camera.y else @__scene.camera.y
+				@__graphic\render (if @__renderTarget != nil then @__renderTarget else LP.buffer), @__point, @__camera
+
 	collide: (type, x, y) =>
 	collideTypes: (types, x, y) =>
 	collideWith: (e, x, y) =>
