@@ -17,13 +17,14 @@ class draw
 
 	circle: (x, y, radius, color = 0xFFFFFF, alpha = 1, fill = true, thick = 1) ->
 		restore = setupVars color, alpha, thick
-		love.graphics.circle (if fill = true then "fill" else "line"), x, y, radius
+		love.graphics.circle (if fill == true then "fill" else "line"), x, y, radius
 		restore!
 
 	curve: (x1, y1, x2, y2, x3, y3, thick = 1, color = 0, alpha = 1) ->
 	entity: (e, x = 0, y = 0, addEntityPosition = false) ->
 	graphic: (g, x = 0, y = 0) ->
 	hitbox: (e, outline = true, color = 0xFFFFFF, alpha = 1) ->
+		draw.rect e.originX, e.originY, e.height, e.width, color, alpha, not outline, 1
 
 	line: (x1, y1, x2, y2, color = 0xFF000000, alpha = 1, thick = 1) ->
 		restore = setupVars color, alpha, thick
@@ -32,7 +33,7 @@ class draw
 
 	rect: (x, y, width, height, color = 0xFFFFFF, alpha = 1, fill = true, thick = 1) ->
 		restore = setupVars color, alpha, thick
-		love.graphics.rectangle (if fill = true then "fill" else "line"), x, y, width, height
+		love.graphics.rectangle (if fill == true then "fill" else "line"), x, y, width, height
 		restore!
 
 	resetTarget: ->

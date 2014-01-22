@@ -103,7 +103,11 @@ class Entity extends Tweener
 	collideInto: (type, x, y, array) =>
 	collideTypesInto: (types, x, y, array) =>
 	addGraphic: (g) =>
+
 	setHitbox: (width, height, originX, originY) =>
+		@width, @height = width, height
+		@originX, @originY = originX, originY
+
 	setHitboxTo: (o) =>
 	setOrigin: (x, y) =>
 	centerOrigin: =>
