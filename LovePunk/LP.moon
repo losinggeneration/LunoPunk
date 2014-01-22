@@ -73,7 +73,6 @@ class lp
 	clear: (array) ->
 	colorLerp: (fromColor, toColor, t) ->
 	consoleEnabled: ->
-	convertColor: (color) ->
 	createBitmap: (width, height, transparent, color) ->
 	distance: (x1, y1, x2, y2) ->
 	istanceRectPoint: (px, py, rx, ry, rw, rh) ->
@@ -81,14 +80,17 @@ class lp
 	distanceSquared: (x1, y1, xprint2, y2) ->
 	frames: (from_frame, to_frame, skip) ->
 	getBitmap: (source) ->
-	getBlue: (color) ->
 	getColorHSV: (h, s, v) ->
 	getColorHue: (color) ->
-	getColorRGB: (R, G, B) ->
+
 	getColorSaturation: (color) ->
 	getColorValue: (color) ->
-	getGreen: (color) ->
-	getRed: (color) ->
+
+	convertColor: (color) -> { lp.getRed(color), lp.getGreen(color), lp.getBlue(color) }
+	getColorRGB: (r, g, b) -> r * 0x10000 + g * 0x100 + b
+	getRed: (color) -> math.floor color / 0x10000
+	getGreen: (color) -> math.floor color / 0x100 % 0x100
+	getBlue: (color) -> math.floor color % 0x100
 
 	-- read-only
 	DEG: -> DEG
@@ -111,11 +113,8 @@ class lp
 	next: (current, options, loop) ->
 	prev: (current, options, loop) ->
 
-	rand: (amount) ->
-		math.random(amount)
-
-	randomizeSeed: ->
-		math.randomseed os.time()
+	rand: (amount) -> math.random(amount)
+	randomizeSeed: -> math.randomseed os.time()
 
 	resetCamera: ->
 	resize: (width, height) ->
