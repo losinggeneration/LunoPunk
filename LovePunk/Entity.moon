@@ -310,12 +310,17 @@ class Entity extends Tweener
 	-- @param	right		Right bounds.
 	-- @param	padding		Optional padding on the clamp.
 	clampHorizontal: (left, right, padding) =>
+		@x left + @originX + padding if @x! - @originX < left + padding
+		@x right - @width + @originX - padding if @x! - @originX + @width > right - padding
 
 	-- Clamps the Entity's hitbox on the y axis.
 	-- @param	top			Min bounds.
 	-- @param	bottom		Max bounds.
 	-- @param	padding		Optional padding on the clamp.
 	clampVertical: (top, bottom, padding) =>
+		@y top + @originY + padding if @y! - @originY < top + padding
+		@y bottom - @height + @originX - padding if @y! - @originY + @height > bottom - padding
 
 	-- Center graphic inside bounding rect.
 	centerGraphicInRect: =>
+		@__graphic.x, @__graphic.y = @halfWidth!, @halfHeight! if @__graphic != nil
