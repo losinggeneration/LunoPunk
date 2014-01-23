@@ -34,7 +34,7 @@ class Entity extends Tweener
 		@centerY = 0
 		@__moveX, @__moveY = 0, 0
 		-- The collision type, used for collision checking.
-		@type = ""
+		@__type = ""
 		@name = ""
 
 		@__hitbox = Mask!
@@ -42,7 +42,7 @@ class Entity extends Tweener
 		@__camera = LP.point2
 
 		-- The rendering layer of this Entity. Higher layers are rendered first.
-		@layer = LP.BASELAYER!
+		@__layer = LP.BASELAYER!
 
 		-- Graphical component to render to the screen.
 		@__graphic = graphic if graphic != nil
@@ -73,13 +73,78 @@ class Entity extends Tweener
 		else
 			@__y
 
+	-- Some helper accessors
+
+	-- If the Entity collides with the camera rectangle.
+	onCamera: =>
+		return false if @__scene == nil
+		@collideRect @x!, @y!, @__scene.camera.x, @__scene.camera.y, LP.width, LP.height
+
+	-- Half the Entity's width.
 	halfWidth: => @width/2
+	-- Half the Entity's height.
 	halfHeight: => @height/2
+	-- The center x position of the Entity's hitbox.
+	centerX: => @x! - @originX + @halfWidth!
+	-- The center y position of the Entity's hitbox.
+	centerY: => @y! - @originY + @halfHeight!
+	-- The leftmost position of the Entity's hitbox.
+	left: => @x! - @originX
+	-- The rightmost position of the Entity's hitbox.
+	right: => @x! - @originX + @width
+	-- The topmost position of the Entity's hitbox.
+	top: => @y! - @originY
+	-- The bottommost position of the Entity's hitbox.
+	bottom: => @y! - @originY + @height
+
+	layer: (value) =>
+		return @__layer if value == nil
+
+		@__graphic.layer = value if @__graphic != nil
+
+		if @__scene == nil
+			@__layer = value
+			return @__layer
+
+		@__scene.removeRender @
+		@__layer = if value then value else nil
+		@__scene.addRender @
+		@__layer
+
+	type: (value) =>
+		return @__type if value == nil
+
+		if @__scene == nil
+			@__type = value
+			return @__type
+
+		@__scene.removeType @ if @__type != ""
+		@__type = value
+		@__scene.addType @ if @__type != ""
+
+		@__type
+
+	mask: (value) =>
+		return @__mask if value == nil or @__mask == value
+
+		@__mask.assignTo nil if @__mask != nil
+		@__mask = if value then value else nil
+		@__mask.assignTo @ if value
+
+		@__mask
+
+	graphic: (value) =>
+		return @__graphic if value == nil or @__graphic == value
+
+		value.layer = @__layer if value
+		@__graphic = if value then value else nil
+		@__graphic
 
 	-- The World object is deprecated for FlashPunk-like compatibility
+	-- TODO give a massage about this kept for porting compatibility
 	world: (value) =>
-		@scene = value if value != nil
-		@scene
+		@__scene = value if value != nil
+		@__scene
 
 	-- Override this, called when the Entity is added to a Scene.
 	added: =>
