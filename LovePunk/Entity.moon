@@ -52,6 +52,7 @@ class Entity extends Tweener
 
 		@__hitbox\assignTo @
 
+	-- X position of the Entity in the Scene.
 	x: (value) =>
 		if value != nil
 			@__x = value
@@ -62,6 +63,7 @@ class Entity extends Tweener
 		else
 			@__x
 
+	-- Y position of the Entity in the Scene.
 	y: (value) =>
 		if value != nil
 			@__y = value
@@ -70,6 +72,9 @@ class Entity extends Tweener
 			@__y + LP.camera.y
 		else
 			@__y
+
+	halfWidth: => @width/2
+	halfHeight: => @height/2
 
 	-- The World object is deprecated for FlashPunk-like compatibility
 	world: (value) =>
@@ -82,6 +87,7 @@ class Entity extends Tweener
 	removed: =>
 	-- Updates the Entity.
 	update: =>
+
 	-- Renders the Entity. If you override this for special behaviour,
 	-- remember to call super.render() to render the Entity's graphic.
 	render: =>
@@ -96,31 +102,155 @@ class Entity extends Tweener
 				@__graphic\render (if @__renderTarget != nil then @__renderTarget else LP.buffer), @__point, @__camera
 
 	collide: (type, x, y) =>
+
+	-- Checks for collision against multiple Entity types.
+	-- @param	types		An Array or Vector of Entity types to check for.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @return	The first Entity collided with, or null if none were collided.
 	collideTypes: (types, x, y) =>
+
+	-- Checks if this Entity collides with a specific Entity.
+	-- @param	e		The Entity to collide against.
+	-- @param	x		Virtual x position to place this Entity.
+	-- @param	y		Virtual y position to place this Entity.
+	-- @return	The Entity if they overlap, or null if they don't.
 	collideWith: (e, x, y) =>
+
+	-- Checks if this Entity overlaps the specified rectangle.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @param	rX			X position of the rectangle.
+	-- @param	rY			Y position of the rectangle.
+	-- @param	rWidth		Width of the rectangle.
+	-- @param	rHeight		Height of the rectangle.
+	-- @return	If they overlap.
 	collideRect: (x, y, rX, rY, rWidth, rHeight) =>
+
+	-- Checks if this Entity overlaps the specified position.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @param	pX			X position.
+	-- @param	pY			Y position.
+	-- @return	If the Entity intersects with the position.
 	collidePoint: (x, y, pX, pY) =>
+
+	-- Populates an array with all collided Entities of a type.
+	-- @param	type		The Entity type to check for.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @param	array		The Array or Vector object to populate.
+	-- @return	The array, populated with all collided Entities.
 	collideInto: (type, x, y, array) =>
+
+	-- Populates an array with all collided Entities of multiple types.
+	-- @param	types		An array of Entity types to check for.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @param	array		The Array or Vector object to populate.
+	-- @return	The array, populated with all collided Entities.
 	collideTypesInto: (types, x, y, array) =>
+
+	-- Adds the graphic to the Entity via a Graphiclist.
+	-- @param	g		Graphic to add.
 	addGraphic: (g) =>
 
+	-- Sets the Entity's hitbox properties.
+	-- @param	width		Width of the hitbox.
+	-- @param	height		Height of the hitbox.
+	-- @param	originX		X origin of the hitbox.
+	-- @param	originY		Y origin of the hitbox.
 	setHitbox: (width, height, originX, originY) =>
 		@width, @height = width, height
 		@originX, @originY = originX, originY
 
+	-- Sets the Entity's hitbox to match that of the provided object.
+	-- @param	o		The object defining the hitbox (eg. an Image or Rectangle).
 	setHitboxTo: (o) =>
+
+	-- Sets the origin of the Entity.
+	-- @param	x		X origin.
+	-- @param	y		Y origin.
 	setOrigin: (x, y) =>
+
+	-- Center's the Entity's origin (half width & height).
 	centerOrigin: =>
+
+	-- Calculates the distance from another Entity.
+	-- @param	e				The other Entity.
+	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
+	-- @return	The distance.
 	distanceFrom: (e, useHitboxes) =>
+
+	-- Calculates the distance from this Entity to the point.
+	-- @param	px				X position.
+	-- @param	py				Y position.
+	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
+	-- @return	The distance.
 	distanceToPoint: (px, py, useHitbox) =>
+
+	-- Calculates the distance from this Entity to the rectangle.
+	-- @param	rx			X position of the rectangle.
+	-- @param	ry			Y position of the rectangle.
+	-- @param	rwidth		Width of the rectangle.
+	-- @param	rheight		Height of the rectangle.
+	-- @return	The distance.
 	distanceToRect: (rx, ry, rwidth, rheight) =>
+
+	-- Gets the class name as a string.
+	-- @return	A string representing the class name.
 	toString: =>
+
+	__tostring: => @toString!
+
+	-- Moves the Entity by the amount, retaining integer values for its x and y.
+	-- @param	x			Horizontal offset.
+	-- @param	y			Vertical offset.
+	-- @param	solidType	An optional collision type to stop flush against upon collision.
+	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveBy: (x, y, solidType, sweep) =>
+
+	-- Moves the Entity to the position, retaining integer values for its x and y.
+	-- @param	x			X position.
+	-- @param	y			Y position.
+	-- @param	solidType	An optional collision type to stop flush against upon collision.
+	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveTo: (x, y, solidType, sweep) =>
+
+	-- Moves towards the target position, retaining integer values for its x and y.
+	-- @param	x			X target.
+	-- @param	y			Y target.
+	-- @param	amount		Amount to move.
+	-- @param	solidType	An optional collision type to stop flush against upon collision.
+	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveTowards: (x, y, amount, solidType, sweep) =>
+
+	-- Moves at an angle by a certain amount, retaining integer values for its x and y.
+	-- @param	angle		Angle to move at in degrees.
+	-- @param	amount		Amount to move.
+	-- @param	solidType	An optional collision type to stop flush against upon collision.
+	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveAtAngle: (angle, amount, solidType, sweep) =>
+
+	-- When you collide with an Entity on the x-axis with moveTo() or moveBy().
+	-- @param	e		The Entity you collided with.
 	moveCollideX: (e) =>
+
+	-- When you collide with an Entity on the y-axis with moveTo() or moveBy().
+	-- @param	e		The Entity you collided with.
 	moveCollideY: (e) =>
+
+	-- Clamps the Entity's hitbox on the x-axis.
+	-- @param	left		Left bounds.
+	-- @param	right		Right bounds.
+	-- @param	padding		Optional padding on the clamp.
 	clampHorizontal: (left, right, padding) =>
+
+	-- Clamps the Entity's hitbox on the y axis.
+	-- @param	top			Min bounds.
+	-- @param	bottom		Max bounds.
+	-- @param	padding		Optional padding on the clamp.
 	clampVertical: (top, bottom, padding) =>
+
+	-- Center graphic inside bounding rect.
 	centerGraphicInRect: =>
