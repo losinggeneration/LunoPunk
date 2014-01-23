@@ -1,10 +1,13 @@
-require "moon"
+moon = require "moon"
 
-export instance_of
+export instance
 
-instance_of: (c, b) ->
+moon_check = (c, b) ->
+	moon.type(c) == moon.type(b)
+
+instance = (c, b) ->
+	base = false
 	if c.__parent != nil
-		base = instance_of c.__parent, b
+		base = instance c.__parent, b
 
-	base or type(c) == type(b)
-
+	base or moon_check(c, b) or moon_check(c.__parent, b)
