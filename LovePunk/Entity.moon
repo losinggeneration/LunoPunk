@@ -1,6 +1,8 @@
+require "LovePunk.graphics.Graphiclist"
 require "LovePunk.LP"
 require "LovePunk.Mask"
 require "LovePunk.Tweener"
+require "LovePunk.utils.moonscript"
 
 export ^
 
@@ -167,6 +169,57 @@ class Entity extends Tweener
 				@__graphic\render (if @__renderTarget != nil then @__renderTarget else LP.buffer), @__point, @__camera
 
 	collide: (type, x, y) =>
+		return nil if @__scene == nil
+
+		return nil if not @collidable or @__scene.__typeFirst == nil
+		-- TODO this seems wrong...
+		@__x = @x!
+		@__y = @y!
+		fe = @__scene.typeFirst
+		if @__mask == nil
+			while fe != nil
+				e = fe
+				c = do
+					c1 = e.collidable and e != @
+					c2 = x - @originX + @width > e.x - e.originX
+					c3 = y - @originY + @height > e.y - e.originY
+					c4 = x - @originX < e.x - e.originX + e.width
+					c5 = y - @originY < e.y - e.originY + e.height
+					c1 and c2 and c3 and c4 and c5
+				if c
+					if e.__mask == nil or e.__mask.collide @HITBOX
+						@x @__x
+						@y @__y
+						return e
+
+				fe = fe.__typeNext
+
+			@x @__x
+			@y @__y
+
+			return nil
+
+		while fe != nil
+			e = fe
+			c = do
+				c1 = e.collidable and e != @
+				c2 = x - @originX + @width > e.x - e.originX
+				c3 = y - @originY + @height > e.y - e.originY
+				c4 = x - @originX < e.x - e.originX + e.width
+				c5 = y - @originY < e.y - e.originY + e.height
+				c1 and c2 and c3 and c4 and c5
+			if c
+				if e.__mask.collide (if e.__mask != nil then e.__mask else e.HITBOX)
+					@x @__x
+					@y @__y
+					return e
+
+			fe = fe.__typeNext
+
+		@x @__x
+		@y @__y
+
+		return nil
 
 	-- Checks for collision against multiple Entity types.
 	-- @param	types		An Array or Vector of Entity types to check for.
@@ -174,6 +227,17 @@ class Entity extends Tweener
 	-- @param	y			Virtual y position to place this Entity.
 	-- @return	The first Entity collided with, or null if none were collided.
 	collideTypes: (types, x, y) =>
+		return nil if @__scene == nil
+
+		if type(types) == "string"
+			return @collide types, x, y
+		else
+			if types != nil
+				for t in *types
+					e = @collide t, x, y
+					return e if e != nil
+
+		return nil
 
 	-- Checks if this Entity collides with a specific Entity.
 	-- @param	e		The Entity to collide against.
@@ -215,10 +279,26 @@ class Entity extends Tweener
 	-- @param	array		The Array or Vector object to populate.
 	-- @return	The array, populated with all collided Entities.
 	collideTypesInto: (types, x, y, array) =>
+		return if @__scene == nil
+		for t in *types
+			@collideInto t, x, y, array
 
 	-- Adds the graphic to the Entity via a Graphiclist.
 	-- @param	g		Graphic to add.
 	addGraphic: (g) =>
+		g.layer = @__layer
+		if @__graphic == nil
+			@graphic g
+		else if moon_type(g) == Graphiclist
+			@graphic!\add g
+		else
+			list = Graphiclist!
+			list\add graphic if @graphic! != nil
+			list\add g
+			@graphic list
+			list\setEntity @
+
+		g
 
 	-- Sets the Entity's hitbox properties.
 	-- @param	width		Width of the hitbox.
@@ -232,20 +312,29 @@ class Entity extends Tweener
 	-- Sets the Entity's hitbox to match that of the provided object.
 	-- @param	o		The object defining the hitbox (eg. an Image or Rectangle).
 	setHitboxTo: (o) =>
+		@width, @height = o.width, o.height
+
+		if o.originX and o.originY
+			@originX, @originY = o.originX, o.originY
+		else
+			@originX, @originY = o.x, o.y
+			@originX, @originY = -@originX, -@originY
 
 	-- Sets the origin of the Entity.
 	-- @param	x		X origin.
 	-- @param	y		Y origin.
-	setOrigin: (x, y) =>
+	setOrigin: (x, y) => @originX, @originY = x, y
 
 	-- Center's the Entity's origin (half width & height).
-	centerOrigin: =>
+	centerOrigin: => @originX, @originY = @halfWidth!, @halfHeight!
 
 	-- Calculates the distance from another Entity.
 	-- @param	e				The other Entity.
 	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
 	-- @return	The distance.
 	distanceFrom: (e, useHitboxes) =>
+		return math.sqrt (@x! - e.x) * (@x! - e.x) + (@y! - e.y) * (@y - e.y) if not useHitboxes
+		LP.distanceRects @x! - @originX, @y! - @originY, @width, @height, e.x - e.originX, e.y - e.originY, e.width, e.height
 
 	-- Calculates the distance from this Entity to the point.
 	-- @param	px				X position.
@@ -253,6 +342,8 @@ class Entity extends Tweener
 	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
 	-- @return	The distance.
 	distanceToPoint: (px, py, useHitbox) =>
+		return math.sqrt (@x! - px) * (@x! - px) + (@y! - py) * (@y! - py) if not useHitbox
+		LP.distanceRectPoint px, py, @x! - @originX, @y! - @originY, @width, @height
 
 	-- Calculates the distance from this Entity to the rectangle.
 	-- @param	rx			X position of the rectangle.
@@ -261,10 +352,11 @@ class Entity extends Tweener
 	-- @param	rheight		Height of the rectangle.
 	-- @return	The distance.
 	distanceToRect: (rx, ry, rwidth, rheight) =>
+		LP.distanceRects rx, ry, rwidth, rheight, @x! - @originX, @y! - @originY, @width, @height
 
 	-- Gets the class name as a string.
 	-- @return	A string representing the class name.
-	toString: =>
+	toString: => @@.__name
 
 	__tostring: => @toString!
 
@@ -274,13 +366,50 @@ class Entity extends Tweener
 	-- @param	solidType	An optional collision type to stop flush against upon collision.
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveBy: (x, y, solidType, sweep) =>
+		@__moveX += x
+		@__moveY += y
+		x, y = Math.round(@__moveX), Math.round(@__moveY)
+		@__moveX -= x
+		@__moveY -= y
+
+		if solidType != nil
+			if x != 0
+				if @collidable and (sweep or @collideTypes(solidType, @x! + x, @y!) != nil)
+					sign = if x > 0 then 1 else -1
+					while x != 0
+						e = @collideTypes solidType, @x! + sign, @y!
+						if e != nil
+							break if @moveCollideX e
+							@x @x! + sign
+						else
+							@x @x! + sign
+
+						x -= sign
+				else
+					@x @x! + x
+
+			if y != 0
+				if @collidable and (sweep or @collideTypes(solidType, @x!, @y! + y) != nil)
+					sign = if y > 0 then 1 else -1
+					while y != 0
+						e = @collideTypes solidType, @x!, @y! + sign
+						if e != nil
+							break if @moveCollideY e
+							@y @y! + sign
+						else
+							@y @y! + sign
+
+						y -= sign
+		else
+			@x @x! + x
+			@y @y! + y
 
 	-- Moves the Entity to the position, retaining integer values for its x and y.
 	-- @param	x			X position.
 	-- @param	y			Y position.
 	-- @param	solidType	An optional collision type to stop flush against upon collision.
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
-	moveTo: (x, y, solidType, sweep) =>
+	moveTo: (x, y, solidType, sweep) => moveBy x - @x!, y - @y!, solidType, sweep
 
 	-- Moves towards the target position, retaining integer values for its x and y.
 	-- @param	x			X target.
@@ -289,6 +418,9 @@ class Entity extends Tweener
 	-- @param	solidType	An optional collision type to stop flush against upon collision.
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveTowards: (x, y, amount, solidType, sweep) =>
+		@__point.x, @__point.y = x - @x!, y - @y!
+		@__point.normalize amount if @__point.x * @__point.x + @__point.y * @__point.y > amount * amount
+		@moveBy @__point.x, @__point.y, solidType, sweep
 
 	-- Moves at an angle by a certain amount, retaining integer values for its x and y.
 	-- @param	angle		Angle to move at in degrees.
@@ -296,14 +428,16 @@ class Entity extends Tweener
 	-- @param	solidType	An optional collision type to stop flush against upon collision.
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveAtAngle: (angle, amount, solidType, sweep) =>
+		angle *= LP.RAD!
+		@moveBy math.cos(angle) * amount, math.sin(angle) * amount, solidType, sweep
 
 	-- When you collide with an Entity on the x-axis with moveTo() or moveBy().
 	-- @param	e		The Entity you collided with.
-	moveCollideX: (e) =>
+	moveCollideX: (e) => true
 
 	-- When you collide with an Entity on the y-axis with moveTo() or moveBy().
 	-- @param	e		The Entity you collided with.
-	moveCollideY: (e) =>
+	moveCollideY: (e) => true
 
 	-- Clamps the Entity's hitbox on the x-axis.
 	-- @param	left		Left bounds.
