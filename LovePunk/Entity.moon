@@ -34,23 +34,25 @@ class Entity extends Tweener
 		@centerX = 0
 		-- The center y position of the Entity's hitbox.
 		@centerY = 0
-		@__moveX, @__moveY = 0, 0
 		-- The collision type, used for collision checking.
 		@__type = ""
 		@name = ""
 
-		@__hitbox = Mask!
 		@__point = LP.point
 		@__camera = LP.point2
+
+		-- Collision information.
+		@__hitbox = Mask!
+		-- An optional Mask component, used for specialized collision. If this is not assigned, collision checks will use the Entity's hitbox by default.
+		@__mask = mask if mask != nil
+		@__moveX, @__moveY = 0, 0
+		@__collide_x, @__collide_y = 0, 0
 
 		-- The rendering layer of this Entity. Higher layers are rendered first.
 		@__layer = LP.BASELAYER!
 
 		-- Graphical component to render to the screen.
 		@__graphic = graphic if graphic != nil
-
-		-- An optional Mask component, used for specialized collision. If this is not assigned, collision checks will use the Entity's hitbox by default.
-		@__mask = mask if mask != nil
 
 		@__hitbox\assignTo @
 
@@ -108,9 +110,9 @@ class Entity extends Tweener
 			@__layer = value
 			return @__layer
 
-		@__scene.removeRender @
+		@__scene\removeRender @
 		@__layer = if value then value else nil
-		@__scene.addRender @
+		@__scene\addRender @
 		@__layer
 
 	type: (value) =>
@@ -120,18 +122,18 @@ class Entity extends Tweener
 			@__type = value
 			return @__type
 
-		@__scene.removeType @ if @__type != ""
+		@__scene\removeType(@) if @__type != ""
 		@__type = value
-		@__scene.addType @ if @__type != ""
+		@__scene\addType(@) if @__type != ""
 
 		@__type
 
 	mask: (value) =>
 		return @__mask if value == nil or @__mask == value
 
-		@__mask.assignTo nil if @__mask != nil
+		@__mask\assignTo(nil) if @__mask != nil
 		@__mask = if value then value else nil
-		@__mask.assignTo @ if value
+		@__mask\assignTo(@) if value
 
 		@__mask
 
@@ -172,9 +174,9 @@ class Entity extends Tweener
 		return nil if @__scene == nil
 
 		return nil if not @collidable or @__scene.__typeFirst == nil
-		-- TODO this seems wrong...
-		@__x = @x!
-		@__y = @y!
+		@__collide_x, @__collide_y = @x!, @y!
+		@x x
+		@y y
 		fe = @__scene.typeFirst
 		if @__mask == nil
 			while fe != nil
@@ -187,15 +189,15 @@ class Entity extends Tweener
 					c5 = y - @originY < e.y - e.originY + e.height
 					c1 and c2 and c3 and c4 and c5
 				if c
-					if e.__mask == nil or e.__mask.collide @HITBOX
-						@x @__x
-						@y @__y
+					if e.__mask == nil or e.__mask\collide @HITBOX
+						@x @__collide_x
+						@y @__collide_y
 						return e
 
 				fe = fe.__typeNext
 
-			@x @__x
-			@y @__y
+			@x @__collide_x
+			@y @__colide_y
 
 			return nil
 
@@ -209,15 +211,15 @@ class Entity extends Tweener
 				c5 = y - @originY < e.y - e.originY + e.height
 				c1 and c2 and c3 and c4 and c5
 			if c
-				if e.__mask.collide (if e.__mask != nil then e.__mask else e.HITBOX)
-					@x @__x
-					@y @__y
+				if e.__mask\collide (if e.__mask != nil then e.__mask else e.HITBOX)
+					@x @__collide_x
+					@y @__collide_y
 					return e
 
 			fe = fe.__typeNext
 
-		@x @__x
-		@y @__y
+		@x @__collide_x
+		@y @__collide_y
 
 		return nil
 
@@ -245,6 +247,36 @@ class Entity extends Tweener
 	-- @param	y		Virtual y position to place this Entity.
 	-- @return	The Entity if they overlap, or null if they don't.
 	collideWith: (e, x, y) =>
+		@__collide_x, @__collide_y = @x!, @y!
+		@x x
+		@y y
+
+		c = do
+			c1 = @collidable and e.collidable
+			c2 = x - @originX + @width > e.x - e.originX
+			c3 = y - @originY + @height > e.y - e.originY
+			c4 = x - @originX < e.x - e.originX + e.width
+			c5 = y - @originY < e.y - e.originY + e.height
+			c1 and c2 and c3 and c4 and c5
+		if c
+			if @__mask == nil
+				if e.__mask == nil or e.__mask\collide @__hitbox
+					@x @__collide_x
+					@y @__collide_y
+					return e
+				@x @__collide_x
+				@y @__collide_y
+				return nil
+
+
+			if (if @__mask\collide(e.__mask) != nil then e.__mask else e.__hitbox)
+				@x @__collide_x
+				@y @__collide_y
+				return e
+
+		@x @__collide_x
+		@y @__collide_y
+		return nil
 
 	-- Checks if this Entity overlaps the specified rectangle.
 	-- @param	x			Virtual x position to place this Entity.
@@ -255,6 +287,31 @@ class Entity extends Tweener
 	-- @param	rHeight		Height of the rectangle.
 	-- @return	If they overlap.
 	collideRect: (x, y, rX, rY, rWidth, rHeight) =>
+		c = do
+			c1 = x - @originX + @width >= rX
+			c2 = y - @originY + @height >= rY
+			c3 = x - @originX <= rX + rWidth
+			c4 = y - @originY <= rY + rHeight
+			c1 and c2 and c3 and c4
+		if c
+			return true if @__mask == nil
+			@__collide_x, @__collide_y = @x!, @y!
+			@x x
+			@y y
+			LP.entity.x = rX
+			LP.entity.y = rY
+			LP.entity.width = rWidth
+			LP.entity.height = rHeight
+			if @__mask\collide LP.entity.__hitbox
+				@x @__collide_x
+				@y @__collide_y
+				return true
+
+			@x @__collide_x
+			@y @__collide_y
+			return false
+
+		return false
 
 	-- Checks if this Entity overlaps the specified position.
 	-- @param	x			Virtual x position to place this Entity.
@@ -263,6 +320,28 @@ class Entity extends Tweener
 	-- @param	pY			Y position.
 	-- @return	If the Entity intersects with the position.
 	collidePoint: (x, y, pX, pY) =>
+		c = do
+			c1 = pX >= x - @originX
+			c2 = pY >= y - @originY
+			c3 = pX < x - @originX + @width
+			c4 = pY < y - @originY + height
+		if c
+			return true if @__mask == nil
+			@__collide_x, @__collide_y = @x!, @y!
+			@x x
+			@y y
+			LP.entity.x, LP.entity.y = pX, pY
+			LP.entity.width, LP.entity.height = 1, 1
+			if @__mask\collide LP.entity.__hitbox
+				@x @__collide_x
+				@y @__collide_y
+				return true
+
+			@x @__collide_x
+			@y @__collide_y
+			return false
+
+		return false
 
 	-- Populates an array with all collided Entities of a type.
 	-- @param	type		The Entity type to check for.
@@ -271,6 +350,49 @@ class Entity extends Tweener
 	-- @param	array		The Array or Vector object to populate.
 	-- @return	The array, populated with all collided Entities.
 	collideInto: (type, x, y, array) =>
+		return if @__scene == nil
+
+		e = @__scene.__typeFirst\get type
+		return if not @collidable or e == nil
+
+		@__collide_x, @__collide_y = @x!, @y!
+		@x x
+		@y y
+
+		if @__mask == nil
+			while e != nil
+				c = do
+					c1 = e.collidable and e != @
+					c2 = x - @originX + @width > e.x - e.originX
+					c3 = y - @originY + @height > e.y - e.originY
+					c4 = x - @originX < e.x - e.originX + e.width
+					c5 = y - @originY < e.y - e.originY + e.height
+					c1 and c2 and c3 and c4 and c5
+				if c
+					array[#array+1] = e if e__mask == nil or e.__mask\collide @__hitbox
+
+				e = e.__typeNext
+
+			@x @__collide_x
+			@y @__collide_y
+			return
+
+		while e != nil
+			c = do
+				c1 = e.collidable and e != @
+				c2 = x - @originX + @width > e.x - e.originX
+				c3 = y - @originY + @height > e.y - e.originY
+				c4 = x - @originX < e.x - e.originX + e.width
+				c5 = y - @originY < e.y - e.originY + e.height
+				c1 and c2 and c3 and c4 and c5
+			if c
+				array[#array+1] = e if (if @__mask\collide(e.__mask) != nil then e.__mask else e.__hitbox)
+
+			e = e.__typeNxt
+
+		@x @__collide_x
+		@y @__collide_y
+		return
 
 	-- Populates an array with all collided Entities of multiple types.
 	-- @param	types		An array of Entity types to check for.
