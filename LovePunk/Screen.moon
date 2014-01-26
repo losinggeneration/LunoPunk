@@ -1,3 +1,5 @@
+require "LovePunk.geometry.Matrix"
+
 export ^
 
 class Screen
@@ -10,7 +12,8 @@ class Screen
 		@__originX, @__originY = 0, 0
 		@__angle, @__current = 0, 0
 		@__scale, @__scaleX, @__scaleY = 1, 1, 1
-		@update!
+		@__matrix = Matrix!
+		@__update!
 
 	-- bd Bitmap
 	disposeBitmap = (bd) =>
@@ -33,53 +36,80 @@ class Screen
 	redraw: =>
 
 	-- @private Re-applies transformation matrix.
-	update = =>
+	__update: =>
+		return if @__matrix == nil -- prevent update on init
+		@__matrix.b, @__matrix.c = 0, 0
+		@__matrix.a, @__matrix.d = @fullScaleX!, @fullScaleY!
+		@__matrix.tx = -@originX! * @__matrix.a
+		@__matrix.ty = -@originY! * @__matrix.d
+		@__matrix\rotate @__angle if @__angle != 0
+		@__matrix.tx += @originX! * @fullScaleX! + @x!
+		@__matrix.ty += @originY! * @fullScaleY! + @y!
+		-- TODO
+		-- _sprite.transform.matrix = _matrix;
 
 	-- Refresh color of the screen.
 	color: (value) =>
-		@__color = value if value != nil
+		@__color if value == nil or @__color == value
+		@__color = value
 		@__color
 
 	-- X offset of the screen.
 	-- value int
 	-- return int
 	x = (value) =>
-		@__x = value if value != nil
+		@__x if value == nil or @__x == value
+		@__x = value
+		@__update!
 		@__x
 
 	-- Y offset of the screen.
 	-- value int
 	-- return int
 	y = (value) =>
-		@__y = value if value != nil
+		@__y if value == nil or @__y == value
+		@__y = value
+		@__update!
 		@__y
 
 	-- X origin of transformations.
 	-- value int
 	-- return int
 	originX = (value) =>
-		@__originX = value if value != nil
+		return @__originX if value == nil or @__originX == value
+		@__originX = value
+		@__update!
 		@__originX
 
 	-- Y origin of transformations.
 	-- value int
 	-- return int
 	originY = (value) =>
-		@__originY = value if value != nil
+		return @__originY if value == nil or @__originY == value
+		@__originY = value
+		@__update!
 		@__originY
 
 	-- X scale of the screen.
 	-- value float
 	-- return float
 	scaleX = (value) =>
-		@__scaleX = value if value != nil
+		return @__scaleX if value == nil or @__scaleX == value
+		@__scaleX = value
+		@fullScaleX = => @scaleX! * @scale!
+		@__update!
+		@needsResize = => true
 		@__scaleX
 
 	-- Y scale of the screen.
 	-- value float
 	-- return float
 	scaleY = (value) =>
-		@__scaleY = value if value != nil
+		return @__scaleY if value == nil or @__scaleY == value
+		@__scaleY = value
+		@fullScaleY = => @scaleY! * @scale!
+		@__update!
+		@needsResize = => true
 		@__scaleY
 
 	-- Scale factor of the screen. Final scale is scaleX * scale by scaleY * scale, so
@@ -87,7 +117,12 @@ class Screen
 	-- value float
 	-- return float
 	scale = (value) =>
-		@__scale = value if value != nil
+		return @__scale if value == nil or @__scale == value
+		@__scale = value
+		@fullScaleX = => @scaleX! * @scale!
+		@fullScaleY = => @scaleY! * @scale!
+		@__update!
+		@needsResize = => true
 		@__scale
 
 	-- Final X scale value of the screen
@@ -101,13 +136,11 @@ class Screen
 
 	-- Rotation of the screen, in degrees.
 	angle: (value) =>
-		if value != nil
-			return value if @__angle == value * LP.RAD
-			@__angle = value * LP.RAD
-			@update!
-			return @__angle
-
-		@__angle * LP.DEG
+		return @__angle * LP.DEG if value == nil
+		return value if @__angle == value * LP.RAD
+		@__angle = value * LP.RAD
+		@__update!
+		@__angle
 
 	-- Whether screen smoothing should be used or not.
 	-- value bool
@@ -118,16 +151,16 @@ class Screen
 		@__smoothing
 
 	-- Width of the screen.
-	width: => @__width
+	width: => love.graphics.getWidth!
 
 	-- Height of the screen.
-	height: => @__height
+	height: => love.graphics.getHeight!
 
 	-- X position of the mouse on the screen.
-	mouseX: =>
+	mouseX: => love.mouse.getX!
 
 	-- Y position of the mouse on the screen.
-	mouseY: =>
+	mouseY: => love.mouse.getY!
 
 	-- Captures the current screen as an Image object.
 	-- @return	A new Image object.
