@@ -10,7 +10,6 @@ t = class extends Tween
 t2 = class extends t
 
 describe "instance", ->
-
 	it "Sanity check", ->
 		assert.are.equal Tween, moon.type(class extends Tween).__parent
 		assert.are.equal Tween.__class, tw.__class
