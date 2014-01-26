@@ -7,6 +7,11 @@ require "LovePunk.utils.moonscript"
 export ^
 
 class Entity extends Tweener
+	-- Constructor. Can be usd to place the Entity and assign a graphic and mask.
+	-- @param	x			X position to place the Entity.
+	-- @param	y			Y position to place the Entity.
+	-- @param	graphic		Graphic to assign to the Entity.
+	-- @param	mask		Mask to assign to the Entity.
 	new: (x = 0, y = 0, graphic = nil, mask = nil) =>
 		super!
 		-- If the Entity should render.
