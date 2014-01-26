@@ -8,8 +8,6 @@ class Tweener
 
 	update: =>
 
-	hasTween: => @__tween != nil
-
 	-- Add the tween to the tween list.
 	--
 	-- @param t     The tween to add.
@@ -67,3 +65,5 @@ class Tweener
 				t\update!
 				t\finish! if t.__finish
 			t = t.__next
+
+	hasTween: => @__tween != nil
