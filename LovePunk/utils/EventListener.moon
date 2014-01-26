@@ -12,7 +12,7 @@ class eventlistener
 
 	dispatch: (event) =>
 		return if @__listeners[type] == nil
-		for _, e in @__listeners[type]\pairs!
+		for e in @__listeners[type]\pairs!
 			e!
 
 EventListener = eventlistener!
