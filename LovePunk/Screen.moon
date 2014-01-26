@@ -50,15 +50,15 @@ class Screen
 
 	-- Refresh color of the screen.
 	color: (value) =>
-		@__color if value == nil or @__color == value
+		return @__color if value == nil or @__color == value
 		@__color = value
 		@__color
 
 	-- X offset of the screen.
 	-- value int
 	-- return int
-	x = (value) =>
-		@__x if value == nil or @__x == value
+	x: (value) =>
+		return @__x if value == nil or @__x == value
 		@__x = value
 		@__update!
 		@__x
@@ -66,8 +66,8 @@ class Screen
 	-- Y offset of the screen.
 	-- value int
 	-- return int
-	y = (value) =>
-		@__y if value == nil or @__y == value
+	y: (value) =>
+		return @__y if value == nil or @__y == value
 		@__y = value
 		@__update!
 		@__y
@@ -75,7 +75,7 @@ class Screen
 	-- X origin of transformations.
 	-- value int
 	-- return int
-	originX = (value) =>
+	originX: (value) =>
 		return @__originX if value == nil or @__originX == value
 		@__originX = value
 		@__update!
@@ -84,7 +84,7 @@ class Screen
 	-- Y origin of transformations.
 	-- value int
 	-- return int
-	originY = (value) =>
+	originY: (value) =>
 		return @__originY if value == nil or @__originY == value
 		@__originY = value
 		@__update!
@@ -93,7 +93,7 @@ class Screen
 	-- X scale of the screen.
 	-- value float
 	-- return float
-	scaleX = (value) =>
+	scaleX: (value) =>
 		return @__scaleX if value == nil or @__scaleX == value
 		@__scaleX = value
 		@fullScaleX = => @scaleX! * @scale!
@@ -104,7 +104,7 @@ class Screen
 	-- Y scale of the screen.
 	-- value float
 	-- return float
-	scaleY = (value) =>
+	scaleY: (value) =>
 		return @__scaleY if value == nil or @__scaleY == value
 		@__scaleY = value
 		@fullScaleY = => @scaleY! * @scale!
@@ -116,7 +116,7 @@ class Screen
 	-- you can use this factor to scale the screen both horizontally and vertically.
 	-- value float
 	-- return float
-	scale = (value) =>
+	scale: (value) =>
 		return @__scale if value == nil or @__scale == value
 		@__scale = value
 		@fullScaleX = => @scaleX! * @scale!
