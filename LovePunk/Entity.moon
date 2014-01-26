@@ -40,6 +40,8 @@ class Entity extends Tweener
 		-- The center y position of the Entity's hitbox.
 		@centerY = 0
 		-- The collision type, used for collision checking.
+		@__typeNext = nil
+		@__typePrev = nil
 		@__type = ""
 		@name = ""
 
@@ -187,10 +189,9 @@ class Entity extends Tweener
 		@__collide_x, @__collide_y = @x!, @y!
 		@x x
 		@y y
-		fe = @__scene.typeFirst
+		e = @__scene.typeFirst
 		if @__mask == nil
-			while fe != nil
-				e = fe
+			while e != nil
 				c = do
 					c1 = e.collidable and e != @
 					c2 = x - @originX + @width > e.x - e.originX
@@ -204,15 +205,14 @@ class Entity extends Tweener
 						@y @__collide_y
 						return e
 
-				fe = fe.__typeNext
+				e = e.__typeNext
 
 			@x @__collide_x
 			@y @__colide_y
 
 			return nil
 
-		while fe != nil
-			e = fe
+		while e != nil
 			c = do
 				c1 = e.collidable and e != @
 				c2 = x - @originX + @width > e.x - e.originX
@@ -226,7 +226,7 @@ class Entity extends Tweener
 					@y @__collide_y
 					return e
 
-			fe = fe.__typeNext
+			e = e.__typeNext
 
 		@x @__collide_x
 		@y @__collide_y
@@ -398,7 +398,7 @@ class Entity extends Tweener
 			if c
 				array[#array+1] = e if (if @__mask\collide(e.__mask) != nil then e.__mask else e.__hitbox)
 
-			e = e.__typeNxt
+			e = e.__typeNext
 
 		@x @__collide_x
 		@y @__collide_y
