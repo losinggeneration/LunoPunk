@@ -73,14 +73,14 @@ class Tween
 			when "OneShot"
 				@__time = @__target
 				@active = false
-				-- parent.removeTween(this);
+				@parent\removeTween @
 		@__finish = false
 		DispatchEvent TweenEvent TweenEvent.FINISH!
 
 	-- Immediately stops the Tween and removes it from its Tweener without calling the complete callback.
 	cancel: =>
 		@active = false
-		@parent.removeTween @ if @parent != nil
+		@parent\removeTween @ if @parent != nil
 		return
 
 	percent: (value) =>
