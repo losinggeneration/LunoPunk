@@ -4,22 +4,63 @@ class List
 	new: =>
 		@__list = {}
 
-	push: (value) =>
-		@__list[#@__list + 1] = value
+	-- Add an item to the end of the list
+	push: (value) => @__list[@len! + 1] = value
 
-	pop: =>
-		value = @__list[1]
-		table.remove @__list, 1
+	-- Remove an item from the end of the list
+	pop: => table.remove @__list, @len!
 
-	peek: =>
-		@__list[1]
+	-- Look at the item at the end of the list
+	peek: => @__list[@len!]
 
-	last: =>
-		@__list[#@__list]
+	-- The last item in the list
+	last: => @peek!
 
+	-- Add an item to the begining of the list
+	unshift: (value) => table.insert @__list, 1, value
+
+	-- Remove an item from the begining of the list
+	shift: => table.remove @__list, 1
+
+	-- Look at the item at the begining of the list
+	first: => @__list[1]
+
+	len: => #@__list
+
+	index: (i) => @__list[i]
+
+	-- Iterate over the list
+	-- Removing items during iteration may cause unexpected results
 	pairs: =>
-		n = 0
+		n, len = 0, @len!
 		->
 			n += 1
-			return nil if n > #@__list
+			return nil if n > len
+			@__list[n]
+
+	-- Reverse iterate over the list
+	-- Removing items during iteration may cause unexpected results
+	rpairs: =>
+		n = @len! + 1
+		->
+			n -= 1
+			return nil if n < 1
+			@__list[n]
+
+	-- Iterate over the list returning the index as well
+	-- Removing items during iteration may cause unexpected results
+	ipairs: =>
+		n, len = 0, @len!
+		->
+			n += 1
+			return nil if n > len
+			n, @__list[n]
+
+	-- Reverse iterate over the list returning the index as well
+	-- Removing items during iteration may cause unexpected results
+	ripairs: =>
+		n = @len! + 1
+		->
+			n -= 1
+			return nil if n < 1
 			n, @__list[n]
