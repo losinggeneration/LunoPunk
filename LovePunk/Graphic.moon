@@ -25,9 +25,6 @@ class Graphic
 		@__point = Point!
 		@__entity = nil
 
-	layer: =>
-		@__layer
-
 	-- Updates the graphic.
 	update: =>
 
@@ -52,3 +49,6 @@ class Graphic
 
 	-- Resume updating this graphic.
 	resume: => @active = true
+
+	-- The layer to use for rendering, should only be set by the Entity
+	layer: => @__layer
