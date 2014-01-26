@@ -58,7 +58,6 @@ class Tweener
 
 	-- Update all contained tweens.
 	updateTweens: =>
-		print @
 		t = @__tween
 		while t != nil
 			if t.active

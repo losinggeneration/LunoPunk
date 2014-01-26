@@ -1,3 +1,6 @@
+require "LovePunk.utils.EventListener"
+require "LovePunk.tweens.TweenEvent"
+
 export ^
 
 TweenType = {
@@ -25,9 +28,9 @@ class Tween
 		@t = 0
 		@__time = 0
 
-		--if complete != nil
+		if complete != nil
 			-- TODO: Add event for when tween is finished
-			-- addEventListener(TweenEvent.FINISH, complete);
+			AddEventListener TweenEvent.FINISH!, complete
 
 
 	-- Updates the Tween, called by World.
@@ -41,7 +44,7 @@ class Tween
 			@t = 1
 			@__finish = true
 
-		-- dispatchEvent(new TweenEvent(TweenEvent.UPDATE));
+		DispatchEvent TweenEvent TweenEvent.UPDATE!
 		return
 
 	-- Starts the Tween, or restarts it if it's currently running.
@@ -49,10 +52,10 @@ class Tween
 		@__time = 0
 		if @__target == 0
 			@active = false
-			-- dispatchEvent(new TweenEvent(TweenEvent.FINISH));
+			DispatchEvent TweenEvent TweenEvent.FINISH!
 		else
 			@active = true
-			-- dispatchEvent(new TweenEvent(TweenEvent.START));
+			DispatchEvent TweenEvent TweenEvent.START!
 		return
 
 	-- @private Called when the Tween completes.
@@ -72,7 +75,7 @@ class Tween
 				@active = false
 				-- parent.removeTween(this);
 		@__finish = false
-		-- dispatchEvent(new TweenEvent(TweenEvent.FINISH));
+		DispatchEvent TweenEvent TweenEvent.FINISH!
 
 	-- Immediately stops the Tween and removes it from its Tweener without calling the complete callback.
 	cancel: =>
