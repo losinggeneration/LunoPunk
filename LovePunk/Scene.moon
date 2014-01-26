@@ -184,41 +184,214 @@ class Scene extends Tweener
 		for e in *@__recycle do
 			@clearRecycled e.__class
 
+	-- Brings the Entity to the front of its contained layer.
+	-- @param	e		The Entity to shift.
+	-- @return	If the Entity changed position.
 	bringToFront: (e) =>
+
+	-- Sends the Entity to the back of its contained layer.
+	-- @param	e		The Entity to shift.
+	-- @return	If the Entity changed position.
 	sendToBack: (e) =>
+
+	-- Shifts the Entity one place towards the front of its contained layer.
+	-- @param	e		The Entity to shift.
+	-- @return	If the Entity changed position.
 	bringForward: (e) =>
+
+	-- Shifts the Entity one place towards the back of its contained layer.
+	-- @param	e		The Entity to shift.
+	-- @return	If the Entity changed position.
 	sendBackward: (e) =>
+
+	-- If the Entity as at the front of its layer.
+	-- @param	e		The Entity to check.
+	-- @return	True or false.
 	isAtFront: (e) =>
+
+	-- If the Entity as at the back of its layer.
+	-- @param	e		The Entity to check.
+	-- @return	True or false.
 	isAtBack: (e) =>
+
+	-- Returns the first Entity that collides with the rectangular area.
+	-- @param	type		The Entity type to check for.
+	-- @param	rX			X position of the rectangle.
+	-- @param	rY			Y position of the rectangle.
+	-- @param	rWidth		Width of the rectangle.
+	-- @param	rHeight		Height of the rectangle.
+	-- @return	The first Entity to collide, or null if none collide.
 	collideRect: (type, rX, rY, rWidth, rHeight) =>
+
+	-- Returns the first Entity found that collides with the position.
+	-- @param	type		The Entity type to check for.
+	-- @param	pX			X position.
+	-- @param	pY			Y position.
+	-- @return	The collided Entity, or null if none collide.
 	collidePoint: (type, pX, pY) =>
+
+	-- Returns the first Entity found that collides with the line.
+	-- @param	type		The Entity type to check for.
+	-- @param	fromX		Start x of the line.
+	-- @param	fromY		Start y of the line.
+	-- @param	toX			End x of the line.
+	-- @param	toY			End y of the line.
+	-- @param	precision   Distance between consecutive tests. Higher values are faster but increase the chance of missing collisions.
+	-- @param	p           If non-null, will have its x and y values set to the point of collision.
+	-- @return	The first Entity to collide, or null if none collide.
 	collideLine: (type, fromX, fromY, toX, toY, precision, p) =>
+
+	-- Populates an array with all Entities that collide with the rectangle. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	type		The Entity type to check for.
+	-- @param	rX			X position of the rectangle.
+	-- @param	rY			Y position of the rectangle.
+	-- @param	rWidth		Width of the rectangle.
+	-- @param	rHeight		Height of the rectangle.
+	-- @param	into		The Array or Vector to populate with collided Entities.
 	collideRectInto: (type, rX, rY, rWidth, rHeight, into) =>
+
+	-- Populates an array with all Entities that collide with the circle. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	type 		The Entity type to check for.
+	-- @param	circleX		X position of the circle.
+	-- @param	circleY		Y position of the circle.
+	-- @param	radius		The radius of the circle.
+	-- @param	into		The Array or Vector to populate with collided Entities.
 	collideCircleInto: (type, circleX, circleY, radius, into) =>
-	collidePointInt: (type, pX, pY, into) =>
+
+	-- Populates an array with all Entities that collide with the position. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	type		The Entity type to check for.
+	-- @param	pX			X position.
+	-- @param	pY			Y position.
+	-- @param	into		The Array or Vector to populate with collided Entities.
+	collidePointInto: (type, pX, pY, into) =>
+
+	-- Finds the Entity nearest to the rectangle.
+	-- @param	type		The Entity type to check for.
+	-- @param	x			X position of the rectangle.
+	-- @param	y			Y position of the rectangle.
+	-- @param	width		Width of the rectangle.
+	-- @param	height		Height of the rectangle.
+	-- @return	The nearest Entity to the rectangle.
 	nearestToRect: (type, x, y, width, height) =>
+
+	-- Finds the Entity nearest to another.
+	-- @param	type		The Entity type to check for.
+	-- @param	e			The Entity to find the nearest to.
+	-- @param	useHitboxes	If the Entities' hitboxes should be used to determine the distance. If false, their x/y coordinates are used.
+	-- @return	The nearest Entity to e.
 	nearestToEntity: (type, e, useHitboxes) =>
+
+	-- Finds the Entity nearest to another.
+	-- @param	type		The Entity type to check for.
+	-- @param	e			The Entity to find the nearest to.
+	-- @param	classType	The Entity class to check for.
+	-- @param	useHitboxes	If the Entities' hitboxes should be used to determine the distance. If false, their x/y coordinates are used.
+	-- @return	The nearest Entity to e.
 	nearestToClass: (type, e, classType, useHitboxes) =>
+
+	-- Finds the Entity nearest to the position.
+	-- @param	type		The Entity type to check for.
+	-- @param	x			X position.
+	-- @param	y			Y position.
+	-- @param	useHitboxes	If the Entities' hitboxes should be used to determine the distance. If false, their x/y coordinates are used.
+	-- @return	The nearest Entity to the position.
 	nearestToPoint: (type, x, y, useHitboxes) =>
+
+	-- How many Entities are in the Scene.
 	count: => @__count --TODO
+
+	-- Returns the amount of Entities of the type are in the Scene.
+	-- @param	type		The type (or Class type) to count.
+	-- @return	How many Entities of type exist in the Scene.
 	typeCount: (type) =>
+
+	-- Returns the amount of Entities of the Class are in the Scene.
+	-- @param	c		The Class type to count.
+	-- @return	How many Entities of Class exist in the Scene.
 	classCount: (c) =>
+
+	-- Returns the amount of Entities are on the layer in the Scene.
+	-- @param	layer		The layer to count Entities on.
+	-- @return	How many Entities are on the layer.
 	layerCount: (layer) =>
+
+	-- The first Entity in the Scene.
 	first: => @__updatedFirst --TODO
+
+	-- How many Entity layers the Scene has.
 	layers: => @__layers --TODO
+
+	-- The first Entity of the type.
+	-- @param	type		The type to check.
+	-- @return	The Entity.
 	typeFirst: (type) =>
+
+	-- The first Entity of the Class.
+	-- @param	c		The Class type to check.
+	-- @return	The Entity.
 	classFirst: (c) =>
+
+	-- The first Entity on the Layer.
+	-- @param	layer		The layer to check.
+	-- @return	The Entity.
 	layerFirst: (layer) =>
+
+	-- The last Entity on the Layer.
+	-- @param	layer		The layer to check.
+	-- @return	The Entity.
 	layerLast: (layer) =>
+
+	-- Gets the sprite for the associated layer.  Used for hardware rendering.
+	-- @param	layer		The layer to get the sprite for.
+	-- @return	The sprite for the specified layer.
 	getSpriteByLayer: (layer) =>
+
+	-- The Entity that will be rendered first by the Scene.
 	getFarthest: => @__farthest --TODO
+
+	-- The Entity that will be rendered last by the scene.
 	getNearest: => @__nearest --TODO
+
+	-- The layer that will be rendered first by the Scene.
 	getLayerFarthest: => @__layerFarthest --TODO
+
+	-- The layer that will be rendered last by the Scene.
 	getLayerNearest: => @__layerNearest --TODO
+
+	-- How many different types have been added to the Scene.
 	getUniqueTypes: => @__uniqueTypes --TODO
+
+	-- Pushes all Entities in the Scene of the type into the Array or Vector. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	type		The type to check.
+	-- @param	into		The Array or Vector to populate.
 	getType: (type, into) =>
+
+	-- Pushes all Entities in the Scene of the Class into the Array or Vector. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	c			The Class type to check.
+	-- @param	into		The Array or Vector to populate.
 	getClass: (c, into) =>
+
+	-- Pushes all Entities in the Scene on the layer into the Array or Vector. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	layer		The layer to check.
+	-- @param	into		The Array or Vector to populate.
 	getLayer: (layer, into) =>
+
+	-- Pushes all Entities in the Scene into the array. This
+	-- function does not empty the array, that responsibility is left to the user.
+	-- @param	into		The Array or Vector to populate.
 	getAll: (into) =>
+
+	-- Returns the Entity with the instance name, or null if none exists
+	-- @param	name
+	-- @return	The Entity.
 	getInstance: (name) =>
+
+	-- Updates the add/remove lists at the end of the frame.
+	-- @param	shouldAdd	If new Entities should be added to the scene.
 	updateLists: (shouldAdd) =>
