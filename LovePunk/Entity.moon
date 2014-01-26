@@ -170,6 +170,11 @@ class Entity extends Tweener
 				@__camera.y = if @__scene == nil then LP.camera.y else @__scene.camera.y
 				@__graphic\render (if @__renderTarget != nil then @__renderTarget else LP.buffer), @__point, @__camera
 
+	-- Checks for a collision against an Entity type.
+	-- @param	type		The Entity type to check for.
+	-- @param	x			Virtual x position to place this Entity.
+	-- @param	y			Virtual y position to place this Entity.
+	-- @return	The first Entity collided with, or null if none were collided.
 	collide: (type, x, y) =>
 		return nil if @__scene == nil
 
