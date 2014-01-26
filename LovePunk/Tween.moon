@@ -29,9 +29,7 @@ class Tween
 		@__time = 0
 
 		if complete != nil
-			-- TODO: Add event for when tween is finished
 			AddEventListener TweenEvent.FINISH!, complete
-
 
 	-- Updates the Tween, called by World.
 	update: =>
