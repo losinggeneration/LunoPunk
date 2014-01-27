@@ -39,8 +39,9 @@ class GameScene extends Scene
 Compiling to Lua
 ```bash
 export PROJECT_NAME=some_project
+export LUAROCKS_PATH=$HOME/.luarocks/share/lua/5.1/
 moonc -t $PROJECT_NAME LovePunk src_dir main.moon
-cp -r <luarocks path for share/lua>/moon* $PROJECT_NAME/
+cp -r $LUAROCKS_PATH/moon* $PROJECT_NAME/
 cd $PROJECT_NAME
 zip -9r ../$PROJECT_NAME.love .
 ```
