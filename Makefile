@@ -1,9 +1,10 @@
 MOONCFLAGS=
 BUSTEDFLAGS=
 BUSTED_LUA=love
+DISTDIR=
 
 LOVEPUNK_SRCS = $(shell find LovePunk -iname '*.moon')
-LOVEPUNK_OBJS = $(LOVEPUNK_SRCS:.moon=.lua)
+LOVEPUNK_OBJS = $(patsubst %.moon,%.lua,$(LOVEPUNK_SRCS))
 
 all: $(LOVEPUNK_OBJS)
 
@@ -13,9 +14,16 @@ test:
 # Dependencies
 %.lua: %.moon
 	moonc ${MOONCFLAGS} -p $< > $@
+ifneq ($(strip $(DISTDIR)),)
+	@mkdir -p $(DISTDIR)/$(@D)
+	@cp $@ $(DISTDIR)/$@
+endif
 
 clean:
 	rm -f $(LOVEPUNK_OBJS)
+ifneq ($(strip $(DISTDIR)),)
+	rm -fr $(DISTDIR)
+endif
 
 # Targets
 .PHONY: clean all test
