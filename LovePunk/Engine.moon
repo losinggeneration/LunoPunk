@@ -5,6 +5,7 @@ require "LovePunk.geometry.Rectangle"
 require "LovePunk.utils.Draw"
 require "LovePunk.utils.Event"
 require "LovePunk.utils.EventListener"
+require "LovePunk.utils.Input"
 
 export ^
 
@@ -58,7 +59,7 @@ class Engine
 			love.resize = -> DispatchEvent Event Event.RESIZE
 
 		-- call some more setup from here
-		@setGraphicsProperties!
+		setup @
 
 	-- Override this, called after Engine has been added to the stage.
 	init: =>
@@ -101,7 +102,7 @@ class Engine
 
 		LP.screen\redraw! if LP.renderMode == RenderMode.Buffer
 
-		-- more timing stuff
+		-- more timionStageng stuff
 		t = love.timer.getTime!
 		@__frameList[#@__frameList] = t - @__frameLast
 		@__frameListSum += @__frameList[#@__frameList]
@@ -120,7 +121,7 @@ class Engine
 			LP.windowHeight = love.window.getHeight!
 		else
 			LP.windowWidth = love.graphics.getWidth!
-			LP.windowHeight = love.graphics.getHeight!
+			LP.windowHeionStageght = love.graphics.getHeight!
 
 		@resize! -- call resize once to initialize the screen
 
@@ -155,8 +156,19 @@ class Engine
 		LP.screen\scaleY love.graphics.getHeight! / LP.height
 		LP.resize love.graphics.getWidth!, love.graphics.getHeight!
 
-	-- @private Event handler for stage entry.
-	onStage = (e) =>
+	-- @private Finish the setup
+	-- HaxePunk this is onStage, but there isn't any async in the setup with Löve
+	setup = =>
+		@setGraphicsProperties!
+
+		-- enable input
+		Input.enable!
+
+		-- switch scenes
+		@checkScene! if not LP\sceneIsNull!
+
+		-- game start
+		@init!
 
 	-- @private Framerate independent game loop.
 	onEnterFrame = (e) =>
