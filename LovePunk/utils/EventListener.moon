@@ -18,7 +18,7 @@ class eventlistener
 				l\remove i
 				break
 
-	dispatch: (event) =>
+	dispatch: (type) =>
 		return if @__listeners[type] == nil
 		for e in @__listeners[type]\pairs!
 			e!
