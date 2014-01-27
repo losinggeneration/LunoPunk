@@ -36,6 +36,15 @@ class GameScene extends Scene
 		addGraphic Image("graphics/block.png")
 ```
 
+Compiling to Lua
+```bash
+export PROJECT_NAME=some_project
+moonc -t $PROJECT_NAME LovePunk src_dir main.moon
+cp -r <luarocks path for share/lua>/moon* $PROJECT_NAME/
+cd $PROJECT_NAME
+zip -9r ../$PROJECT_NAME.love .
+```
+
 ## Have questions or looking to get involved?
 
 Great! The project needs all the help it can. However, many of the API decisions will still be up to my own judgment early on, but I'm open to suggestions.
