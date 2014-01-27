@@ -32,22 +32,33 @@ local moonscript = assert(require "moonscript")
 local util = assert(require "moonscript.util")
 local errors = assert(require "moonscript.errors")
 
-local chunk, err = moonscript.loadfile("main.moon")
-
-if err then
-	assert(false, err)
-end
-
-local trace
-xpcall(function() chunk() end, function(e)
-	err = e
-	trace = debug.traceback("", 2)
-end)
-
 local function assert_moonscript_error(...)
 	local msg = table.concat({...}, "\t")
 	assert(false, msg)
 end
+
+local moonscript_chunk, lua_parse_error
+local passed, err = pcall(function()
+moonscript_chunk, lua_parse_error = moonscript.loadfile("main.moon", { implicitly_return_root = false })
+end)
+
+if not passed then
+	assert_moonscript_error(err)
+end
+
+if not moonscript_chunk then
+	if lua_parse_error then
+		assert_moonscript_error(lua_parse_error)
+	else
+		assert_moonscript_error("Can't find file: " .. script_fname)
+	end
+end
+
+local trace
+xpcall(function() moonscript_chunk() end, function(e)
+err = e
+trace = debug.traceback("", 2)
+end)
 
 if err then
 	local truncated = errors.truncate_traceback(util.trim(trace))
