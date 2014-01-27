@@ -21,7 +21,7 @@ class eventlistener
 	dispatch: (type) =>
 		return if @__listeners[type] == nil
 		for e in @__listeners[type]\pairs!
-			e!
+			e type
 
 EventListener = eventlistener!
 
