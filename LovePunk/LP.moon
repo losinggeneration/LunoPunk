@@ -33,10 +33,6 @@ class lp
 	fixed: false
 	focused: nil
 	frameRate: 0
-	fullscreen: nil
-	halfHeight: nil
-	halfWidth: nil
-	height: nil
 	log: nil
 	matrix: Matrix!
 	orientations: nil
@@ -51,15 +47,21 @@ class lp
 	scene: Scene!
 	screen: nil
 	sprite: nil
-	stage: nil
 	tweener: Tweener!
 	volume: nil
 	watch: nil
-	width: nil
-	windowHeight: nil
-	windowWidth: nil
 	world: nil
 	zero: Point!
+
+	-- Window/resolution related fields
+	fullscreen: false
+	halfHeight: -> LP.height/2
+	halfWidth: -> LP.width/2
+	height: 0
+	width: 0
+	windowHeight: 0
+	windowWidth: 0
+
 
 	alarm: (delay, complete, typeweenType, tweener) ->
 	anchorTo: (object, anchor, distance) ->
