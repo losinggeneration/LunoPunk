@@ -51,6 +51,11 @@ class Engine
 		-- Do something with the Löve functions...
 		love.draw = @\render
 		love.update = @\update
+		love.focus = (f) ->
+			if f
+				@focusGained!
+			else
+				@focusLost!
 		if love._version_major >= 0 and love._version_minor >= 9
 			love.resize = @\resize
 
