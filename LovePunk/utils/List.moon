@@ -22,6 +22,9 @@ class List
 	-- Remove an item from the begining of the list
 	shift: => table.remove @__list, 1
 
+	-- Remove an item at any point
+	remove: (i) => table.remove @__list, i
+
 	-- Look at the item at the begining of the list
 	first: => @__list[1]
 
