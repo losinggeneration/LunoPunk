@@ -1,6 +1,9 @@
 export ^
 
 class Rectangle
-	new: =>
-		@x, @y = 0, 0
-		@w, @h = 0, 0
+	new: (x = 0, y = 0, w = 0, h = 0) =>
+		@x, @y = x, y
+		@w, @h = w, h
+
+	width: => @w
+	height: => @h
