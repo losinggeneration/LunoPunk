@@ -72,7 +72,6 @@ class lp
 	choose: (objs) ->
 	clamp: (value, min, max) ->
 	clampInRect: (object, x, y, width, height, padding) ->
-	clear: (array) ->
 	colorLerp: (fromColor, toColor, t) ->
 	consoleEnabled: ->
 	createBitmap: (width, height, transparent, color) ->
@@ -118,15 +117,28 @@ class lp
 	rand: (amount) -> math.random(amount)
 	randomizeSeed: -> math.randomseed os.time()
 
-	resetCamera: ->
+	resetCamera: -> camera.x, camera.y = 0, 0
+
 	resize: (width, height) ->
+		-- resize scene to scale
+		width /= LP.screen\fullScaleX!
+		height = height / LP.screen\fullScaleY!
+		LP.width, LP.height = width, height
+		LP.bounds.width, LP.bounds.height = width, height
+		LP.screen\resize!
+
 	rotateAround: (object, anchor, angle, relative) ->
 	round: (num, precision) ->
 	scale: (value, min, max, min2, max2) ->
 	scaleClamp: (value, min, max, min2, max2) ->
-	setCamera: (x, y) ->
+	setCamera: (x, y) -> LP.camera.x, LP.camera.y = x, y
 	shuffle: (a) ->
-	sign: (value) ->
+
+	-- Finds the sign of the provided value.
+	-- @param	value		The Float to evaluate.
+	-- @return	1 if value > 0, -1 if value < 0, and 0 when value == 0.
+	sign: (value) -> if value < 0 then -1 else if value == 0 then 0 else 1
+
 	stepTowards: (object, x, y, distance) ->
 	swap: (current, a, b) ->
 	swapScene: => @__scene = @scene
