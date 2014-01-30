@@ -1,6 +1,6 @@
 export ^
 
 RenderMode = {
-	"Buffer",
-	"Hardware",
+	Buffer: "Buffer",
+	Hardware: "Hardware",
 }
