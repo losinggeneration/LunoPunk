@@ -80,7 +80,7 @@ class lp
 	distanceRects: (x1, y1, w1, h1, x2, y2, w2, h2) ->
 	distanceSquared: (x1, y1, xprint2, y2) ->
 	frames: (from_frame, to_frame, skip) ->
-	getBitmap: (source) ->
+	getImage: (source) -> love.graphics.newImage source
 	getColorHSV: (h, s, v) ->
 	getColorHue: (color) ->
 
