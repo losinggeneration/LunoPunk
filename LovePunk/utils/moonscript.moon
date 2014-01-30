@@ -7,9 +7,9 @@ moon_check = (c, b) ->
 
 instance = (c, b) ->
 	base = false
-	if c.__parent != nil
+	if moon.is_object(c) and c.__parent != nil
 		base = instance c.__parent, b
 
-	base or moon_check(c, b) or moon_check(c.__parent, b)
+	base or moon_check(c, b) or (moon.is_object(c) and b != nil and moon_check(c.__parent, b))
 
 moon_type = moon.type
