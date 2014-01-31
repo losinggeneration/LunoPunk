@@ -24,7 +24,7 @@ class lp
 	blackColor: 0x00000000
 	bounds: nil
 	buffer: nil
-	camera: nil
+	camera: Point!
 	console: nil
 	defaultFont: "default"
 	elapsed: 0
@@ -38,7 +38,7 @@ class lp
 	orientations: nil
 	pan: nil
 	point: Point!
-	point2: Point
+	point2: Point!
 	random: -> math.random!
 	randomSeed: nil
 	rate: 0
@@ -72,6 +72,7 @@ class lp
 	choose: (objs) ->
 	clamp: (value, min, max) ->
 	clampInRect: (object, x, y, width, height, padding) ->
+	clear: (t) -> while #t > 0 do table.remove t
 	colorLerp: (fromColor, toColor, t) ->
 	consoleEnabled: ->
 	createBitmap: (width, height, transparent, color) ->
