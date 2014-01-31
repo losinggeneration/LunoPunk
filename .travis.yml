@@ -11,5 +11,6 @@ install:
   - sudo luarocks install copas
   - sudo luarocks install moonscript
   - sudo luarocks install lua-ev
+  - sudo luarocks install busted
 
 script: "sudo make test"
