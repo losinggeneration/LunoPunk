@@ -3,6 +3,7 @@ require "LunoPunk.LP"
 require "LunoPunk.Mask"
 require "LunoPunk.Tweener"
 require "LunoPunk.utils.moonscript"
+require "LunoPunk.utils.Math"
 
 export ^
 
