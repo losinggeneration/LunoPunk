@@ -3,13 +3,13 @@ BUSTEDFLAGS=
 BUSTED_LUA=love
 DISTDIR=
 
-LOVEPUNK_SRCS = $(shell find LovePunk -iname '*.moon')
+LOVEPUNK_SRCS = $(shell find LunoPunk -iname '*.moon')
 LOVEPUNK_OBJS = $(patsubst %.moon,%.lua,$(LOVEPUNK_SRCS))
 
 all: $(LOVEPUNK_OBJS)
 
 test:
-	busted -m LovePunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
+	busted -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
 # Dependencies
 %.lua: %.moon
