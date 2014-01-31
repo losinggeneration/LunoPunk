@@ -191,15 +191,15 @@ class Entity extends Tweener
 		@__collide_x, @__collide_y = @x!, @y!
 		@x x
 		@y y
-		e = @__scene.typeFirst
+		e = @__scene\typeFirst!
 		if @__mask == nil
 			while e != nil
 				c = do
 					c1 = e.collidable and e != @
-					c2 = x - @originX + @width > e.x - e.originX
-					c3 = y - @originY + @height > e.y - e.originY
-					c4 = x - @originX < e.x - e.originX + e.width
-					c5 = y - @originY < e.y - e.originY + e.height
+					c2 = x - @originX + @width > e\x! - e.originX
+					c3 = y - @originY + @height > e\y! - e.originY
+					c4 = x - @originX < e\x! - e.originX + e.width
+					c5 = y - @originY < e\y! - e.originY + e.height
 					c1 and c2 and c3 and c4 and c5
 				if c
 					if e.__mask == nil or e.__mask\collide @HITBOX
