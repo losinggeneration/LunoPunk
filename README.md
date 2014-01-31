@@ -7,7 +7,7 @@ The API is subject to change without warning. This is very much still a WIP.
 A Moonscript/LÖVE port of the [HaxePunk](http://haxepunk.com), which is a Haxe port of the AS3 library [FlashPunk](http://useflashpunk.net). The implementation is in Moonscript, but should also be usable from Lua as well.
 *Luno in Esperanto means Moon.*
 
-[![Build Status](https://travis-ci.org/LunoPunk/LunoPunk.png?branch=master)](https://travis-ci.org/LunoPunk/LunoPunk)
+[![Build Status](https://travis-ci.org/losinggeneration/LunoPunk.png?branch=master)](https://travis-ci.org/losinggeneration/LunoPunk)
 
 ## Release build
 None yet
