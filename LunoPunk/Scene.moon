@@ -9,19 +9,26 @@ class Scene extends Tweener
 		@visible = true
 		-- private
 		@__typeFirst = nil
-		@__count = nil
+		@__count = 0
+		@__classCount = {}
+		@__entityNames = {}
 		@__farthest = nil
 		@__first = nil
 		@__layerFarthest = nil
 		@__layerNearest = nil
 		@__layers = nil
+		@__layerList = {}
+		@__layerCount = {}
 		@__add = {}
 		@__remove = {}
 		@__recycle = {}
+		@__recycled = {}
 		@__nearest = nil
 		@__sprite = nil
 		@__uniqueTypes = nil
-		@__updatedFirst = nil
+		@__updateFirst = nil
+		@__renderFirst = {}
+		@__renderLast = {}
 
 	-- Override this; called when Scene is switch to, and set to the currently active scene.
 	begin: =>
@@ -40,12 +47,12 @@ class Scene extends Tweener
 	-- If you override this to give your Scene update code, remember
 	-- to call super.update() or your Entities will not be updated.
 	update: =>
-		e = @__updatedFirst
+		e = @__updateFirst
 		while e != nil
 			if e.active
 				e\updateTweens! if e\hasTween!
 				e\update!
-			e.graphic\update! if e.graphic != nil and e.graphic.active
+			e\graphic!\update! if e\graphic! != nil and e\graphic!.active
 			e = e.__updateNext
 
 	-- Performed by the game loop, renders all contained Entities.
@@ -60,9 +67,9 @@ class Scene extends Tweener
 			-- AtlasData.setScene(@)
 
 		for layer in *@__layerList do
-			e = @__renderLast\get layer
+			e = @__renderLast[layer]
 			while e != nil
-				e\render! if e.visable
+				e\render! if e.visible
 				e = e.__renderPrev
 
 		-- AtlasData\render! if LP.renderMode == RenderMode.Hardware
@@ -80,19 +87,19 @@ class Scene extends Tweener
 	-- @param	e		Entity object you want to add.
 	-- @return	The added Entity object.
 	add: (e) =>
-		@__add[#@__add] = e
+		@__add[#@__add + 1] = e
 		e
 
 	-- Removes the Entity from the Scene at the end of the frame.
 	-- @param	e		Entity object you want to remove.
 	-- @return	The removed Entity object.
 	remove: (e) =>
-		@__remove[#@__remove] = e
+		@__remove[#@__remove + 1] = e
 		e
 
 	-- Removes all Entities from the Scene at the end of the frame.
 	removeAll: =>
-		e = @__updatedFirst
+		e = @__updateFirst
 		while e != nil
 			@__remove[#@__remove] = e
 			e = e.__updateNext
@@ -158,7 +165,7 @@ class Scene extends Tweener
 	-- @param	e		The Entity to recycle.
 	-- @return	The recycled Entity.
 	recycle: (e) =>
-		@__recycle[#@__recycle] = e
+		@__recycle[#@__recycle + 1] = e
 		@remove e
 
 	-- Clears stored reycled Entities of the Class type.
@@ -444,7 +451,7 @@ class Scene extends Tweener
 	layerCount: (layer) => @__layerCount[layer]
 
 	-- The first Entity in the Scene.
-	first: => @__updatedFirst
+	first: => @__updateFirst
 
 	-- How many Entity layers the Scene has.
 	layers: => #@__layers
@@ -453,15 +460,15 @@ class Scene extends Tweener
 	-- @param	type		The type to check.
 	-- @return	The Entity.
 	typeFirst: (type) =>
-		return nil if @__updatedFirst == nil
+		return nil if @__updateFirst == nil
 		return @__typeFirst[type]
 
 	-- The first Entity of the Class.
 	-- @param	c		The Class type to check.
 	-- @return	The Entity.
 	classFirst: (c) =>
-		return nil if @__updatedFirst == nil
-		e = @__updatedFirst
+		return nil if @__updateFirst == nil
+		e = @__updateFirst
 		while e != nil
 			return e if e.__class == c.__class
 			e = e.__updateNext
@@ -472,14 +479,14 @@ class Scene extends Tweener
 	-- @param	layer		The layer to check.
 	-- @return	The Entity.eturn (y1 - (y2 + h2)) * (y1 - (y2 + h2));
 	layerFirst: (layer) =>
-		return nil if @__updatedFirst == nil
+		return nil if @__updateFirst == nil
 		return @__renderFirst[layer]
 
 	-- The last Entity on the Layer.
 	-- @param	layer		The layer to check.
 	-- @return	The Entity.
 	layerLast: (layer) =>
-		return nil if @__updatedFirst == nil
+		return nil if @__updateFirst == nil
 		return @__renderLast[layer]
 
 	-- Gets the sprite for the associated layer.  Used for hardware rendering.
@@ -489,22 +496,22 @@ class Scene extends Tweener
 
 	-- The Entity that will be rendered first by the Scene.
 	getFarthest: =>
-		return nil if @__updatedFirst == nil
+		return nil if @__updateFirst == nil
 		return @__renderLast[@__layerList[#@__layerList - 1]]
 
 	-- The Entity that will be rendered last by the scene.
 	getNearest: =>
-		return nil if @__updatedFirst == nil
+		return nil if @__updateFirst == nil
 		return @__renderFirst[@__layerList[1]]
 
 	-- The layer that will be rendered first by the Scene.
 	getLayerFarthest: =>
-		return 0 if @__updatedFirst == nil
+		return 0 if @__updateFirst == nil
 		return @__layerList[#@__layerList - 1]
 
 	-- The layer that will be rendered last by the Scene.
 	getLayerNearest: =>
-		return 0 if @__updatedFirst == nil
+		return 0 if @__updateFirst == nil
 		return @__layerList[1]
 
 	-- How many different types have been added to the Scene.
@@ -582,6 +589,49 @@ class Scene extends Tweener
 	-- Updates the add/remove lists at the end of the frame.
 	-- @param	shouldAdd	If new Entities should be added to the scene.
 	updateLists: (shouldAdd = true) =>
+		-- remove entities
+		if #@__remove > 0
+			for e in *@__remove
+				if e.__scene == nil
+					idx = LP.indexOf @__add, e
+					table.remove @__add, idx if idx >= 0
+					continue
+
+				if e.__scene != @
+					continue
+
+				e\remove!
+				e.__scene = nil
+				@__removeUpdate e
+				@__removeRender e
+				@__removeType e if e.__type != ""
+				@__unregisterName e if e.__name != ""
+				e\clearTweens! if e.autoClear and e.hasTween
+
+			LP.clear @__remove
+
+		-- add entities
+		if shouldAdd and #@__add > 0
+			for e in *@__add
+				continue if e.__scene != nil
+				e.__scene = @
+				@__addUpdate e
+				@__addRender e
+				@__addType e if e.__type != ""
+				@__registerName e if e.__name != ""
+				e\added!
+
+			LP.clear @__add
+
+		-- recycle entities
+		if #@__recycle > 0
+			for e in *@__recycle
+				continue if e.__scene !+ nil or e.__recycleNext != nil
+
+				e.__recycleNext = @__recycled[e.__class]
+				@__recycled[e.__class] = e
+
+			LP.clear @__recycle
 
 	layerSort = (a, b) ->
 		return 1 if a > b
@@ -594,13 +644,14 @@ class Scene extends Tweener
 	-- @private Adds Entity to the update list.
 	__addUpdate: (e) =>
 		-- add to update list
-		if @__updatedFirst != nil
-			@__updatedFirst.__updatePrev = e
+		if @__updateFirst != nil
+			@__updateFirst.__updatePrev = e
 			e.__updateNext = @__updateFirst
 		else
 			e.__updateNext = nil
+
 		e.__updatePrev = nil
-		@__updatedFirst = e
+		@__updateFirst = e
 		@__count += 1
 		@__classCount[e.__class] = 0 if @__classCount[e.__class] != 0
 		@__classCount[e.__class] += 1
@@ -626,16 +677,16 @@ class Scene extends Tweener
 		else
 			-- Create new layer with entity.
 			@__renderLast[e.__layer] = e
-			@__layerList[#@__layerList] = e.__layer
+			@__layerList[#@__layerList + 1] = e.__layer
 			@__layerSort = true
 			e.__renderNext = nil
 			@__layerCount[e.__layer] = 1
 
-		@__renderfirst[e.__layer] = e
+		@__renderFirst[e.__layer] = e
 		e.__renderPrev = nil
 
 	-- @private Removes Entity from the render list.
-	removeRender: (e) =>
+	__removeRender: (e) =>
 		if e.__renderNext != nil
 			e.__renderNext.__renderPRev = e.__renderPrev
 		else
@@ -654,7 +705,7 @@ class Scene extends Tweener
 
 				@__layerList\pop!
 
-		e.graphic.destroy! if e.graphic != nil
+		e\graphic!\destroy! if e\graphic! != nil
 		@__layerCount[e.__layer] -= 1
 		e.__renderNext, e.__renderPrev = nil, nil
 
