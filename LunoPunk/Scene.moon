@@ -8,7 +8,8 @@ class Scene extends Tweener
 		@camera = nil
 		@visible = true
 		-- private
-		@__typeFirst = nil
+		@__typeFirst = {}
+		@__typeCount = {}
 		@__count = 0
 		@__classCount = {}
 		@__entityNames = {}
@@ -600,7 +601,7 @@ class Scene extends Tweener
 				if e.__scene != @
 					continue
 
-				e\remove!
+				e\removed!
 				e.__scene = nil
 				@__removeUpdate e
 				@__removeRender e
@@ -700,10 +701,10 @@ class Scene extends Tweener
 			if e.__renderNext == nil
 				-- Remove the layer from the layer list if this was the last entity.
 				if #@__layerList >= 1
-					@__layerList[indexOf(@__layerList, e.__layer)] = @__layerList[#@__layerList - 1]
+					@__layerList[LP.indexOf(@__layerList, e.__layer)] = @__layerList[#@__layerList - 1]
 					@__layerSort = true
 
-				@__layerList\pop!
+				table.remove @__layerList
 
 		e\graphic!\destroy! if e\graphic! != nil
 		@__layerCount[e.__layer] -= 1
