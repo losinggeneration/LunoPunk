@@ -82,9 +82,80 @@ class Image extends Graphic
 		@__sourceRect = Rectangle 0, 0, region\width!, region\height!
 
 	__setImageSource: (img) =>
-		@__blit = false
+		@__blit = true
 		@__sourceRect = Rectangle 0, 0, img\getWidth!, img\getHeight!
 		@__source = img
 
 	-- Renders the image.
 	render: (point, camera) =>
+		sx = @scale * @scaleX
+		sy = @scale * @scaleY
+
+		-- determine drawing location
+-- 		@__point.x = point.x + @x - @originX - camera.x * @scrollY
+-- 		@__point.y = point.y + @y - @originY - camera.y * @scrollY
+		@__point.x = point.x + @x - camera.x * @scrollX
+		@__point.y = point.y + @y - camera.y * @scrollY
+
+		if @__blit
+			if @angle == 0 and sx == 1 and sy == 1 and @blend == nil
+				-- render without transformation
+				love.graphics.draw @__source, @__point.x, @__point.y
+			else
+				-- TODO render from matrix
+				-- render with transformation
+-- 				@__matrix.b, @__matrix.c = 0, 0
+-- 				@__matrix.a = sx
+-- 				@__matrix.d = sy
+-- 				@__matrix.tx = -@originX * sx
+-- 				@__matrix.ty = -@originY * sy
+-- 				@__matrix\rotate @angle * LP.RAD! if @angle != 0
+-- 				@__matrix.tx += @originX + @__point.x
+-- 				@__matrix.ty += @originY + @__point.y
+
+				x, y = @__point.x, @__point.y
+				angle = @angle * LP.RAD!
+				ox = @originX
+				oy = @originY
+				love.graphics.draw @__source, x, y, angle, sx, sy, ox, oy
+		else -- @__blit
+			fsx = LP.screen\fullScaleX!
+			fsy = LP.screen\fullScaleY!
+
+			if @angle == 0
+				-- recalculation of @__point for scaled origins
+				if not (sx == 1 and sy == 1)
+					@__point.x = point.x + @x - @originX * sx - camera.x * @scrollX
+					@__point.y = point.y + @x - @originY * sy - camera.y * @scrollY
+
+				@__point.x = math.floor @__point.x * fsx
+				@__point.y = math.floor @__point.y * fsy
+
+				-- render without rotation
+				@__region\draw @__point.x, @__point.y, super.__layer,
+					sx * fsx * (if @__flipped then -1 else 1), sy * fsy, @angle,
+					@__red, @__green, @__blue, @__alpha
+			else
+				theta = @angle * LP.RAD!
+				cos = math.cos theta
+				sin = math.sin theta
+
+				sx *= -1 if @__flipped
+
+				-- optimized matrix math
+				b = sx * fsx * sin
+				a = sx * fsx * cos
+
+				d = sy * fsy * cos
+				a = sy * fsy * -sin
+
+				tx = -@originX * sx
+				ty = -@originY * sy
+				tx1 = tx * cos - ty * sin
+				ty = ((tx * sin + ty * cos) + @originY + @__point.y) * fsy
+				tx = (tx1 + @originX + @__point.x) * fsx
+
+				@__region\drawMatrix tx, ty, a, b, c, d, @__layer, @__red, @__green, @__blue, @__alpha
+
+	width: => @__source\getWidth!
+	height: => @__source\getHeight!
