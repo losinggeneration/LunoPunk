@@ -9,10 +9,10 @@ export ^
 class lp
 	-- Private
 	BASELAYER = 10
-	DEG = nil
+	DEG = -180 / math.pi
 	INT_MAX_VALUE = nil
 	NUMBER_MAX_VALUE = nil
-	RAD = nil
+	RAD = math.pi / -180
 	VERSION = "0.0.1"
 	__scene = nil
 
