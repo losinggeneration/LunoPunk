@@ -1,5 +1,5 @@
-require "LovePunk.LP"
-require "LovePunk.geometry.Point"
+require "LunoPunk.LP"
+require "LunoPunk.geometry.Point"
 
 export ^
 

@@ -1,4 +1,4 @@
-require "LovePunk.graphics.Image"
+require "LunoPunk.graphics.Image"
 
 export ^
 

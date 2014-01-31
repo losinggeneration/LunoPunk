@@ -1,6 +1,6 @@
 require "busted"
 
-require "LovePunk.utils.Math"
+require "LunoPunk.utils.Math"
 
 describe "math", ->
 	describe "round", ->

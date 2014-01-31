@@ -1,4 +1,4 @@
-require "LovePunk.geometry.Matrix"
+require "LunoPunk.geometry.Matrix"
 
 export ^
 
@@ -165,4 +165,4 @@ class Screen
 	-- Captures the current screen as an Image object.
 	-- @return	A new Image object.
 	capture: =>
-	-- TODO return LovePunk.graphics.Image
+	-- TODO return LunoPunk.graphics.Image

@@ -1,5 +1,5 @@
-require "LovePunk.graphics.Text"
-require "LovePunk.utils.Color"
+require "LunoPunk.graphics.Text"
+require "LunoPunk.utils.Color"
 
 export ^
 

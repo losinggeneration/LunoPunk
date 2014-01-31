@@ -1,6 +1,6 @@
 export ^
 
-clone = require "LovePunk.utils.mixins.clone"
+clone = require "LunoPunk.utils.mixins.clone"
 moon = require "moon"
 
 class Rectangle

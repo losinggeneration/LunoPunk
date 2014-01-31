@@ -1,4 +1,4 @@
-require "LovePunk.geometry.Point"
+require "LunoPunk.geometry.Point"
 
 export ^
 

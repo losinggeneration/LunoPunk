@@ -1,23 +1,28 @@
-#LövePunk
+#LunoPunk
 ***
-A Löve port of the [HaxePunk](http://haxepunk.com), which is a Haxe port of the AS3 library [FlashPunk](http://useflashpunk.net). The implementation is in Moonscript, but should also be usable from Lua as well.
+#WARNING!!!
+The API is subject to change without warning. This is very much still a WIP.
 
-[![Build Status](https://travis-ci.org/LovePunk/LovePunk.png?branch=master)](https://travis-ci.org/LovePunk/LovePunk)
+***
+A Moonscript/Love port of the [HaxePunk](http://haxepunk.com), which is a Haxe port of the AS3 library [FlashPunk](http://useflashpunk.net). The implementation is in Moonscript, but should also be usable from Lua as well.
+*Luno in Esperanto means Moon.*
+
+[![Build Status](https://travis-ci.org/LunoPunk/LunoPunk.png?branch=master)](https://travis-ci.org/LunoPunk/LunoPunk)
 
 ## Release build
 None yet
 
 ## Development build
-The development build of LovePunk can be pulled from the Git repository. The master branch is where development happens, so it may be unstable at times. There is also no API guarantee until a release build is made. At which point the code base is branched.
+The development build of LunoPunk can be pulled from the Git repository. The master branch is where development happens, so it may be unstable at times. There is also no API guarantee until a release build is made. At which point the code base is branched.
 
 ```bash
-git clone github.com/losinggeneration/LovePunk
+git clone github.com/losinggeneration/LunoPunk
 ```
-Once the repository is cloned, the LovePunk/LovePunk directory can be copied into a Löve project directory.
+Once the repository is cloned, the LunoPunk/LunoPunk directory can be copied into a Luno project directory.
 
 main.moon
 ```moonscript
-require "LovePunk.LP"
+require "LunoPunk.LP"
 require "scenes.GameScene"
 
 LP.scene = GameScene!
@@ -25,8 +30,8 @@ LP.scene = GameScene!
 
 scenes/GameScene.moon
 ```moonscript
-require "LovePunk.Scene"
-require "LovePunk.graphics.Image"
+require "LunoPunk.Scene"
+require "LunoPunk.graphics.Image"
 
 class GameScene extends Scene
 	new: =>
@@ -40,7 +45,7 @@ Compiling to Lua
 ```bash
 export PROJECT_NAME=some_project
 export LUAROCKS_PATH=$HOME/.luarocks/share/lua/5.1/
-moonc -t $PROJECT_NAME LovePunk src_dir main.moon
+moonc -t $PROJECT_NAME LunoPunk src_dir main.moon
 cp -r $LUAROCKS_PATH/moon* $PROJECT_NAME/
 cd $PROJECT_NAME
 zip -9r ../$PROJECT_NAME.love .

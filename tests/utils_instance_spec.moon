@@ -1,7 +1,7 @@
 require "busted"
 
-require "LovePunk.Tween"
-assert require "LovePunk.utils.moonscript"
+require "LunoPunk.Tween"
+assert require "LunoPunk.utils.moonscript"
 moon = require "moon"
 
 c = class

@@ -1,7 +1,7 @@
-require "LovePunk.LP"
-require "LovePunk.utils.Draw"
-require "LovePunk.Engine"
-require "LovePunk.Scene"
+require "LunoPunk.LP"
+require "LunoPunk.utils.Draw"
+require "LunoPunk.Engine"
+require "LunoPunk.Scene"
 
 scene = class Rapid extends Scene
 	begin: => print "This is just the beginning..."

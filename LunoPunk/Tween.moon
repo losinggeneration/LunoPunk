@@ -1,5 +1,5 @@
-require "LovePunk.utils.EventListener"
-require "LovePunk.tweens.TweenEvent"
+require "LunoPunk.utils.EventListener"
+require "LunoPunk.tweens.TweenEvent"
 
 export ^
 

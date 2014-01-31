@@ -1,8 +1,8 @@
-require "LovePunk.geometry.Point"
-require "LovePunk.geometry.Rectangle"
-require "LovePunk.geometry.Matrix"
-require "LovePunk.Scene"
-require "LovePunk.Tweener"
+require "LunoPunk.geometry.Point"
+require "LunoPunk.geometry.Rectangle"
+require "LunoPunk.geometry.Matrix"
+require "LunoPunk.Scene"
+require "LunoPunk.Tweener"
 
 export ^
 

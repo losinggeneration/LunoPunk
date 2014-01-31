@@ -1,4 +1,4 @@
-require "LovePunk.Tweener"
+require "LunoPunk.Tweener"
 
 export ^
 

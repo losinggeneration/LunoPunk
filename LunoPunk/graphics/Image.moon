@@ -1,9 +1,9 @@
-require "LovePunk.Graphic"
-require "LovePunk.RenderMode"
-require "LovePunk.graphics.atlas.Atlas"
-require "LovePunk.graphics.atlas.AtlasRegion"
-require "LovePunk.graphics.atlas.TextureAtlas"
-require "LovePunk.geometry.Rectangle"
+require "LunoPunk.Graphic"
+require "LunoPunk.RenderMode"
+require "LunoPunk.graphics.atlas.Atlas"
+require "LunoPunk.graphics.atlas.AtlasRegion"
+require "LunoPunk.graphics.atlas.TextureAtlas"
+require "LunoPunk.geometry.Rectangle"
 
 export ^
 

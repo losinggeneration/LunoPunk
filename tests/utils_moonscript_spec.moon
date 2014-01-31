@@ -1,6 +1,6 @@
 require "busted"
 
-require "LovePunk.utils.moonscript"
+require "LunoPunk.utils.moonscript"
 
 describe "utils.moonscript", ->
 	it "instance", ->

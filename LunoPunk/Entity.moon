@@ -1,8 +1,8 @@
-require "LovePunk.graphics.Graphiclist"
-require "LovePunk.LP"
-require "LovePunk.Mask"
-require "LovePunk.Tweener"
-require "LovePunk.utils.moonscript"
+require "LunoPunk.graphics.Graphiclist"
+require "LunoPunk.LP"
+require "LunoPunk.Mask"
+require "LunoPunk.Tweener"
+require "LunoPunk.utils.moonscript"
 
 export ^
 

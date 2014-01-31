@@ -1,4 +1,4 @@
-require "LovePunk.masks.Masklist"
+require "LunoPunk.masks.Masklist"
 
 export ^
 

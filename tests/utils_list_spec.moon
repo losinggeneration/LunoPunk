@@ -1,6 +1,6 @@
 require "busted"
 
-require "LovePunk.utils.List"
+require "LunoPunk.utils.List"
 
 describe "list", ->
 	l = nil

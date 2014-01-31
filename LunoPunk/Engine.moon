@@ -1,11 +1,11 @@
-require "LovePunk.Entity"
-require "LovePunk.RenderMode"
-require "LovePunk.Screen"
-require "LovePunk.geometry.Rectangle"
-require "LovePunk.utils.Draw"
-require "LovePunk.utils.Event"
-require "LovePunk.utils.EventListener"
-require "LovePunk.utils.Input"
+require "LunoPunk.Entity"
+require "LunoPunk.RenderMode"
+require "LunoPunk.Screen"
+require "LunoPunk.geometry.Rectangle"
+require "LunoPunk.utils.Draw"
+require "LunoPunk.utils.Event"
+require "LunoPunk.utils.EventListener"
+require "LunoPunk.utils.Input"
 
 export ^
 

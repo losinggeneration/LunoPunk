@@ -1,4 +1,4 @@
-require "LovePunk.utils.Event"
+require "LunoPunk.utils.Event"
 
 export ^
 

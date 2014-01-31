@@ -1,4 +1,4 @@
-require "LovePunk.graphics.atlas.AtlasData"
+require "LunoPunk.graphics.atlas.AtlasData"
 
 export ^
 

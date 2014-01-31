@@ -1,6 +1,6 @@
 require "busted"
 
-require "LovePunk.LP"
+require "LunoPunk.LP"
 
 describe "LP", ->
 	it "sign", ->

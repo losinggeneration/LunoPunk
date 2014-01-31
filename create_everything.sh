@@ -1,5 +1,5 @@
 #!/bin/sh
-cat > LovePunk/everything.moon <<EOL
+cat > LunoPunk/everything.moon <<EOL
 -- Auto-generated with $0 on $(command date +"%F %T")
 
 export ^
@@ -11,8 +11,8 @@ export ^
 -- assigning it to a local variable. Alternatively, the namespaced version can
 -- be used.
 
-$(find LovePunk -type d | sed "s,/,.,g" | awk '{print $1" = {}"}' | sort)
+$(find LunoPunk -type d | sed "s,/,.,g" | awk '{print $1" = {}"}' | sort)
 
 -- Now load each file to the correctly namespaced table
-$(find LovePunk -iname "*.moon" | sed -e "s,/,.,g" -e "s/\.moon$//" | awk '{ print $1" = require \""$1"\""}' | grep -v "everything" | sort)
+$(find LunoPunk -iname "*.moon" | sed -e "s,/,.,g" -e "s/\.moon$//" | awk '{ print $1" = require \""$1"\""}' | grep -v "everything" | sort)
 EOL
