@@ -162,12 +162,12 @@ class Entity extends Tweener
 	-- Override this, called when the Entity is removed from a Scene.
 	removed: =>
 	-- Updates the Entity.
-	update: =>
+	update: => super!
 
 	-- Renders the Entity. If you override this for special behaviour,
 	-- remember to call super.render() to render the Entity's graphic.
 	render: =>
-		if @__graphic != nil and @__graphic.visable
+		if @__graphic != nil and @__graphic.visible
 			if @__graphic.relative
 				@__point.x = @x!
 				@__point.y = @y!
@@ -175,7 +175,8 @@ class Entity extends Tweener
 				@__point.x, @__point.y = 0, 0
 				@__camera.x = if @__scene == nil then LP.camera.x else @__scene.camera.x
 				@__camera.y = if @__scene == nil then LP.camera.y else @__scene.camera.y
-				@__graphic\render (if @__renderTarget != nil then @__renderTarget else LP.buffer), @__point, @__camera
+
+			@__graphic\render @__point, @__camera
 
 	-- Checks for a collision against an Entity type.
 	-- @param	type		The Entity type to check for.
