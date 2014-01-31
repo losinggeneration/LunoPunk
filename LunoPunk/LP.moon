@@ -94,6 +94,8 @@ class lp
 	getGreen: (color) -> math.floor color / 0x100 % 0x100
 	getBlue: (color) -> math.floor color % 0x100
 
+	indexOf: (tbl, item) -> for i, v in ipairs tbl do return i if item == v
+
 	-- read-only
 	DEG: -> DEG
 
