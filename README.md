@@ -23,9 +23,12 @@ Once the repository is cloned, the LunoPunk/LunoPunk directory can be copied int
 main.moon
 ```moonscript
 require "LunoPunk.LP"
+require "LunoPunk.Engine"
 require "scenes.GameScene"
 
 LP.scene = GameScene!
+
+Engine!
 ```
 
 scenes/GameScene.moon
@@ -33,12 +36,14 @@ scenes/GameScene.moon
 require "LunoPunk.Scene"
 require "LunoPunk.graphics.Image"
 
+export ^
+
 class GameScene extends Scene
 	new: =>
-		super
+		super!
 
 	begin: =>
-		addGraphic Image("graphics/block.png")
+		@addGraphic Image "graphics/block.png"
 ```
 
 Compiling to Lua
