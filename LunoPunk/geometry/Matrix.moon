@@ -6,6 +6,9 @@ class Matrix
 	-- [b d ty] = [0 1 0]
 	-- [0 0  1]   [0 0 1]
 	new: (a = 1, b = 0, c = 0, d = 1, tx = 0, ty = 0) =>
+		-- Add the clone mixin
+		clone = require "LunoPunk.utils.mixins.clone"
+		clone @
 		@a = a
 		@b = b
 		@c = c
