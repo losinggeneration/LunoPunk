@@ -41,7 +41,7 @@ class Image extends Graphic
 		@__flipped = false
 		@__color = 0x00FFFFFF
 		@__red, @__green, @__blue = 1, 1, 1
-		@__matrix = LP.matrix
+		@__matrix = LP.matrix\clone!
 
 		-- check if the _source or _region were set in a higher class
 		if @__source == nil and @__region == nil
@@ -126,7 +126,7 @@ class Image extends Graphic
 				-- recalculation of @__point for scaled origins
 				if not (sx == 1 and sy == 1)
 					@__point.x = point.x + @x - @originX * sx - camera.x * @scrollX
-					@__point.y = point.y + @x - @originY * sy - camera.y * @scrollY
+					@__point.y = point.y + @y - @originY * sy - camera.y * @scrollY
 
 				@__point.x = math.floor @__point.x * fsx
 				@__point.y = math.floor @__point.y * fsy
