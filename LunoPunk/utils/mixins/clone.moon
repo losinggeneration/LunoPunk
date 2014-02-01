@@ -1,8 +1,8 @@
 moon = require "moon"
 
-return class clone
-	new: =>
-	clone: =>
-		c = @@!
-		moon.mixin_table c, @
-		c
+return (t) ->
+	clone = class
+		clone: =>
+			c = @@!
+			moon.mixin_table c, @
+	moon.mixin t, clone
