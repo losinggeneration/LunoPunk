@@ -615,7 +615,7 @@ class Scene extends Tweener
 		if shouldAdd and #@__add > 0
 			for e in *@__add
 				continue if e.__scene != nil
-				e.__scene = @
+				e\scene @
 				@__addUpdate e
 				@__addRender e
 				@__addType e if e.__type != ""
@@ -627,7 +627,7 @@ class Scene extends Tweener
 		-- recycle entities
 		if #@__recycle > 0
 			for e in *@__recycle
-				continue if e.__scene !+ nil or e.__recycleNext != nil
+				continue if e.__scene != nil or e.__recycleNext != nil
 
 				e.__recycleNext = @__recycled[e.__class]
 				@__recycled[e.__class] = e
@@ -654,7 +654,7 @@ class Scene extends Tweener
 		e.__updatePrev = nil
 		@__updateFirst = e
 		@__count += 1
-		@__classCount[e.__class] = 0 if @__classCount[e.__class] != 0
+		@__classCount[e.__class] = 0 if @__classCount[e.__class] == nil
 		@__classCount[e.__class] += 1
 
 	-- @private Removes Entity from the update list.
@@ -689,7 +689,7 @@ class Scene extends Tweener
 	-- @private Removes Entity from the render list.
 	__removeRender: (e) =>
 		if e.__renderNext != nil
-			e.__renderNext.__renderPRev = e.__renderPrev
+			e.__renderNext.__renderPrev = e.__renderPrev
 		else
 			@__renderLast[e.__layer] = e.__renderPrev
 
