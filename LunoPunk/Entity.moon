@@ -152,6 +152,10 @@ class Entity extends Tweener
 		@__graphic = if value then value else nil
 		@__graphic
 
+	scene: (value) =>
+		@__scene = value if value != nil and @__scene != value
+		@__scene
+
 	-- The World object is deprecated for FlashPunk-like compatibility
 	-- TODO give a massage about this kept for porting compatibility
 	world: (value) =>
