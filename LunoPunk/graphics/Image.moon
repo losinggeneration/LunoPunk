@@ -4,6 +4,7 @@ require "LunoPunk.graphics.atlas.Atlas"
 require "LunoPunk.graphics.atlas.AtlasRegion"
 require "LunoPunk.graphics.atlas.TextureAtlas"
 require "LunoPunk.geometry.Rectangle"
+require "LunoPunk.utils.Draw"
 
 export ^
 
@@ -57,7 +58,7 @@ class Image extends Graphic
 					@__imgName = @@.__name
 
 				@__setAtlasRegion Atlas.loadImageAsRegion source
-			elseif source["type"] and source\type! == "Image" -- Löve Image
+			elseif source["typeOf"] and source\typeOf "Drawable" -- A Löve drawable
 				@__setImageSource source
 			else
 				if type(source) == "string"
@@ -156,6 +157,15 @@ class Image extends Graphic
 				tx = (tx1 + @originX + @__point.x) * fsx
 
 				@__region\drawMatrix tx, ty, a, b, c, d, @__layer, @__red, @__green, @__blue, @__alpha
+
+	createRect: (width, height, color = 0xFFFFFF, alpha = 1) ->
+		assert false, "Illegal rect, sizes cannot be 0." if width == 0 or height == 0
+
+		img = love.graphics.newCanvas(width, height)
+		img\renderTo ->
+			Draw.rect 0, 0, width, height, color, alpha, true
+
+		Image img
 
 	width: => @__source\getWidth!
 	height: => @__source\getHeight!
