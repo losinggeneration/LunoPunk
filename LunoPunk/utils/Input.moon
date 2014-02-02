@@ -2,6 +2,7 @@ export ^
 
 class input
 	enable: ->
+	define: (value) ->
 
 	-- key is either a string (from Key or the Löve KeyConstants) or a table of strings
 	check: (key) ->
