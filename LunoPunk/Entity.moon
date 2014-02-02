@@ -191,11 +191,12 @@ class Entity extends Tweener
 	collide: (type, x, y) =>
 		return nil if @__scene == nil
 
-		return nil if not @collidable or @__scene.__typeFirst == nil
+		return nil if not @collidable or @__scene\typeFirst! == nil
 		@__collide_x, @__collide_y = @x!, @y!
 		@x x
 		@y y
 		e = @__scene\typeFirst!
+
 		if @__mask == nil
 			while e != nil
 				c = do
