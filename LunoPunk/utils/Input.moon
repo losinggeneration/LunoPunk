@@ -1,12 +1,25 @@
 export ^
 
 class input
+	__defines = {}
+
 	enable: ->
-	define: (value) ->
+
+	-- Allows the user to define custom key(s) to check for by name
+	define: (key, value) ->
+		__defines[key] = value
 
 	-- key is either a string (from Key or the Löve KeyConstants) or a table of strings
 	check: (key) ->
 		return false if key == nil
+
+		-- Consult the user defined "keys" first
+		if type string
+			for k, v in pairs __defines
+				if k == key -- Found a match, so assign key the value
+					key = v
+					break
+
 		switch type key
 			when "string"
 				love.keyboard.isDown key
