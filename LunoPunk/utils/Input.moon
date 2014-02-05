@@ -28,4 +28,7 @@ class input
 			else
 				print "Unknown key type", type key
 
+	mouseX: -> love.mouse.getX!
+	mouseY: -> love.mouse.getY!
+
 Input = input!
