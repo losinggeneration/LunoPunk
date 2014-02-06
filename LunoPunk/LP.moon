@@ -148,4 +148,11 @@ class lp
 	timeFlag: ->
 	tween: (object, values, duration, options) ->
 
+	-- Used to determine the Löve version that's being used
+	__love: (version) -> version == string.format "%d.%d", love._version_major, love._version_minor
+
 LP = lp!
+
+-- Don't allow unknown Löve versions
+if not (LP.__love("0.8") or LP.__love("0.9"))
+	assert false, "Unsupported Löve version"
