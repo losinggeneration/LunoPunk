@@ -1,0 +1,8 @@
+export ^
+
+class JoyButtonState
+	BUTTON_ON: 1
+	BUTTON_OFF: 2
+	BUTTON_PRESSED: 3
+	BUTTON_RELEASED: 4
+
