@@ -14,7 +14,7 @@ test: tests/mock_love.lua
 # Dependencies
 tests/mock_love.lua:
 	@mkdir -p tmp
-	@cp tests/generate_love_mock.moon main.moon
+	@cp tests/generate_love_mock.moon tmp/main.moon
 	@cp examples/rapid/main.lua tmp
 	@love tmp
 	@mv mock_love.lua tests
