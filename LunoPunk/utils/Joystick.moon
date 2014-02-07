@@ -19,6 +19,7 @@ if LP.__love "0.8"
 			for k, v in pairs @@joysticks
 				break if k != i
 				i += 1
+
 			return if i > love.joystick.getNumJoysticks!
 			@@joysticks[i] = true
 			@connected = true
@@ -44,9 +45,6 @@ else if LP.__love "0.9"
 			for k, v in pairs @@opened
 				break if k != i
 				i += 1
-
-			if i > #@@joysticks
-				print "No more joysticks"
 
 			return if i > #@@joysticks
 			@@opened[i] = @@joysticks[i]
