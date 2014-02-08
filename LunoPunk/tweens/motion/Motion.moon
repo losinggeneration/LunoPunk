@@ -7,6 +7,6 @@ class Motion extends Tween
 	-- @param	complete	Optional completion callback.
 	-- @param	type		Tween type.
 	-- @param	ease		Optional easer function.
-	new: (duration, type = TweenType.Persist, complete = nil, ease = nil) =>
+	new: (duration, complete = nil, type = TweenType.Persist, ease = nil) =>
 		@x, @y = 0, 0
 		super duration, type, complete, ease
