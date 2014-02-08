@@ -51,7 +51,7 @@ class LinearMotion extends Motion
 		@start!
 
 	-- @private Updates the Tween.
-	__update: =>
+	update: =>
 		super!
 		@x = @__fromX + @__moveX * @t
 		@y = @__fromY + @__moveY * @t
