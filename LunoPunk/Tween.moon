@@ -4,9 +4,9 @@ require "LunoPunk.tweens.TweenEvent"
 export ^
 
 TweenType = {
-	"Persist"
-	"Looping"
-	"OneShot"
+	Persist: "Persist"
+	Looping: "Looping"
+	OneShot: "OneShot"
 }
 
 class Tween
