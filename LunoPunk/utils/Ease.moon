@@ -82,7 +82,7 @@ class ease
 	sineInOut: (t) -> -math.cos(PI * t) / 2 + .5
 
 	-- Bounce in.
-	bounceIn: (t)->
+	bounceIn: (t) ->
 		t = 1 - t
 		return 1 - 7.5625 * t * t if t < B1
 		return 1 - (7.5625 * (t - B3) * (t - B3) + .75) if t < B2
@@ -90,14 +90,14 @@ class ease
 		return 1 - (7.5625 * (t - B6) * (t - B6) + .984375)
 
 	-- Bounce out.
-	bounceOut: (t)->
+	bounceOut: (t) ->
 		return 7.5625 * t * t if t < B1
 		return 7.5625 * (t - B3) * (t - B3) + .75 if t < B2
 		return 7.5625 * (t - B5) * (t - B5) + .9375 if t < B4
 		return 7.5625 * (t - B6) * (t - B6) + .984375
 
 	-- Bounce in and out.
-	bounceInOut: (t)->
+	bounceInOut: (t) ->
 		if t < .5
 			t = 1 - t * 2
 			return (1 - 7.5625 * t * t) / 2 if t < B1
@@ -118,7 +118,7 @@ class ease
 	circOut: (t) -> math.sqrt(1 - (t - 1)^2)
 
 	-- Circle in and out.
-	circInOut: (t)-> if t <= .5
+	circInOut: (t) -> if t <= .5
 			(math.sqrt(1 - t^2 * 4) - 1) / -2
 		else
 			(math.sqrt(1 - (t * 2 - 2)^2) + 1) / 2
@@ -130,7 +130,7 @@ class ease
 	expoOut: (t) -> -math.pow(2, -10 * t) + 1
 
 	-- Exponential in and out.
-	expoInOut: (t)-> if t < .5
+	expoInOut: (t) -> if t < .5
 			math.pow(2, 10 * (t * 2 - 1)) / 2
 		else
 			(-math.pow(2, -10 * (t * 2 - 1)) + 2) / 2
@@ -139,12 +139,12 @@ class ease
 	backIn: (t) -> t^2 * (2.70158 * t - 1.70158)
 
 	-- Back out.
-	backOut: (t)->
+	backOut: (t) ->
 		t2 = t - 1
 		1 - (t) * (t2) * (-2.70158 * t2 - 1.70158)
 
 	-- Back in and out.
-	backInOut: (t)->
+	backInOut: (t) ->
 		t *= 2
 		return t^2 * (2.70158 * t - 1.70158) / 2 if t < 1
 		t -= 2
