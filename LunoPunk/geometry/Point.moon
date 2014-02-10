@@ -6,3 +6,7 @@ class Point
 		clone = require "LunoPunk.utils.mixins.clone"
 		clone @
 		@x, @y = x, y
+
+	toString: => string.format "(%f, %f)", @x, @y
+
+	__tostring: => @toString!
