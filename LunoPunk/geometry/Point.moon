@@ -26,10 +26,22 @@ class Point
 	-- determine if two points are equal
 	equals: (p) => @x == p.x and @y == p.y
 
+	-- determines a point between two points
+	-- TODO
+	-- interpolate: (p1, p2) =>
+
+	-- scales the line between (0,0) and current point to a set length
+	-- TODO
+	-- normalize: (thinkness) =>
+
 	-- offsets the point by an amount
 	offset: (dx, dy) =>
 		@x += dx
 		@y += dy
+
+	-- Converts polar coordinates to a new point
+	-- TODO
+	-- polar: (length, angle) ->
 
 	-- set the point to a new value
 	set: (x, y) => @x, @y = x, y
