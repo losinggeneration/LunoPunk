@@ -1,5 +1,6 @@
 require "busted"
 require "tests.mock_love"
+
 require "LunoPunk.LP"
 
 describe "LP", ->

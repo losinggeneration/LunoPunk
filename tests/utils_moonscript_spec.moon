@@ -1,4 +1,5 @@
 require "busted"
+require "tests.mock_love"
 
 require "LunoPunk.utils.moonscript"
 
