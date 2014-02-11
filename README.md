@@ -18,7 +18,7 @@ The development build of LunoPunk can be pulled from the Git repository. The mas
 ```bash
 git clone github.com/losinggeneration/LunoPunk
 ```
-Once the repository is cloned, the LunoPunk/LunoPunk directory can be copied into a Luno project directory.
+Once the repository is cloned, the LunoPunk/LunoPunk directory can be copied into a project directory.
 
 main.moon
 ```moonscript
