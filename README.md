@@ -65,7 +65,7 @@ Great! The project needs all the help it can. However, many of the API decisions
 
 * Contact Harley directly
 	* Email: losinggeneration@gmail.com
-	* Twitter: @losnggeneration
+	* Twitter: [@losnggeneration](http://twitter.com/losnggeneration)
 
 ## Credits
 
