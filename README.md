@@ -20,7 +20,10 @@ git clone github.com/losinggeneration/LunoPunk
 ```
 Once the repository is cloned, the LunoPunk/LunoPunk directory can be copied into a project directory.
 
-main.moon
+## Example
+*The following example is more-or-less in the examples/rapid directory*
+***
+*main.moon*
 ```moonscript
 require "LunoPunk.LP"
 require "LunoPunk.Engine"
@@ -31,7 +34,7 @@ LP.scene = GameScene!
 Engine!
 ```
 
-scenes/GameScene.moon
+*scenes/GameScene.moon*
 ```moonscript
 require "LunoPunk.Scene"
 require "LunoPunk.graphics.Image"
