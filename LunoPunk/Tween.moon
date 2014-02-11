@@ -1,3 +1,4 @@
+require "LunoPunk.LP"
 require "LunoPunk.utils.EventListener"
 require "LunoPunk.tweens.TweenEvent"
 
