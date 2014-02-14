@@ -70,7 +70,12 @@ class lp
 	angleXY: (object, angle, length, x, y) ->
 	approach: (value, target, amount) ->
 	choose: (objs) ->
-	clamp: (value, min, max) ->
+	clamp: (value, min, max) -> if value < min
+			min
+		else if value > max
+			max
+		else
+			value
 	clampInRect: (object, x, y, width, height, padding) ->
 	clear: (t) -> while #t > 0 do table.remove t
 	colorLerp: (fromColor, toColor, t) ->
