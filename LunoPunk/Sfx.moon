@@ -1,3 +1,5 @@
+require "LunoPunk.LP"
+
 export ^
 
 -- Sound effect object used to play embedded sounds.
@@ -9,7 +11,7 @@ class Sfx
 	new: (source, complete = nil) =>
 		-- Optional callback function for when the sound finishes playing.
 		@complete = complete
-		@__transform = SoundTransform!
+		-- @__transform = SoundTransform!
 		@__volume = 1
 		@__pan = 0
 		@__position = 0
@@ -23,28 +25,26 @@ class Sfx
 		@__filteredPan
 		@__sound
 		@__channel
-		@__transform
+		-- @__transform
 		@__position = 0
 		@__looping
 
 		-- Stored Sound objects.
 		@@__sounds = {}
 		@@__typePlaying = {}
-		@@__typeTransforms = {}
+		-- @@__typeTransforms = {}
 
-		assert source == nil, "Invalid source Sound."
+		assert source != nil, "Invalid source Sound."
 
-		if type source == "string"
-			@__sound = Assets.getSound(source)
-			@__sounds.set(source, @__sound)
+		if type(source) == "string"
+			@__sound = love.audio.newSource source, "static"
+			@@__sounds[source] = @__sound
 		else
 			className = source.__class.__name
-			@__sound = @__sounds.get className
+			@__sound = @__sounds[className]
 			if @__sound == nil
 				@__sound = source
-				@__sounds.set className, source
-
-		this.complete = complete
+				@@__sounds[className] = source
 
 	-- Plays the sound once.
 	-- @param	vol	   Volume factor, a value from 0 to 1.
@@ -57,9 +57,11 @@ class Sfx
 		@__volume = (if volume < 0 then 0 else volume)
 		@__filteredPan = LP.clamp @__pan + @getPan(@__type), -1, 1
 		@__filteredVol = math.max 0, @__volume * @getVolume @_type
-		@__transform.pan = @__filteredPan
-		@__transform.volume = @__filteredVol
-		@__channel = @__sound.play(0, if loop then -1 else 0, @__transform)
+		--@__transform.pan = @__filteredPan
+		--@__transform.volume = @__filteredVol
+		@__sound\setLooping loop
+		@__sound\setVolume @__volume
+		@__sound\play!
 
 		if @playing!
 			@addPlaying!
@@ -124,7 +126,7 @@ class Sfx
 		return @__volume if value == nil
 		value = 0 if value < 0
 		return value if @__channel == nil or @__volume == value
-		@__volume = value
+		@__volume = LP.clamp value, 0, 1
 		filteredVol = value * @getVolume @__type
 		filteredVol = 0 if filteredVol < 0
 		return value if @__filteredVol == filteredVol
@@ -175,9 +177,9 @@ class Sfx
 	--
 	-- @return	The global pan for the type.
 	getPan: (type) ->
-		if @@__typeTransforms.exists type
-			transform = @@__typeTransforms.get type
-			return if transform != nil then transform.pan else 0
+--		if @@__typeTransforms.exists type
+--			transform = @@__typeTransforms.get type
+--			return if transform != nil then transform.pan else 0
 
 		0
 
@@ -187,9 +189,9 @@ class Sfx
 	--
 	-- @return	The global volume for the type.
 	getVolume: (type) ->
-		if @@__typeTransforms.exists type
-			transform = @@__typeTransforms.get type
-			return if transform != nil then transform.volume else 1
+--		if @@__typeTransforms.exists type
+--			transform = @@__typeTransforms.get type
+--			return if transform != nil then transform.volume else 1
 
 		1
 
