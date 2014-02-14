@@ -64,8 +64,8 @@ class Sfx
 		@__sound\play!
 
 		if @playing!
-			@addPlaying!
-			@__channel.addEventListener Event.SOUND_COMPLETE, @\onComplete
+			addPlaying @
+			--@__channel.addEventListener Event.SOUND_COMPLETE, @\onComplete
 
 		@__looping = loop
 		@__position = 0
@@ -81,11 +81,12 @@ class Sfx
 	-- @return If the sound was stopped.
 	stop: =>
 		return false if not @playing!
-		@removePlaying!
-		@__position = @__channel.position
-		@__channel.removeEventListener(Event.SOUND_COMPLETE, onComplete)
-		@__channel.stop()
-		@__channel = nil
+		removePlaying @
+		--@__position = @__channel.position
+		--@__channel.removeEventListener(Event.SOUND_COMPLETE, @\onComplete)
+		--@__channel.stop()
+		--@__channel = nil
+		@__sound\stop!
 		true
 
 	-- Resumes the sound from the position stop() was called on it.
@@ -110,16 +111,16 @@ class Sfx
 	-- @private Add the sound to the global list.
 	addPlaying = =>
 		list = {}
-		if not @@__typePlaying.exists(_type)
-			@@__typePlaying.set(_type, list)
+		if not @@__typePlaying[@__type]
+			@@__typePlaying[@__type] = list
 		else
-			list = @__typePlaying.get(_type)
+			list = @__typePlaying[@__type]
 
-		list\append @
+		table.insert list, @
 
 	-- @private Remove the sound from the global list. */
 	removePlaying = =>
-		@__typePlaying.get(@__type).remove @ if (@@__typePlaying.exists(@__type))
+		@@__typePlaying[@__type] = nil if (@@__typePlaying[@__type])
 
 	-- Alter the volume factor (a value from 0 to 1) of the sound during playback.
 	volume: (value) =>
@@ -163,7 +164,7 @@ class Sfx
 		value
 
 	-- If the sound is currently playing.
-	playing: => @__channel != nil
+	playing: => @__sound.typeOf and @__sound\typeOf("Source") and not @__sound\isStopped!
 
 	-- Position of the currently playing sound, in seconds.
 	position: => (if @playing! then @__channel.position else @__position) / 1000
