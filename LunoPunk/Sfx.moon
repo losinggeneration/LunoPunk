@@ -82,7 +82,7 @@ class Sfx
 	stop: =>
 		return false if not @playing!
 		removePlaying @
-		--@__position = @__channel.position
+		@__position = @__sound\tell!
 		--@__channel.removeEventListener(Event.SOUND_COMPLETE, @\onComplete)
 		--@__channel.stop()
 		--@__channel = nil
@@ -91,10 +91,12 @@ class Sfx
 
 	-- Resumes the sound from the position stop() was called on it.
 	resume: =>
-		@__channel = @__sound.play(@__position, if @__looping then -1 else 0, @__transform)
+		@__sound\seek @__position
+		@__sound\play!
+
 		if @playing!
-			@addPlaying!
-			@__channel.addEventListener(Event.SOUND_COMPLETE, onComplete)
+			addPlaying @
+			-- @__channel.addEventListener(Event.SOUND_COMPLETE, onComplete)
 
 		@__position = 0
 
