@@ -59,7 +59,7 @@ class lp
 	screen: nil
 	sprite: nil
 	tweener: Tweener!
-	volume: nil
+	volume: 1
 	watch: nil
 	world: nil
 	zero: Point!
@@ -79,7 +79,20 @@ class lp
 	angle: (x1, y1, x2, y2) ->
 	angleDifference: (angle1, angle2) ->
 	angleXY: (object, angle, length, x, y) ->
+
+	-- Approaches the value towards the target, by the specified amount, without overshooting the target.
+	-- @param	value	The starting value.
+	-- @param	target	The target that you want value to approach.
+	-- @param	amount	How much you want the value to approach target by.
+	-- @return	The new value.
 	approach: (value, target, amount) ->
+		if value < target - amount
+			value + amount
+		else if value > target + amount
+			value - amount
+		else
+			target
+
 	choose: (objs) ->
 	clamp: (value, min, max) -> if value < min
 			min
