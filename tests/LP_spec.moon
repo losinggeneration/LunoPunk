@@ -25,7 +25,23 @@ describe "LP", ->
 		assert.are.equal 0, LP.clamp 0, 0, 1
 		assert.are.equal 0, LP.clamp -1, 0, 1
 
+	it "convertColor", ->
+		rgb = LP.convertColor 0x1f2f3f
+		assert.are.equal rgb[1], 0x1f
+		assert.are.equal rgb[2], 0x2f
+		assert.are.equal rgb[3], 0x3f
+
+	it "getColorRGB", ->
+		assert.are.equal 0x1f2f3f, LP.getColorRGB 0x1f, 0x2f, 0x3f
+
 	it "lerp", ->
 		assert.are.equal 1, LP.lerp 1, 2, 0
 		assert.are.equal 2, LP.lerp 1, 2, 1
 		assert.are.equal 1.5, LP.lerp 1, 2, .5
+
+	it "colorLerp", ->
+		color1 = 0x000000
+		color2 = 0x101010
+		assert.are.equal 0x000000, LP.colorLerp color1, color2, 0
+		assert.are.equal 0x101010, LP.colorLerp color1, color2, 1
+		assert.are.equal 0x080808, LP.colorLerp color1, color2, .5

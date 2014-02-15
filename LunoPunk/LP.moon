@@ -161,12 +161,12 @@ class lp
 		else
 			f = LP.convertColor fromColor
 			d = LP.convertColor toColor
-			d.r -= f.r
-			d.g -= f.g
-			d.b -= f.b
-			f.r = d.r * t
-			f.g = d.g * t
-			f.b = d.b * t
+			d[1] -= f[1]
+			d[2] -= f[2]
+			d[3] -= f[3]
+			f[1] = d[1] * t
+			f[2] = d[2] * t
+			f[3] = d[3] * t
 			LP.getColorRGB unpack f
 
 	next: (current, options, loop) ->
