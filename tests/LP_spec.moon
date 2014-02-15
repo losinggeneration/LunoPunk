@@ -24,3 +24,8 @@ describe "LP", ->
 		-- Min
 		assert.are.equal 0, LP.clamp 0, 0, 1
 		assert.are.equal 0, LP.clamp -1, 0, 1
+
+	it "lerp", ->
+		assert.are.equal 1, LP.lerp 1, 2, 0
+		assert.are.equal 2, LP.lerp 1, 2, 1
+		assert.are.equal 1.5, LP.lerp 1, 2, .5
