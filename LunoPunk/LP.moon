@@ -102,7 +102,6 @@ class lp
 			value
 	clampInRect: (object, x, y, width, height, padding) ->
 	clear: (t) -> while #t > 0 do table.remove t
-	colorLerp: (fromColor, toColor, t) ->
 	consoleEnabled: ->
 	createBitmap: (width, height, transparent, color) ->
 	distance: (x1, y1, x2, y2) ->
@@ -142,7 +141,34 @@ class lp
 
 	sceneIsNull: => @scene != @__scene or @__scene == nil
 
-	lerp: (a, b, t) ->
+	-- Linear interpolation between two values.
+	-- @param	a		First value.
+	-- @param	b		Second value.
+	-- @param	t		Interpolation factor.
+	-- @return	When t=0, returns a. When t=1, returns b. When t=0.5, will return halfway between a and b. Etc.
+	lerp: (a, b, t = 1) -> a + (b - a) * t
+
+	-- Linear interpolation between two colors.
+	-- @param	fromColor		First color.
+	-- @param	toColor			Second color.
+	-- @param	t				Interpolation value. Clamped to the range [0, 1].
+	-- return	RGB component-interpolated color value.
+	colorLerp: (fromColor, toColor, t = 1) ->
+		if t <= 0
+			fromColor
+		else if t >= 1
+			toColor
+		else
+			f = LP.convertColor fromColor
+			d = LP.convertColor toColor
+			d.r -= f.r
+			d.g -= f.g
+			d.b -= f.b
+			f.r = d.r * t
+			f.g = d.g * t
+			f.b = d.b * t
+			LP.getColorRGB unpack f
+
 	next: (current, options, loop) ->
 	prev: (current, options, loop) ->
 
