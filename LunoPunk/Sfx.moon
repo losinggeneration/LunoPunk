@@ -169,7 +169,7 @@ class Sfx
 	playing: => @__sound.typeOf and @__sound\typeOf("Source") and not @__sound\isStopped!
 
 	-- Position of the currently playing sound, in seconds.
-	position: => (if @playing! then @__channel.position else @__position) / 1000
+	position: => (if @playing! then @__sound\getPosition! else @__position) / 1000
 
 	-- Length of the sound, in seconds.
 	length: => @__sound.length / 1000
