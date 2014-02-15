@@ -43,7 +43,18 @@ class lp
 	randomSeed: nil
 	rate: 0
 	rect: Rectangle!
-	renderMode: nil
+	renderMode = (value) ->
+		return __renderMode if value == nil or __renderMode == value
+		__renderMode = value
+
+		-- recreate screen for buffer rendering
+		if LP.screen == nil
+			LP.screen = Screen!
+		else
+			LP.screen.init!
+
+		value
+
 	scene: Scene!
 	screen: nil
 	sprite: nil
