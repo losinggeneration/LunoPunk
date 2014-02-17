@@ -5,12 +5,15 @@ require "LunoPunk.LP"
 
 describe "LP", ->
 	it "sign", ->
+		-- Negative
 		assert.are.equal -1, LP.sign -1
 		assert.are.equal -1, LP.sign -15
+		-- bounds
 		assert.are_not.equal -1, LP.sign 0
 		assert.are_not.equal 0, LP.sign -1
 		assert.are.equal 0, LP.sign 0
 		assert.are_not.equal 0, LP.sign 1
+		-- Positive
 		assert.are.equal 1, LP.sign 1
 		assert.are.equal 1, LP.sign 15
 
@@ -35,18 +38,29 @@ describe "LP", ->
 		assert.are.equal 0x1f2f3f, LP.getColorRGB 0x1f, 0x2f, 0x3f
 
 	it "lerp", ->
+		-- t = 0, return the first value
 		assert.are.equal 1, LP.lerp 1, 2, 0
+		-- t = 1, return the second value
 		assert.are.equal 2, LP.lerp 1, 2, 1
+		-- t = .5, return the midpoint between the values
 		assert.are.equal 1.5, LP.lerp 1, 2, .5
 
 	it "colorLerp", ->
 		color1 = 0x000000
 		color2 = 0x101010
+		-- t = 0, return the first color
 		assert.are.equal 0x000000, LP.colorLerp color1, color2, 0
+		-- t = 1, return the second color
 		assert.are.equal 0x101010, LP.colorLerp color1, color2, 1
+		-- t = .5, return the color half way between the two colors
+		assert.are.equal 0x080808, LP.colorLerp color1, color2, .5
 
 	it "approach", ->
+		-- No approach
 		assert.are.equal 1, LP.approach 1, 2, 0
+		-- Contained approach
 		assert.are.equal 1, LP.approach 0, 2, 1
+		-- <= approach
 		assert.are.equal 2, LP.approach 0, 2, 2
+		-- approach, but do not go over
 		assert.are.equal 2, LP.approach 0, 2, 3
