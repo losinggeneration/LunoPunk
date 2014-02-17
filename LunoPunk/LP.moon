@@ -229,7 +229,13 @@ class lp
 		object.x = LP.approach object.x, x, distance
 		object.y = LP.approach object.y, y, distance
 
-	swap: (current, a, b) ->
+	-- Swaps the current item between a and b. Useful for quick state/string/value swapping.
+	-- @param	current		The currently selected item.
+	-- @param	a			Item a.
+	-- @param	b			Item b.
+	-- @return	Returns a if current is b, and b if current is a.
+	swap: (current, a, b) -> if current == a then b else a
+
 	swapScene: => @__scene = @scene
 	timeFlag: ->
 	tween: (object, values, duration, options) ->

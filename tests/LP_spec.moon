@@ -99,3 +99,13 @@ describe "LP", ->
 		LP.stepTowards c, 1, 2, 1
 		assert.are.equal 1, c.x
 		assert.are.equal 2, c.y
+
+	it "swap", ->
+		a, b = 1, 2
+
+		-- Not within
+		assert.are.equal b, LP.swap a, b, b
+
+		-- standard swap
+		assert.are.equal b, LP.swap a, a, b
+		assert.are.equal b, LP.swap a, b, a
