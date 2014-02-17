@@ -94,12 +94,19 @@ class lp
 			target
 
 	choose: (objs) ->
+
+	-- Clamps the value within the minimum and maximum values.
+	-- @param	value		The Float to evaluate.
+	-- @param	min			The minimum range.
+	-- @param	max			The maximum range.
+	-- @return	The clamped value.
 	clamp: (value, min, max) -> if value < min
 			min
 		else if value > max
 			max
 		else
 			value
+
 	clampInRect: (object, x, y, width, height, padding) ->
 	clear: (t) -> while #t > 0 do table.remove t
 	consoleEnabled: ->
@@ -116,12 +123,23 @@ class lp
 	getColorSaturation: (color) ->
 	getColorValue: (color) ->
 
+	-- Take a 12 bit RGB integer and turn it into a table
 	convertColor: (color) -> { lp.getRed(color), lp.getGreen(color), lp.getBlue(color) }
+
+	-- Make a 12 bit RGB integer
 	getColorRGB: (r, g, b) -> r * 0x10000 + g * 0x100 + b
+
+	-- Get the red value from an RGB 12 bit integer
 	getRed: (color) -> math.floor color / 0x10000
+
+	-- Get the green value from an RGB 12 bit integer
 	getGreen: (color) -> math.floor color / 0x100 % 0x100
+
+	-- Get the blue value from an RGB 12 bit integer
 	getBlue: (color) -> math.floor color % 0x100
 
+	-- Finds the index of the specified item within a table
+	-- Assumes the table is an array indexed table
 	indexOf: (tbl, item) -> for i, v in ipairs tbl do return i if item == v
 
 	-- read-only
@@ -139,6 +157,8 @@ class lp
 	-- read-only
 	BASELAYER: -> BASELAYER
 
+	-- Returns true if the scene doesn't match the internal scene or if the
+	-- internal scene is null
 	sceneIsNull: => @scene != @__scene or @__scene == nil
 
 	-- Linear interpolation between two values.
@@ -189,6 +209,8 @@ class lp
 	round: (num, precision) ->
 	scale: (value, min, max, min2, max2) ->
 	scaleClamp: (value, min, max, min2, max2) ->
+
+	-- Sets the camera's x and y
 	setCamera: (x, y) -> LP.camera.x, LP.camera.y = x, y
 	shuffle: (a) ->
 
@@ -204,6 +226,8 @@ class lp
 	tween: (object, values, duration, options) ->
 
 	-- Used to determine the Löve version that's being used
+	-- @param	version		The string containing the major.minor Löve version
+	-- @return	true if version matches the Löve version
 	__love: (version) -> version == string.format "%d.%d", love._version_major, love._version_minor
 
 LP = lp!
