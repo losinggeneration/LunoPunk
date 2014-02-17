@@ -219,7 +219,16 @@ class lp
 	-- @return	1 if value > 0, -1 if value < 0, and 0 when value == 0.
 	sign: (value) -> if value < 0 then -1 else if value == 0 then 0 else 1
 
+	-- Steps the object towards a point.
+	-- @param	object		Object to move (must have an x and y property).
+	-- @param	x			X position to step towards.
+	-- @param	y			Y position to step towards.
+	-- @param	distance	The distance to step (will not overshoot target).
 	stepTowards: (object, x, y, distance) ->
+		assert object.x != nil and object.y != nil, "Object must have x and y components"
+		object.x = LP.approach object.x, x, distance
+		object.y = LP.approach object.y, y, distance
+
 	swap: (current, a, b) ->
 	swapScene: => @__scene = @scene
 	timeFlag: ->

@@ -64,3 +64,38 @@ describe "LP", ->
 		assert.are.equal 2, LP.approach 0, 2, 2
 		-- approach, but do not go over
 		assert.are.equal 2, LP.approach 0, 2, 3
+
+	it "stepTowards", ->
+		class xy
+			new: => @x, @y = 0, 0
+
+		-- No step
+		c = xy!
+		LP.stepTowards c, 1, 1, 0
+		assert.are.equal 0, c.x
+		assert.are.equal 0, c.y
+
+		-- Contained step
+		LP.stepTowards c, 2, 2, 1
+		assert.are.equal 1, c.x
+		assert.are.equal 1, c.y
+
+		-- Bounds step
+		LP.stepTowards c, 2, 2, 1
+		assert.are.equal 2, c.x
+		assert.are.equal 2, c.y
+
+		-- Over step
+		LP.stepTowards c, 2, 2, 1
+		assert.are.equal 2, c.x
+		assert.are.equal 2, c.y
+
+		-- Different x and y
+		LP.stepTowards c, 2, 3, 1
+		assert.are.equal 2, c.x
+		assert.are.equal 3, c.y
+
+		-- Under step (changed bounds)
+		LP.stepTowards c, 1, 2, 1
+		assert.are.equal 1, c.x
+		assert.are.equal 2, c.y
