@@ -44,4 +44,9 @@ describe "LP", ->
 		color2 = 0x101010
 		assert.are.equal 0x000000, LP.colorLerp color1, color2, 0
 		assert.are.equal 0x101010, LP.colorLerp color1, color2, 1
-		assert.are.equal 0x080808, LP.colorLerp color1, color2, .5
+
+	it "approach", ->
+		assert.are.equal 1, LP.approach 1, 2, 0
+		assert.are.equal 1, LP.approach 0, 2, 1
+		assert.are.equal 2, LP.approach 0, 2, 2
+		assert.are.equal 2, LP.approach 0, 2, 3
