@@ -11,6 +11,9 @@ all: $(LOVEPUNK_OBJS)
 test: tests/mock_love.lua
 	busted -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
+coverage: tests/mock_love.lua
+	busted -m LunoPunk/?.moon -l $(BUSTED_LUA) -c -p _spec.moon$$ tests
+
 # Dependencies
 tests/mock_love.lua:
 	@mkdir -p tmp
