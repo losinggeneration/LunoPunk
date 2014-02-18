@@ -50,10 +50,10 @@ class Engine
 		love.update = @\update
 		love.focus = (f) ->
 			if f
-				DispatchEvent Event Event.ACTIVATE!
+				DispatchEvent Event Event.ACTIVATE
 -- 				@focusGained!
 			else
-				DispatchEvent Event Event.DEACTIVATE!
+				DispatchEvent Event Event.DEACTIVATE
 -- 				@focusLost!
 		if love._version_major >= 0 and love._version_minor >= 9
 			love.resize = -> DispatchEvent Event Event.RESIZE
@@ -126,14 +126,14 @@ class Engine
 		@resize! -- call resize once to initialize the screen
 
 		-- set resize event
-		AddEventListener Event.RESIZE!, (e) -> @resize!
+		AddEventListener Event.RESIZE, (e) -> @resize!
 
-		AddEventListener Event.ACTIVATE!, (e) ->
+		AddEventListener Event.ACTIVATE, (e) ->
 			LP.focused = true
 			@focusGained!
 			LP.scene\focusGained!
 
-		AddEventListener Event.DEACTIVATE!, (e) ->
+		AddEventListener Event.DEACTIVATE, (e) ->
 			LP.focused = false
 			@focusLost!
 			LP.scene\focusLost!
