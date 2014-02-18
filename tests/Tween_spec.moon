@@ -22,6 +22,15 @@ describe "Tween", ->
 		assert.are.equal TweenType.Persist, twn.type
 		assert.are.equal 0, twn.t
 
+	it "start", ->
+		-- Test call to finish when start is called and duration == 0
+		twn = tween 0
+		finished = -> assert false, "Tween finished"
+		AddEventListener TweenEvent.FINISH, finished
+		assert.has.errors -> twn\start!
+		-- Don't leave this listener or it will be called in other tests
+		RemoveEventListener TweenEvent.FINISH, finished
+
 	it "update (persist)", ->
 		twn = tween 5
 		twn\start!
