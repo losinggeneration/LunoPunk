@@ -21,3 +21,11 @@ describe "Tweener", ->
 		assert.has_no.errors -> tweener\addTween Tween 500, true
 		tween = tweener\addTween Tween 500, false
 		assert.is.False tween.active
+
+	it "removeTween", ->
+
+	it "clearTweens", ->
+
+	it "updateTweens", ->
+
+	it "hasTween", ->
