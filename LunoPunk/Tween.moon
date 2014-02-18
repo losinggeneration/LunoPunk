@@ -29,6 +29,11 @@ class Tween
 		@t = 0
 		@__time = 0
 
+		-- I don't understand how the fuck HaxePunk's TweenEvent.UPDATE is ever
+		-- called, but I'm going to define a function here
+		AddEventListener TweenEvent.UPDATE, ->
+			finish @ if @__finish
+
 		if complete != nil
 			AddEventListener TweenEvent.FINISH, complete
 
