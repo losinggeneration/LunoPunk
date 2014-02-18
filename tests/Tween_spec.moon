@@ -4,6 +4,10 @@ require "tests.mock_love"
 require "LunoPunk.Tween"
 
 describe "Tween", ->
+	setup ->
+		-- We used fixed time for testing
+		LP.fixed = true
+
 	it "construct", ->
 		assert.has.errors -> Tween!
 		tween = Tween 500
@@ -13,9 +17,6 @@ describe "Tween", ->
 		assert.are.equal 0, tween.t
 
 	it "update (persist)", ->
-		-- Löve is stubbed, so we used fixed time
-		LP.fixed = true
-
 		tween = Tween 5
 		tween\start!
 		assert.is.True tween.active
@@ -36,8 +37,26 @@ describe "Tween", ->
 		assert.is.False tween.active
 
 	it "update (looping)", ->
+		tween = Tween 2, TweenType.Looping
+		tween\start!
+		for i=1, 33
+			assert.is.True tween.active
+			assert.are.equal (i-1)%2/2, tween.t
+			tween\update!
 
 	it "update (oneshot)", ->
+		tween = Tween 2, TweenType.OneShot
+		tween\start!
+
+		assert.is.True tween.active
+		assert.are.equal 0, tween.t
+		tween\update!
+
+		assert.is.True tween.active
+		assert.are.equal 1/2, tween.t
+		tween\update!
+
+		assert.is.False tween.active
 
 	it "complete callback", ->
 
