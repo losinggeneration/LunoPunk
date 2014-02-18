@@ -29,16 +29,13 @@ class Tween
 		@t = 0
 		@__time = 0
 
-		-- I don't understand how the fuck HaxePunk's TweenEvent.UPDATE is ever
-		-- called, but I'm going to define a function here
-		AddEventListener TweenEvent.UPDATE, ->
-			finish @ if @__finish
-
 		if complete != nil
 			AddEventListener TweenEvent.FINISH, complete
 
 	-- Updates the Tween, called by World.
 	update: =>
+		-- Only update the Tween if active
+		return if not @active
 		@__time += if LP.fixed then 1 else LP.elapsed
 		@t = @__time/@__target
 		if @ease != nil and @t > 0 and @t < 1
@@ -63,7 +60,7 @@ class Tween
 		return
 
 	-- @private Called when the Tween completes.
-	finish = =>
+	finish: =>
 		switch @type
 			when "Persist"
 				@__time = @__target
