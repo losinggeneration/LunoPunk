@@ -104,8 +104,8 @@ describe "LP", ->
 		a, b = 1, 2
 
 		-- Not within
-		assert.are.equal b, LP.swap a, b, b
+		assert.are.same b, LP.swap a, b, b
 
 		-- standard swap
-		assert.are.equal b, LP.swap a, a, b
-		assert.are.equal b, LP.swap a, b, a
+		assert.are.same b, LP.swap a, a, b
+		assert.are.same b, LP.swap a, b, a
