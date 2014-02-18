@@ -38,3 +38,7 @@ describe "Tween", ->
 	it "update (looping)", ->
 
 	it "update (oneshot)", ->
+
+	it "complete callback", ->
+
+	it "cancel", ->
