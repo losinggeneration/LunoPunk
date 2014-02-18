@@ -65,6 +65,13 @@ describe "Tween", ->
 		assert.is.False twn.active
 
 	it "complete callback", ->
+		-- Assert when the callback is called
+		twn = tween 2, TweenType.Looping, -> assert false, "Tween callback called"
+		twn\start!
+		twn\update!
+		assert.has.errors -> twn\update!
+		twn\update!
+		assert.has.errors -> twn\update!
 
 	it "cancel", ->
 		-- Assert if the complete callback is called
