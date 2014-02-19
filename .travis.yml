@@ -1,16 +1,25 @@
 language: erlang
 
 env:
-  - LUA="luajit-2.0.2"
+    - LUA="luajit-2.0.2"
 
 install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq git luajit love luarocks libev-dev make
-  - sudo ln -s /usr/bin/luajit-2.0.0-beta9 /usr/bin/luajit
-  - sudo luarocks install luafilesystem
-  - sudo luarocks install copas
-  - sudo luarocks install moonscript
-  - sudo luarocks install lua-ev
-  - sudo luarocks install busted
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq git luajit love luarocks libev-dev libssl-dev make
+    - sudo ln -s /usr/bin/luajit-2.0.0-beta9 /usr/bin/luajit
+    - sudo luarocks install luasocket
+    - sudo luarocks install luasec 0.4.1-2 OPENSSL_DIR=/usr OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
+    - sudo luarocks install luafilesystem
+    - sudo luarocks install copas
+    - sudo luarocks install moonscript
+    - sudo luarocks install lua-ev
+    - sudo luarocks install busted
+    - sudo luarocks install luajson
+    - cd $TRAVIS_BUILD_DIR
 
-script: "sudo make ci"
+# Fix an error with busted/core and custom output file loading
+before_script:
+    - sudo sed -i 's/opath, output/opath or "", output/' /usr/local/share/lua/5.1/busted/core.lua
+
+script:
+    - make ci

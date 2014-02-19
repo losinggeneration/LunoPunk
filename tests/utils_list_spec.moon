@@ -9,6 +9,14 @@ describe "list", ->
 		l = List!
 		l\push i*2 for i=1, 10
 
+	setup ->
+		require "coveralls.init"
+		Coveralls\start!
+
+	teardown ->
+		Coveralls\stop!
+		Coveralls\cover "./LunoPunk/utils/List.moon"
+
 	it "push/pop/peek/last", ->
 		assert.are.equal 20, l\pop!
 		assert.are.equal 18, l\pop!

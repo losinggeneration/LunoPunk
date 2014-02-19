@@ -8,6 +8,7 @@ A Moonscript/LÖVE port of the [HaxePunk](http://haxepunk.com), which is a Haxe 
 *Luno in Esperanto means Moon.*
 
 [![Build Status](https://travis-ci.org/losinggeneration/LunoPunk.png?branch=master)](https://travis-ci.org/losinggeneration/LunoPunk)
+[![Coverage Status](https://coveralls.io/repos/losinggeneration/LunoPunk/badge.png?branch=master)](https://coveralls.io/r/losinggeneration/LunoPunk?branch=master)
 
 ## Release build
 None yet

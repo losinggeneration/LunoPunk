@@ -4,6 +4,14 @@ require "tests.mock_love"
 require "LunoPunk.LP"
 
 describe "LP", ->
+	setup ->
+		require "coveralls.init"
+		Coveralls\start!
+
+	teardown ->
+		Coveralls\stop!
+		Coveralls\cover "./LunoPunk/LP.moon"
+
 	it "sign", ->
 		-- Negative
 		assert.are.equal -1, LP.sign -1
@@ -102,7 +110,6 @@ describe "LP", ->
 
 	it "swap", ->
 		a, b = 1, 2
-
 		-- Not within
 		assert.are.same b, LP.swap a, b, b
 
