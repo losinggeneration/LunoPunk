@@ -13,4 +13,4 @@ install:
   - sudo luarocks install lua-ev
   - sudo luarocks install busted
 
-script: "sudo make test"
+script: "sudo make ci"
