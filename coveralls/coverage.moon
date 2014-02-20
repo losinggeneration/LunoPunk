@@ -43,6 +43,23 @@ position_to_lines = (file_content, positions) ->
 
   lines
 
+no_coverage = (line) ->
+  nc = {
+    "^(%s*)$",
+    "^(%s*%-%-).*$",
+    "[:=]?%s*[-=]>%s*$",
+    "^%s*require",
+    "^%s*export",
+    "=?%s*class%s*",
+    "^%s*else%s*$",
+    "(%w+%s*=%s*)require%s*['\"(]",
+  }
+
+  for c in *nc
+    return true if c
+
+  false
+
 file_coverage = (fname, positions) ->
   file = assert io.open fname
   content = file\read "*a"
@@ -53,8 +70,7 @@ file_coverage = (fname, positions) ->
   line_no = 1
   cov = {}
   for line in (content .. "\n")\gmatch "(.-)\n"
-    cov[line_no] = lines[line_no] or 0
-    cov[line_no] = nil if line\match("^(%s*)$") or line\match("^(%s*%-%-).*$") or line\match("[:=]?%s*[-=]>%s*$") or line\match("^%s*require") or line\match("^%s*export") or line\match("=?%s*class%s*") or line\match("^%s*else%s*$")
+    cov[line_no] = lines[line_no] or (if no_coverage(line) then nil else 0)
     line_no += 1
 
   {name: fname, source: content .. "\n", coverage: cov}
@@ -74,7 +90,6 @@ format_file = (fname, positions) ->
     line_no += 1
 
   log!
-
 
 class CodeCoverage
   new: =>
