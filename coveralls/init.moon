@@ -93,8 +93,10 @@ class coveralls extends coverage.CodeCoverage
 						repo_token: @repo_token,
 						source_files: @source_files,
 					}
+					print json_data
 					print #json_data
 					form_data = formencode { json: json_data }
+					print form_data
 					print #form_data
 					return
 
