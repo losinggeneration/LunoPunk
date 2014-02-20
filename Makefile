@@ -1,6 +1,6 @@
 MOONCFLAGS=
 BUSTEDFLAGS=
-BUSTED_LUA=love
+BUSTED_LUA=luajit
 DISTDIR=
 
 LOVEPUNK_SRCS = $(shell find LunoPunk -iname '*.moon')
@@ -18,7 +18,7 @@ ci: tests/mock_love.lua coveralls/busted.lua
 tests/mock_love.lua:
 	@mkdir -p tmp
 	@cp tests/generate_love_mock.moon tmp/main.moon
-	@cp examples/rapid/main.lua tmp
+	@moonc tmp/main.moon
 	@love tmp
 	@mv mock_love.lua tests
 	@rm -fr tmp
