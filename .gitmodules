@@ -1,0 +1,3 @@
+[submodule "coveralls"]
+	path = coveralls
+	url = https://github.com/losinggeneration/coveralls-busted
