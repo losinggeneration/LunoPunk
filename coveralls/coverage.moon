@@ -54,7 +54,7 @@ file_coverage = (fname, positions) ->
   cov = {}
   for line in (content .. "\n")\gmatch "(.-)\n"
     cov[line_no] = lines[line_no] or 0
-    cov[line_no] = nil if line\match("^(%s*)$") or line\match("^(%s*%-%-).*$") or line\match("[:=]?%s*[-=]>") or line\match("^%s*require") or line\match("^%s*export") or line\match("=?%s*class%s*")
+    cov[line_no] = nil if line\match("^(%s*)$") or line\match("^(%s*%-%-).*$") or line\match("[:=]?%s*[-=]>%s*$") or line\match("^%s*require") or line\match("^%s*export") or line\match("=?%s*class%s*") or line\match("^%s*else%s*$")
     line_no += 1
 
   {name: fname, source: content .. "\n", coverage: cov}
