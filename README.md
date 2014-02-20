@@ -4,7 +4,7 @@
 The API is subject to change without warning. This is very much still a WIP.
 
 ***
-A Moonscript/LÖVE port of the [HaxePunk](http://haxepunk.com), which is a Haxe port of the AS3 library [FlashPunk](http://useflashpunk.net). The implementation is in Moonscript, but should also be usable from Lua as well.
+A [Moonscript](http://moonscript.org)/[LÖVE](http://www.love2d.org) port of the [HaxePunk](http://haxepunk.com), which is a Haxe port of the AS3 library [FlashPunk](http://useflashpunk.net). The implementation is in Moonscript, but should also be usable from Lua as well.
 *Luno in Esperanto means Moon.*
 
 [![Build Status](https://travis-ci.org/losinggeneration/LunoPunk.png?branch=master)](https://travis-ci.org/losinggeneration/LunoPunk)
@@ -68,10 +68,12 @@ Great! The project needs all the help it can. However, many of the API decisions
 	* Email: losinggeneration@gmail.com
 	* Twitter: [@losnggeneration](http://twitter.com/losnggeneration)
 
-## Credits
+## Credits/Thanks
 
 * Matt Tuttle for creating HaxePunk.
 * Chevy Ray Johnston for creating FlashPunk.
+* Leafo for creating Moonscript.
+* The Prosody IM team from which some code was used for the Coveralls support.
 
 ## MIT License
 
