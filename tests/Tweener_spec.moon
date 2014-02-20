@@ -65,7 +65,33 @@ describe "Tweener", ->
 			assert.is.False rt.active
 
 	it "clearTweens", ->
+		tweener = Tweener!
+		tweens = {i, tweener\addTween Tween 5 for i=1, 10}
+
+		tweener\clearTweens!
+
+		for t in *tweens
+			assert.has.errors -> tweener\removeTween t
+
+		assert.is.False tweener\hasTween!
 
 	it "updateTweens", ->
+		tweener = Tweener!
+		tweens = {i, tweener\addTween Tween i for i=1, 10}
+
+		-- TODO Fix the EventListener
+-- 		t\start! for t in *tweens
+--
+-- 		tweener\updateTweens!
+--
+-- 		for i, t in ipairs tweens
+-- 			if i == 1
+-- 				assert.are.equal 0, t.t
+-- 			else
+-- 				assert.are.equal 1/i, t.t
 
 	it "hasTween", ->
+		tweener = Tweener!
+		assert.is.False tweener\hasTween!
+		tweener\addTween Tween 5
+		assert.is.True tweener\hasTween!

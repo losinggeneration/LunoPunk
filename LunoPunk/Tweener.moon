@@ -54,7 +54,7 @@ class Tweener
 		n = nil
 		while t != nil
 			n = t.__next
-			removeTween t
+			@removeTween t
 			t = n
 
 	-- Update all contained tweens.
