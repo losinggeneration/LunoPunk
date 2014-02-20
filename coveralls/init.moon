@@ -35,6 +35,7 @@ class coveralls extends coverage.CodeCoverage
 	Semaphore: "semaphore"
 	Circle: "circleci"
 	Local: "local"
+	Debug: "debug"
 
 	new: =>
 		@source_files = {}
@@ -82,6 +83,19 @@ class coveralls extends coverage.CodeCoverage
 				when @@Circle
 					env = 'CIRCLE_BUILD_NUM'
 				when @@Local
+					return
+				when @@Debug
+					moon = require "moon"
+					moon.p @source_files
+					json_data = json.encode {
+						service_name: @service_name,
+						service_job_id: @service_job_id,
+						repo_token: @repo_token,
+						source_files: @source_files,
+					}
+					print #json_data
+					form_data = formencode { json: json_data }
+					print #form_data
 					return
 
 			@service_job_id = os.getenv env

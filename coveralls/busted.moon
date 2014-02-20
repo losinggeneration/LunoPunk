@@ -2,6 +2,7 @@ require "coveralls.init"
 
 output = ->
 	Coveralls.service_name = Coveralls.Local if os.getenv 'LOCAL'
+	Coveralls.service_name = Coveralls.Debug if os.getenv 'COVERALLS_DEBUG'
 	defout = (assert require "busted.output.TAP")!
 	formatted_status = defout.formatted_status
 	header = defout.header
