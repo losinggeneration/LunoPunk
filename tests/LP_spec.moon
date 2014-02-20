@@ -5,7 +5,7 @@ require "LunoPunk.LP"
 
 -- We only need to setup some Coveralls options once
 require "coveralls.init"
-Coveralls.dirname = 'LunoPunk'
+Coveralls.dirname = './LunoPunk'
 Coveralls.ext = '*.moon'
 
 describe "LP", ->
