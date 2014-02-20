@@ -1,10 +1,17 @@
 require "coveralls.init"
 
 output = ->
+	Coveralls.service_name = Coveralls.Local if os.getenv 'LOCAL'
 	defout = (assert require "busted.output.TAP")!
 	formatted_status = defout.formatted_status
+	header = defout.header
+
+	defout.header = (desc, test_count) ->
+		Coveralls\start!
+		return header desc, test_count
 
 	defout.formatted_status = (statuses, options, ms) ->
+		Coveralls\stop!
 		Coveralls\send!
 		return formatted_status statuses, options, ms if formatted_status
 

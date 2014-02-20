@@ -30,10 +30,11 @@ formencode = (form) ->
 	table.concat result, "&"
 
 class coveralls extends coverage.CodeCoverage
-	@Travis = "travis-ci"
-	@Jenkins = "jenkins"
-	@Semaphore = "semaphore"
-	@Circle = "circleci"
+	Travis: "travis-ci"
+	Jenkins: "jenkins"
+	Semaphore: "semaphore"
+	Circle: "circleci"
+	Local: "local"
 
 	new: =>
 		@source_files = {}
@@ -59,8 +60,6 @@ class coveralls extends coverage.CodeCoverage
 		table.insert @source_files, file_coverage
 
 	send: =>
-		https = require "ssl.https"
-
 		if not @service_job_id
 			env = nil
 			switch @service_name
@@ -72,6 +71,8 @@ class coveralls extends coverage.CodeCoverage
 					env = 'SEMAPHORE_BUILD_NUMBER'
 				when @@Circle
 					env = 'CIRCLE_BUILD_NUM'
+				when @@Local
+					return
 
 			@service_job_id = os.getenv env
 
@@ -86,6 +87,7 @@ class coveralls extends coverage.CodeCoverage
 			}
 		}
 
+		https = require "ssl.https"
 		body, code, headers, status = https.request 'https://coveralls.io/api/v1/jobs', form_data
 
 		msg = json.decode body
