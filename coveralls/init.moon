@@ -45,10 +45,20 @@ class coveralls extends coverage.CodeCoverage
 		-- The secret repo token for your repository, found at the bottom of
 		-- your repository's page on Coveralls.
 		@repo_token = nil
+
+		@dirname = 'src'
+		@ext = '*.lua'
+
 		super!
+
+	coverDir: (dirname, ext = '*.lua') =>
+		dir = require "pl.dir"
+		@cover f for f in *(dir.getfiles dirname, ext)
+		@coverDir d, ext for d in *(dir.getdirectories dirname)
 
 	cover: (fname) =>
 		file_coverage = @file_coverage fname
+		return unless file_coverage
 		c = file_coverage.coverage
 		length = #c
 		for k, v in pairs c
