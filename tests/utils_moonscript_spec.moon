@@ -11,10 +11,6 @@ t = class extends Tween
 t2 = class extends t
 
 describe "utils.moonscript", ->
-	teardown ->
-		require "coveralls.init"
-		Coveralls\cover "./LunoPunk/Entity.moon"
-
 	describe "instance", ->
 		it "Sanity check", ->
 			assert.are.same Tween, moon.type(class extends Tween).__parent

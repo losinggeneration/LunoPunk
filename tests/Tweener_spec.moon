@@ -5,10 +5,6 @@ require "LunoPunk.Tweener"
 require "LunoPunk.Tween"
 
 describe "Tweener", ->
-	teardown ->
-		require "coveralls.init"
-		Coveralls\cover "./LunoPunk/Tweener.moon"
-
 	it "construct", ->
 		t = Tweener!
 		assert.is.True, t.active

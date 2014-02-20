@@ -14,10 +14,6 @@ describe "Tween", ->
 		-- We used fixed time for testing
 		LP.fixed = true
 
-	teardown ->
-		require "coveralls.init"
-		Coveralls\cover "./LunoPunk/Tween.moon"
-
 	it "construct", ->
 		assert.has.errors -> tween!
 		twn = tween 500

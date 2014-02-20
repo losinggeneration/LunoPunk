@@ -4,10 +4,6 @@ require "tests.mock_love"
 require "LunoPunk.utils.Math"
 
 describe "math", ->
-	teardown ->
-		require "coveralls.init"
-		Coveralls\cover "./LunoPunk/utils/Math.moon"
-
 	describe "round", ->
 		it "integer", ->
 			assert.are.equals 1, Math.round 1

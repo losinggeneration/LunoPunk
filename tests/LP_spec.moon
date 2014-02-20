@@ -3,11 +3,12 @@ require "tests.mock_love"
 
 require "LunoPunk.LP"
 
-describe "LP", ->
-	teardown ->
-		require "coveralls.init"
-		Coveralls\cover "./LunoPunk/LP.moon"
+-- We only need to setup some Coveralls options once
+require "coveralls.init"
+Coveralls.dirname = 'LunoPunk'
+Coveralls.ext = '*.moon'
 
+describe "LP", ->
 	it "sign", ->
 		-- Negative
 		assert.are.equal -1, LP.sign -1
