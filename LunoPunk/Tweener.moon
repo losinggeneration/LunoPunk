@@ -33,7 +33,7 @@ class Tweener
 	--
 	-- @return	The removed tween.
 	removeTween: (t) =>
-		assert t.__parent != @, "Core object does not contain Tween."
+		assert t.__parent == @, "Core object does not contain Tween."
 
 		t.__next.__prev = t.__prev if t.__next != nil
 
@@ -44,6 +44,7 @@ class Tweener
 
 		t.__next, t.__prev = nil, nil
 		t.active = false
+		t.__parent = nil
 
 		t
 
