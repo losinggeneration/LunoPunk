@@ -72,7 +72,7 @@ Great! The project needs all the help it can. However, many of the API decisions
 
 * Matt Tuttle for creating HaxePunk.
 * Chevy Ray Johnston for creating FlashPunk.
-* Leafo for creating Moonscript.
+* leaf corcoran for creating Moonscript.
 * The Prosody IM team from which some code was used for the Coveralls support.
 
 ## MIT License
