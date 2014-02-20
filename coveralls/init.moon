@@ -103,5 +103,6 @@ class coveralls extends coverage.CodeCoverage
 		msg = json.decode body
 
 		assert code == 200, string.format "Error updating Coveralls: (status: %s) (response: %s)", status, msg.message
+		print msg.url
 
 Coveralls = coveralls!
