@@ -4,12 +4,8 @@ require "tests.mock_love"
 require "LunoPunk.utils.Math"
 
 describe "math", ->
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/utils/Math.moon"
 
 	describe "round", ->

@@ -4,12 +4,8 @@ require "tests.mock_love"
 require "LunoPunk.LP"
 
 describe "LP", ->
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/LP.moon"
 
 	it "sign", ->

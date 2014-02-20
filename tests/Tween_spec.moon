@@ -13,11 +13,9 @@ describe "Tween", ->
 	setup ->
 		-- We used fixed time for testing
 		LP.fixed = true
-		require "coveralls.init"
-		Coveralls\start!
 
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/Tween.moon"
 
 	it "construct", ->

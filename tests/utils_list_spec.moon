@@ -9,12 +9,8 @@ describe "list", ->
 		l = List!
 		l\push i*2 for i=1, 10
 
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/utils/List.moon"
 
 	it "push/pop/peek/last", ->

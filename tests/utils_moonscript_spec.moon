@@ -11,12 +11,8 @@ t = class extends Tween
 t2 = class extends t
 
 describe "utils.moonscript", ->
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/Entity.moon"
 
 	describe "instance", ->

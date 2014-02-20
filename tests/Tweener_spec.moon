@@ -5,12 +5,8 @@ require "LunoPunk.Tweener"
 require "LunoPunk.Tween"
 
 describe "Tweener", ->
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/Tweener.moon"
 
 	it "construct", ->

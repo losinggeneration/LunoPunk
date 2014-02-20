@@ -4,12 +4,8 @@ require "tests.mock_love"
 require "LunoPunk.Entity"
 
 describe "Entity", ->
-	setup ->
-		require "coveralls.init"
-		Coveralls\start!
-
 	teardown ->
-		Coveralls\stop!
+		require "coveralls.init"
 		Coveralls\cover "./LunoPunk/Entity.moon"
 
 	it "construct", ->
