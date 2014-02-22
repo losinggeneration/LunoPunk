@@ -4,9 +4,8 @@ require "tests.mock_love"
 require "LunoPunk.LP"
 
 -- We only need to setup some Coveralls options once
-require "coveralls.init"
+require "coveralls.coveralls"
 Coveralls.dirname = './LunoPunk'
-Coveralls.ext = '*.moon'
 
 describe "LP", ->
 	it "sign", ->
