@@ -73,18 +73,33 @@ describe "Tween", ->
 
 		assert.is.False twn.active
 
+	it "ease", ->
+		twn = tween 2, TweenType.Looping
+		twn.ease = (t) => t * t
+		twn\start!
+		twn\update!
+		assert.are.equal .25, twn.t
+		twn\update!
+		assert.are.equal 0, twn.t
+		twn\update!
+		assert.are.equal .25, twn.t
+
 	it "complete callback", ->
 		-- Assert when the callback is called
-		twn = tween 2, TweenType.Looping, -> assert false, "Tween callback called"
+		cb = -> assert false, "Tween callback called"
+		twn = tween 2, TweenType.Looping, cb
 		twn\start!
 		twn\update!
 		assert.has.errors -> twn\update!
 		twn\update!
 		assert.has.errors -> twn\update!
 
+		RemoveEventListener TweenEvent.FINISH, cb
+
 	it "cancel", ->
 		-- Assert if the complete callback is called
-		twn = tween 2, TweenType.Persist, -> assert false, "Tween callback called"
+		cb = -> assert false, "Tween callback called"
+		twn = tween 2, TweenType.Persist, cb
 		twn\start!
 
 		assert.is.True twn.active
@@ -93,3 +108,26 @@ describe "Tween", ->
 		twn\cancel!
 		assert.is.False twn.active
 		assert.has_no.errors -> twn\update!
+
+		RemoveEventListener TweenEvent.FINISH, cb
+
+	it "percent", ->
+		twn = tween 2
+		twn\start!
+		-- 0%
+		assert.are.equal 0, twn\percent!
+
+		-- 50%
+		twn\update!
+		assert.are.equal 0.5, twn\percent!
+
+		-- 100%
+		twn\update!
+		assert.are.equal 1, twn\percent!
+
+		twn = tween 2
+		twn\start!
+		twn\percent 0.5
+		assert.are.equal 0.5, twn\percent!
+		twn\update!
+		assert.are.equal 1, twn\percent!

@@ -90,5 +90,4 @@ class Tween
 		@__time = @__target * value
 		@__time
 
-	scale: =>
-		@__scale
+	scale: => @__scale
