@@ -52,7 +52,7 @@ class Entity extends Tweener
 		-- Collision information.
 		@__hitbox = Mask!
 		-- An optional Mask component, used for specialized collision. If this is not assigned, collision checks will use the Entity's hitbox by default.
-		@__mask = mask if mask != nil
+		@mask mask if mask != nil
 		@__moveX, @__moveY = 0, 0
 		@__collide_x, @__collide_y = 0, 0
 
