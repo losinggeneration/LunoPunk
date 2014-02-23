@@ -9,12 +9,23 @@ describe "list", ->
 		l = List!
 		l\push i*2 for i=1, 10
 
-	it "push/pop/peek/last", ->
+	it "push/pop/peek/shift/unshift/first/last", ->
+		assert.are.equal 10, l\len!
 		assert.are.equal 20, l\pop!
 		assert.are.equal 18, l\pop!
+		assert.are.equal 8, l\__len!
 		l\push 10 -- last element
 		assert.are.equal 10, l\peek!
 		assert.are.equal 10, l\last!
+		assert.are.equal 2, l\first!
+		assert.are.equal 2, l\shift!
+		assert.are.equal 4, l\first!
+		l\unshift 2
+		assert.are.equal 2, l\first!
+
+	it "tostring", ->
+		t = string.format "{ %s }", table.concat {i, i*2 for i=1, 10}, ", "
+		assert.are.equal t, tostring l
 
 	it "ipairs", ->
 		for i, v in l\ipairs!
