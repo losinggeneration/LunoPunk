@@ -11,6 +11,10 @@ class eventlistener
 		@__listeners[type]\push f
 
 	remove: (type, f) =>
+		if f == nil
+			@__listeners[type] = nil
+			return
+
 		l = @__listeners[type]
 		return if l == nil
 		for i, v in l\ipairs!

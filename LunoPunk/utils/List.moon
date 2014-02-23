@@ -29,6 +29,9 @@ class List
 	first: => @__list[1]
 
 	len: => #@__list
+	__len: => @len!
+
+	__tostring: => string.format "{ %s }", table.concat @__list, ", "
 
 	index: (i) => @__list[i]
 
