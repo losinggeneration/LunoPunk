@@ -1,11 +1,7 @@
 require "busted"
 require "tests.mock_love"
 
-ev = require "ev"
-
 require "LunoPunk.utils.EventListener"
-
-setloop 'ev'
 
 describe "EventListener", ->
 	e = EventListener
