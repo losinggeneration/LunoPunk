@@ -48,11 +48,11 @@ class Mask
 	-- Updates the parent's bounds for this mask.
 	update: =>
 
-	project: (axis, projection) =>
+	project: (axis = {x: 1, y: 1}) =>
 		max = -9999999999.0
 		min = 9999999999.0
 
-		cur = -@parent.originX * axis.x - @parent.originY * axit.y
+		cur = -@parent.originX * axis.x - @parent.originY * axis.y
 		min = cur if cur < min
 		max = cur if cur > max
 
@@ -68,5 +68,4 @@ class Mask
 		min = cur if cur < min
 		max = cur if cur > max
 
-		projection.min = min
-		projection.max = max
+		{ :min, :max }

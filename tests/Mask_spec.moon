@@ -93,3 +93,36 @@ describe "Mask", ->
 		-- Not colliding
 		assert.is.False m\collide m2
 		assert.is.False m2\collide m
+
+	it "project", ->
+		e = Entity!
+		m = Mask!
+		m\assignTo e
+
+		-- projection
+		p = { min: 0, max: 0}
+
+		axis = {x: 1, y: 1}
+		assert.are.same p, m\project axis
+
+		e.width = 10
+		p.max = 10
+		assert.are.same p, m\project axis
+
+		e.height = 10
+		p.max = 20
+		assert.are.same p, m\project axis
+
+		e.originX = 10
+		p.min = -10
+		p.max = 10
+		assert.are.same p, m\project axis
+
+		e.originY = 10
+		p.min = -20
+		p.max = 0
+		assert.are.same p, m\project axis
+
+		axis.y = 2
+		p.min = -30
+		assert.are.same p, m\project axis
