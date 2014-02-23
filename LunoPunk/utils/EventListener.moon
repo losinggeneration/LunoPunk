@@ -13,14 +13,15 @@ class eventlistener
 	remove: (type, f) =>
 		if f == nil
 			@__listeners[type] = nil
-			return
+			return nil
 
 		l = @__listeners[type]
-		return if l == nil
+		return nil if l == nil
 		for i, v in l\ipairs!
 			if v == f
-				l\remove i
-				break
+				return l\remove i
+
+		nil
 
 	dispatch: (type) =>
 		return if @__listeners[type] == nil

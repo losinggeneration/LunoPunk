@@ -19,6 +19,8 @@ describe "EventListener", ->
 		-- Remove each
 		e\remove "test", el1
 		assert.are.equal 1, e.__listeners["test"]\len!
+		-- Check a non-existant callback
+		assert.is.Nil e\remove "test", 'fu'
 		e\remove "test", el2
 		assert.are.equal 0, e.__listeners["test"]\len!
 		assert.has_no.errors -> e\dispatch "test"
@@ -29,6 +31,9 @@ describe "EventListener", ->
 		assert.are.equal 2, e.__listeners["test"]\len!
 		e\remove "test"
 		assert.is.Nil e.__listeners["test"]
+
+		-- Test when the no events are added
+		assert.is.Nil e\remove "test", 'nil'
 
 	it "single dispatch", (done) ->
 		s = spy.new ->
