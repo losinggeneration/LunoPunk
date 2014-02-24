@@ -7,8 +7,16 @@ class Mask
 		@parent = nil
 		@list = Masklist!
 
+		@setup_check @@
+
+	-- FIXME This is kind of a hack.
+	-- Basically when a subclass calls super! from new, the subclass is passed
+	-- to new which is then used for @ as well as @@. This isn't what we want
+	-- here. We want the @__check[cls] to be the parent class, not the child.
+	-- This requires that the child calls setup_check in new...
+	setup_check: (cls) =>
 		@__check = {}
-		@__check[@@] = @\collideMask
+		@__check[cls] = @\collideMask
 		@__check[Masklist.__class] = @\collideMasklist
 
 	-- Checks for collision with another Mask.
@@ -20,7 +28,7 @@ class Mask
 		return cb mask if cb != nil
 
 		cb = mask.__check[@@]
-		return cb mask if cb != nil
+		return cb @ if cb != nil
 		false
 
 	-- @private Collide against an Entity.

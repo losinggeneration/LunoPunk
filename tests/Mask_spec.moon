@@ -47,17 +47,12 @@ describe "Mask", ->
 		e2 = with Entity 10, 10
 			.width = 10
 			.height = 10
-
 		m2\assignTo e2
 		-- colliding at point (10, 10)
 		assert.is.True m\collide m2
 		assert.is.True m2\collide m
 
-		e2 = with Entity 11, 11
-			.width = 10
-			.height = 10
-
-		m2\assignTo e2
+		e2\moveBy 1, 1
 		-- Not colliding
 		assert.is.False m\collide m2
 		assert.is.False m2\collide m
@@ -93,6 +88,41 @@ describe "Mask", ->
 		-- Not colliding
 		assert.is.False m\collide m2
 		assert.is.False m2\collide m
+
+		-- collide with a new mask class
+		nmc = class extends Mask
+			new: =>
+				super!
+				super\setup_check super
+
+		-- reset the entity
+		e2 = Entity!
+		nm = nmc!
+		nm\assignTo e2
+		-- Reset e
+		e = Entity!
+		m\assignTo e
+		assert.is.True m\collide nm
+		assert.is.True nm\collide m
+
+		e = with Entity!
+			.width = 10
+			.height = 10
+		m\assignTo e
+		e2 = with Entity!
+			.width = 10
+			.height = 10
+		nm\assignTo e2
+		assert.is.True m\collide nm
+		assert.is.True nm\collide m
+
+		e2\moveBy 10, 10
+		assert.is.True m\collide nm
+		assert.is.True m\collide m
+
+		e2\moveBy 1, 1
+		assert.is.False m\collide nm
+		assert.is.False nm\collide m
 
 	it "project", ->
 		e = Entity!
