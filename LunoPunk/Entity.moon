@@ -60,7 +60,7 @@ class Entity extends Tweener
 		@__layer = LP.BASELAYER!
 
 		-- Graphical component to render to the screen.
-		@__graphic = graphic if graphic != nil
+		@graphic graphic if graphic != nil
 
 		@__hitbox\assignTo @
 
@@ -426,7 +426,7 @@ class Entity extends Tweener
 	-- @param	g		Graphic to add.
 	addGraphic: (g) =>
 		g.layer = @__layer
-		if @__graphic == nil
+		if @graphic! == nil
 			@graphic g
 		else if moon_type(g) == Graphiclist
 			@graphic!\add g
