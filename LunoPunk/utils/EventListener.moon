@@ -23,13 +23,13 @@ class eventlistener
 
 		nil
 
-	dispatch: (type) =>
+	dispatch: (type, ...) =>
 		return if @__listeners[type] == nil
 		for e in @__listeners[type]\pairs!
-			e type
+			e type, ...
 
 EventListener = eventlistener!
 
 AddEventListener = (type, f) -> EventListener\add type, f
 RemoveEventListener = (type, f) -> EventListener\remove type, f
-DispatchEvent = (event) -> EventListener\dispatch event\type! if event.type != nil
+DispatchEvent = (event, ...) -> EventListener\dispatch event\type!, ... if event.type != nil
