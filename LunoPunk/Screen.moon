@@ -132,7 +132,7 @@ class Screen
 	fullScaleY: => 1
 
 	-- True if the scale of the screen has changed.
-	needsResize: => false
+	needsResize: => LP.width != @width! or LP.height != @height!
 
 	-- Rotation of the screen, in degrees.
 	angle: (value) =>
