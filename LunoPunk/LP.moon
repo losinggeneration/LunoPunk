@@ -217,7 +217,7 @@ class lp
 	-- Finds the sign of the provided value.
 	-- @param	value		The Float to evaluate.
 	-- @return	1 if value > 0, -1 if value < 0, and 0 when value == 0.
-	sign: (value) -> if value < 0 then -1 else if value == 0 then 0 else 1
+	sign: (value) -> if value < 0 then -1 elseif value == 0 then 0 else 1
 
 	-- Steps the object towards a point.
 	-- @param	object		Object to move (must have an x and y property).
