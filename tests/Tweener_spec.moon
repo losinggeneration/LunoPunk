@@ -71,16 +71,15 @@ describe "Tweener", ->
 		tweener = Tweener!
 		tweens = {i, tweener\addTween Tween i for i=1, 10}
 
-		-- TODO Fix the EventListener
--- 		t\start! for t in *tweens
---
--- 		tweener\updateTweens!
---
--- 		for i, t in ipairs tweens
--- 			if i == 1
--- 				assert.are.equal 0, t.t
--- 			else
--- 				assert.are.equal 1/i, t.t
+		t\start! for t in *tweens
+
+		tweener\updateTweens!
+
+		for i, t in ipairs tweens
+			if i == 1
+				assert.are.equal 0, t.t
+			else
+				assert.are.equal 1/i, t.t
 
 	it "hasTween", ->
 		tweener = Tweener!
