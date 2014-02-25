@@ -11,6 +11,9 @@ all: $(LOVEPUNK_OBJS)
 test: tests/mock_love.moon
 	busted -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
+tap: tests/mock_love.moon
+	busted -o TAP -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
+
 ci: tests/mock_love.moon coveralls/busted.lua
 	busted -o coveralls/busted.lua -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
