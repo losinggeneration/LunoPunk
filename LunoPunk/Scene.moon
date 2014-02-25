@@ -76,10 +76,10 @@ class Scene extends Tweener
 		-- AtlasData\render! if LP.renderMode == RenderMode.Hardware
 
 	-- X position of the mouse in the Scene.
-	mouseX: => LP.screen.mouseX + @camera.x
+	mouseX: => LP.screen.mouseX! + @camera.x
 
 	-- Y position of the mouse in the Scene.
-	mouseY: => LP.screen.mouseY + @camera.y
+	mouseY: => LP.screen.mouseY! + @camera.y
 
 	-- Sprite used to store layer sprites when RenderMode.HARDWARE is set.
 	sprite: => @__sprite
@@ -102,18 +102,17 @@ class Scene extends Tweener
 	removeAll: =>
 		e = @__updateFirst
 		while e != nil
-			@__remove[#@__remove] = e
-			e = e.__updateNext
+			e = @remove(e).__updateNext
 
 	-- Adds multiple Entities to the scene.
 	-- @param	...list		Several Entities (as arguments) or an Array/Vector of Entities.
 	addList: (list) =>
-		for e in *list do @add e
+		@add e for e in *list
 
 	-- Removes multiple Entities from the scene.
 	-- @param	...list		Several Entities (as arguments) or an Array/Vector of Entities.
 	removeList: (list) =>
-		for e in *list do @remove e
+		@remove e for e in *list
 
 	-- Adds an Entity to the Scene with the Graphic object.
 	-- @param	graphic		Graphic to assign the Entity.
