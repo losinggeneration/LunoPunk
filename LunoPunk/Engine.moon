@@ -55,8 +55,9 @@ class Engine
 			else
 				DispatchEvent Event Event.DEACTIVATE
 -- 				@focusLost!
+
 		if love._version_major >= 0 and love._version_minor >= 9
-			love.resize = -> DispatchEvent Event Event.RESIZE
+			love.resize = (w, h) -> DispatchEvent Event(Event.RESIZE), w, h
 
 		-- call some more setup from here
 		setup @
@@ -84,7 +85,9 @@ class Engine
 
 	-- Renders the game, rendering the Scene and Entities.
 	render: =>
-		LP.resize LP.windowWidth, LP.windowHeight if LP.screen.needsResize
+		if LP.screen.needsResize!
+			LP.resize LP.windowWidth, LP.windowHeight
+			LP.screen.needsResize = => false
 
 		-- timing stuff
 		t = love.timer.getDelta!

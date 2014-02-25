@@ -1,4 +1,5 @@
 require "LunoPunk.geometry.Matrix"
+require "LunoPunk.utils.EventListener"
 
 export ^
 
@@ -20,6 +21,10 @@ class Screen
 
 	-- Resizes the screen by recreating the bitmap buffer.
 	resize: =>
+		if LP.__love "0.8"
+			love.graphics.setMode LP.width, LP.height
+		elseif LP.__love "0.9"
+			love.window.setMode LP.width, LP.height
 
 	-- Swaps screen buffers.
 	swap: =>
@@ -132,7 +137,7 @@ class Screen
 	fullScaleY: => 1
 
 	-- True if the scale of the screen has changed.
-	needsResize: => LP.width != @width! or LP.height != @height!
+	needsResize: => false
 
 	-- Rotation of the screen, in degrees.
 	angle: (value) =>
