@@ -63,6 +63,7 @@ describe "Entity", ->
 		assert.are.equal 0, e.width
 		assert.are.equal 0, e.height
 
+	-- TODO finish
 	it "accessors", ->
 		e = Entity!
 		assert.are.equal 0, e\halfWidth!
@@ -88,3 +89,21 @@ describe "Entity", ->
 		assert.are.equal 5, e\right!
 		assert.are.equal 0, e\top!
 		assert.are.equal 20, e\bottom!
+
+	it "collidable", ->
+		pending "Will write tests tomorrow"
+		e = with Entity 5, 5
+			.width = 10
+			.height = 10
+
+		-- Collider
+		c = with Entity 5, 5
+			.width = 10
+			.height = 10
+
+		-- No Scene
+		assert.is.Nil e\collide c, 10, 10
+
+		-- Not collidable
+		e.collidable = false
+		assert.is.Nil e\collide e, 10, 10
