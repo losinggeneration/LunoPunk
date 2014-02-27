@@ -181,7 +181,7 @@ class Entity extends Tweener
 	-- @param	type		The Entity type to check for.
 	-- @param	x			Virtual x position to place this Entity.
 	-- @param	y			Virtual y position to place this Entity.
-	-- @return	The first Entity collided with, or null if none were collided.
+	-- @return	The first Entity collided with, or nil if none were collided.
 	collide: (type, x, y) =>
 		return nil if @__scene == nil
 
