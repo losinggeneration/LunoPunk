@@ -17,9 +17,6 @@ describe "Entity", ->
 		assert.are.equal 0, e.originY
 		assert.are.equal 0, e.width
 		assert.are.equal 0, e.height
-		assert.are.equal 0, e.bottom
-		assert.are.equal 0, e.centerX
-		assert.are.equal 0, e.centerY
 		assert.are.equal true, e.visible
 		assert.are.equal true, e.collidable
 		assert.are.equal false, e.followCamera
@@ -65,3 +62,29 @@ describe "Entity", ->
 		assert.are.equal 0, e.originY
 		assert.are.equal 0, e.width
 		assert.are.equal 0, e.height
+
+	it "accessors", ->
+		e = Entity!
+		assert.are.equal 0, e\halfWidth!
+		e.width = 10
+		assert.are.equal 5, e\halfWidth!
+
+		assert.are.equal 0, e\halfHeight!
+		e.height = 20
+		assert.are.equal 10, e\halfHeight!
+
+		assert.are.equal 5, e\centerX!
+		assert.are.equal 10, e\centerY!
+		e.originX = 10
+		assert.are.equal -5, e\centerX!
+		e.originY = 10
+		assert.are.equal 0, e\centerY!
+		e\x 5
+		assert.are.equal 0, e\centerX!
+		e\y 10
+		assert.are.equal 10, e\centerY!
+
+		assert.are.equal -5, e\left!
+		assert.are.equal 5, e\right!
+		assert.are.equal 0, e\top!
+		assert.are.equal 20, e\bottom!

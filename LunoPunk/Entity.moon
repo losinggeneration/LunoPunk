@@ -34,12 +34,6 @@ class Entity extends Tweener
 		-- Height of the Entity's hitbox.
 		@height = 0
 
-		-- The bottommost position of the Entity's hitbox.
-		@bottom = 0
-		-- The center x position of the Entity's hitbox.
-		@centerX = 0
-		-- The center y position of the Entity's hitbox.
-		@centerY = 0
 		-- The collision type, used for collision checking.
 		@__typeNext = nil
 		@__typePrev = nil
