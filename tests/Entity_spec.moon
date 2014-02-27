@@ -24,6 +24,19 @@ describe "Entity", ->
 		assert.are.equal true, e.collidable
 		assert.are.equal false, e.followCamera
 
+		-- Follow Camera coverage
+		e.followCamera = true
+		assert.are.equal 0, e\x!
+		assert.are.equal 0, e\y!
+		LP.camera.x += 1
+		assert.are.equal 1, e\x!
+		assert.are.equal 0, e\y!
+		LP.camera.y -= 1
+		assert.are.equal -1, e\y!
+		e.followCamera = false
+		assert.are.equal 0, e\x!
+		assert.are.equal 0, e\y!
+
 		e = Entity 10, 15
 		assert.are.equal 10, e\x!
 		assert.are.equal 15, e\y!
