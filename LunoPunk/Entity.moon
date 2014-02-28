@@ -184,23 +184,22 @@ class Entity extends Tweener
 	-- @return	The first Entity collided with, or nil if none were collided.
 	collide: (type, x, y) =>
 		return nil if @__scene == nil
+		return nil if not @collidable or @__scene\typeFirst type == nil
 
-		return nil if not @collidable or @__scene\typeFirst! == nil
 		@__collide_x, @__collide_y = @x!, @y!
 		@x x
 		@y y
-		e = @__scene\typeFirst!
+		e = @__scene\typeFirst type
 
 		if @__mask == nil
 			while e != nil
-				c = do
-					c1 = e.collidable and e != @
-					c2 = x - @originX + @width > e\x! - e.originX
-					c3 = y - @originY + @height > e\y! - e.originY
-					c4 = x - @originX < e\x! - e.originX + e.width
-					c5 = y - @originY < e\y! - e.originY + e.height
-					c1 and c2 and c3 and c4 and c5
-				if c
+				if do
+						c1 = e.collidable and e != @
+						c2 = x - @originX + @width >= e\x! - e.originX
+						c3 = y - @originY + @height >= e\y! - e.originY
+						c4 = x - @originX <= e\x! - e.originX + e.width
+						c5 = y - @originY <= e\y! - e.originY + e.height
+						c1 and c2 and c3 and c4 and c5
 					if e.__mask == nil or e.__mask\collide @HITBOX
 						@x @__collide_x
 						@y @__collide_y
@@ -209,19 +208,18 @@ class Entity extends Tweener
 				e = e.__typeNext
 
 			@x @__collide_x
-			@y @__colide_y
+			@y @__collide_y
 
 			return nil
 
 		while e != nil
-			c = do
-				c1 = e.collidable and e != @
-				c2 = x - @originX + @width > e.x - e.originX
-				c3 = y - @originY + @height > e.y - e.originY
-				c4 = x - @originX < e.x - e.originX + e.width
-				c5 = y - @originY < e.y - e.originY + e.height
-				c1 and c2 and c3 and c4 and c5
-			if c
+			if do
+					c1 = e.collidable and e != @
+					c2 = x - @originX + @width >= e\x! - e.originX
+					c3 = y - @originY + @height >= e\y! - e.originY
+					c4 = x - @originX <= e\x! - e.originX + e.width
+					c5 = y - @originY <= e\y! - e.originY + e.height
+					c1 and c2 and c3 and c4 and c5
 				if e.__mask\collide (if e.__mask != nil then e.__mask else e.HITBOX)
 					@x @__collide_x
 					@y @__collide_y
