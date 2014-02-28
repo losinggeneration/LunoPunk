@@ -436,7 +436,7 @@ class Entity extends Tweener
 	-- @param	height		Height of the hitbox.
 	-- @param	originX		X origin of the hitbox.
 	-- @param	originY		Y origin of the hitbox.
-	setHitbox: (width, height, originX, originY) =>
+	setHitbox: (width, height, originX = 0, originY = 0) =>
 		@width, @height = width, height
 		@originX, @originY = originX, originY
 
