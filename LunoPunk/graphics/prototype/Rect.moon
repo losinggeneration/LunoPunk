@@ -21,16 +21,16 @@ class Rect extends Graphic
 		@__img = Image.createRect @__width, @__height, @__color
 
 	width: (value) =>
-		return value if value == nil or value == @__width
+		return @__width if value == nil or value == @__width
 		@__width = value
 		@__img = createImage @
 
 	height: (value) =>
-		return value if value == nil or value == @__height
+		return @__height if value == nil or value == @__height
 		@__height = value
 		@__img = createImage @
 
 	color: (value) =>
-		return value if value == nil or value == @__color
+		return @__color if value == nil or value == @__color
 		@__color = value
 		@__img = createImage @
