@@ -104,17 +104,19 @@ class Entity extends Tweener
 	bottom: => @y! - @originY + @height
 
 	layer: (value) =>
-		return @__layer if value == nil
+		return @__layer if value == nil or value == @__layer
 
 		@__graphic.layer = value if @__graphic != nil
 
 		if @__scene == nil
-			@__layer = value
+			-- Reset to the default on false
+			@__layer = if value then value else LP.BASELAYER!
 			return @__layer
 
-		@__scene\removeRender @
-		@__layer = if value then value else nil
-		@__scene\addRender @
+		@__scene\__removeRender @
+		-- Reset to the default on false
+		@__layer = if value then value else LP.BASELAYER!
+		@__scene\__addRender @
 		@__layer
 
 	type: (value) =>
@@ -124,9 +126,9 @@ class Entity extends Tweener
 			@__type = value
 			return @__type
 
-		@__scene\removeType(@) if @__type != ""
+		@__scene\__removeType(@) if @__type != ""
 		@__type = value
-		@__scene\addType(@) if @__type != ""
+		@__scene\__addType(@) if @__type != ""
 
 		@__type
 
@@ -148,6 +150,8 @@ class Entity extends Tweener
 
 	scene: (value) =>
 		@__scene = value if value != nil and @__scene != value
+		-- Special case to unset @__scene
+		@__scene = nil if value == false
 		@__scene
 
 	-- The World object is deprecated for FlashPunk-like compatibility

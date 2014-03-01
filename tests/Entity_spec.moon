@@ -90,6 +90,53 @@ describe "Entity", ->
 		assert.are.equal 0, e\top!
 		assert.are.equal 20, e\bottom!
 
+		l = 5
+		assert.is.Nil e\scene!
+		assert.are.equal 10, e\layer!
+		assert.are.equal l, e\layer l
+		assert.are.equal 10, e\layer 10
+		e\layer l
+		assert.are.equal LP.BASELAYER!, e\layer false
+
+		t = "Entity"
+		assert.are.equal '', e\type!
+		assert.are.equal t, e\type t
+		assert.are.equal t, e\type!
+		assert.are.equal t, e\type nil
+		assert.are.equal '', e\type ''
+
+		m = Mask!
+		assert.is.Nil e\mask!
+		assert.are.equal m, e\mask m
+		assert.are.equal m, e\mask!
+		assert.are.equal e, m.parent
+		assert.are.equal m, e\mask nil
+		assert.is.Nil e\mask false
+		assert.is.Nil m.parent
+		assert.is.Nil e\mask!
+
+		g = Graphic!
+		assert.is.Nil e\graphic!
+		assert.are.equal g, e\graphic g
+		assert.are.equal g, e\graphic!
+		assert.is.Nil e\graphic false
+
+		s = Scene!
+		assert.is.Nil e\scene!
+		assert.are.equal s, e\scene s
+		assert.are.equal s, e\scene!
+		assert.is.Nil e\scene false
+
+		-- Come back to type and layer since they have a branch if scene is set
+		e\scene s
+		assert.are.equal t, e\type t
+		-- Hits a branch if e\type! is not ""
+		assert.are.equal t, e\type t
+		assert.are.equal l, e\layer l
+		-- Hits a branch if e\layer! is not nil
+		assert.are.equal l, e\layer l
+
+
 	it "collidable", ->
 		e = with Entity 5, 5
 			.width = 10

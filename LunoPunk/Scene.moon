@@ -706,7 +706,12 @@ class Scene extends Tweener
 				table.remove @__layerList
 
 		e\graphic!\destroy! if e\graphic! != nil
-		@__layerCount[e.__layer] -= 1
+
+		if @__layerCount[e.__layer]
+			@__layerCount[e.__layer] -= 1
+		else
+			@__layerCount[e.__layer] = 0
+
 		e.__renderNext, e.__renderPrev = nil, nil
 
 	-- @private Adds Entity to the type list.
