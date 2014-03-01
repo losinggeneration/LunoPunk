@@ -63,7 +63,6 @@ describe "Entity", ->
 		assert.are.equal 0, e.width
 		assert.are.equal 0, e.height
 
-	-- TODO finish
 	it "accessors", ->
 		e = Entity!
 		assert.are.equal 0, e\halfWidth!
@@ -89,6 +88,9 @@ describe "Entity", ->
 		assert.are.equal 5, e\right!
 		assert.are.equal 0, e\top!
 		assert.are.equal 20, e\bottom!
+
+		-- No scene
+		assert.is.False e\onCamera!
 
 		l = 5
 		assert.is.Nil e\scene!
@@ -123,11 +125,15 @@ describe "Entity", ->
 
 		s = Scene!
 		assert.is.Nil e\scene!
+		assert.is.Nil e\world!
 		assert.are.equal s, e\scene s
 		assert.are.equal s, e\scene!
+		assert.are.equal s, e\world!
 		assert.is.Nil e\scene false
+		assert.are.equal s, e\world s
+		e\scene false
 
-		-- Come back to type and layer since they have a branch if scene is set
+		-- Come back to some that branch if scene is set
 		e\scene s
 		assert.are.equal t, e\type t
 		-- Hits a branch if e\type! is not ""
@@ -135,6 +141,8 @@ describe "Entity", ->
 		assert.are.equal l, e\layer l
 		-- Hits a branch if e\layer! is not nil
 		assert.are.equal l, e\layer l
+
+		pending "Entity\\onCamera after scene is set"
 
 
 	it "collidable", ->
