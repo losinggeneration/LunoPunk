@@ -203,6 +203,44 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
+	it "clamp hitbox", ->
+		e = with Entity 0, 0
+			.width = 25
+			.height = 25
+
+		-- Horizontal clamp
+		e\clampHorizontal 0, 25
+		assert.are.equal 0, e\x!
+
+		e\clampHorizontal 0, 20
+		assert.are.equal -5, e\x!
+
+		e\clampHorizontal 0, 25
+		assert.are.equal 0, e\x!
+
+		e\clampHorizontal 5, 30
+		assert.are.equal 5, e\x!
+
+		e\clampHorizontal 5, 20
+		assert.are.equal -5, e\x!
+		e\x 0
+
+		-- Vertical clamp
+		e\clampVertical 0, 25
+		assert.are.equal 0, e\y!
+
+		e\clampVertical 0, 20
+		assert.are.equal -5, e\y!
+
+		e\clampVertical 0, 25
+		assert.are.equal 0, e\y!
+
+		e\clampVertical 5, 30
+		assert.are.equal 5, e\y!
+
+		e\clampVertical 5, 20
+		assert.are.equal -5, e\y!
+
 	it "centerGraphicInRect", ->
 		g = Graphic!
 		e = with Entity!

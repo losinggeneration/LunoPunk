@@ -578,7 +578,7 @@ class Entity extends Tweener
 	-- @param	left		Left bounds.
 	-- @param	right		Right bounds.
 	-- @param	padding		Optional padding on the clamp.
-	clampHorizontal: (left, right, padding) =>
+	clampHorizontal: (left, right, padding = 0) =>
 		@x left + @originX + padding if @x! - @originX < left + padding
 		@x right - @width + @originX - padding if @x! - @originX + @width > right - padding
 
@@ -586,9 +586,9 @@ class Entity extends Tweener
 	-- @param	top			Min bounds.
 	-- @param	bottom		Max bounds.
 	-- @param	padding		Optional padding on the clamp.
-	clampVertical: (top, bottom, padding) =>
+	clampVertical: (top, bottom, padding = 0) =>
 		@y top + @originY + padding if @y! - @originY < top + padding
-		@y bottom - @height + @originX - padding if @y! - @originY + @height > bottom - padding
+		@y bottom - @height + @originY - padding if @y! - @originY + @height > bottom - padding
 
 	-- Center graphic inside bounding rect.
 	centerGraphicInRect: =>
