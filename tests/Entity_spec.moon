@@ -202,3 +202,17 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 30, 30
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
+
+	it "centerGraphicInRect", ->
+		g = Graphic!
+		e = with Entity!
+			.width = 10
+			.height = 10
+			\graphic g
+
+		assert.are_not.equal e\halfWidth!, e\graphic!.x
+		assert.are_not.equal e\halfHeight!, e\graphic!.y
+		e\centerGraphicInRect!
+		assert.are.equal e\halfWidth!, e\graphic!.x
+		assert.are.equal e\halfHeight!, e\graphic!.y
+
