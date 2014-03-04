@@ -554,7 +554,7 @@ class Entity extends Tweener
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveTowards: (x, y, amount, solidType, sweep) =>
 		@__point.x, @__point.y = x - @x!, y - @y!
-		@__point.normalize amount if @__point.x * @__point.x + @__point.y * @__point.y > amount * amount
+		@__point\normalize amount if @__point.x^2 + @__point.y^2 > amount^2
 		@moveBy @__point.x, @__point.y, solidType, sweep
 
 	-- Moves at an angle by a certain amount, retaining integer values for its x and y.

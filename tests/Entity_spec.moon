@@ -6,9 +6,18 @@ require "LunoPunk.Graphic"
 require "LunoPunk.Mask"
 require "LunoPunk.utils.moonscript"
 
+entity_sanity_check = ->
+	e = Entity!
+	assert.are.equal 0, e\x!
+	assert.are.equal 0, e\y!
+	e
+
 describe "Entity", ->
+	e = nil
+	before_each ->
+		e = entity_sanity_check!
+
 	it "construct", ->
-		e = Entity!
 		assert.are.equal true, e.active
 		assert.are.equal false, e.autoClear
 		assert.are.equal 0, e\x!
@@ -64,7 +73,6 @@ describe "Entity", ->
 		assert.are.equal 0, e.height
 
 	it "accessors", ->
-		e = Entity!
 		assert.are.equal 0, e\halfWidth!
 		e.width = 10
 		assert.are.equal 5, e\halfWidth!
@@ -204,12 +212,6 @@ describe "Entity", ->
 		assert.are.equal c, e\collide "Entity", 15, 15
 
 	it "moveBy", ->
-		e = Entity 0, 0
-
-		-- Sanity check
-		assert.are.equal 0, e\x!
-		assert.are.equal 0, e\y!
-
 		e\moveBy 1, 0
 		assert.are.equal 1, e\x!
 		assert.are.equal 0, e\y!
@@ -233,12 +235,6 @@ describe "Entity", ->
 		pending "Entity\\moveBy solidType and sweep"
 
 	it "moveTo", ->
-		e = Entity 0, 0
-
-		-- Sanity check
-		assert.are.equal 0, e\x!
-		assert.are.equal 0, e\y!
-
 		e\moveTo 5, 0
 		assert.are.equal 5, e\x!
 		assert.are.equal 0, e\y!
@@ -252,6 +248,39 @@ describe "Entity", ->
 		assert.are.equal 0, e\y!
 
 		pending "Entity\\moveTo solidType and sweep"
+
+	it "moveTowards", ->
+		e\moveTowards 5, 0, 2
+		assert.are.equal 2, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTowards 5, 0, 2
+		assert.are.equal 4, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTowards 5, 0, 2
+		assert.are.equal 5, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTowards 5, 0, 2
+		assert.are.equal 5, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTowards 5, 5, 2
+		assert.are.equal 5, e\x!
+		assert.are.equal 2, e\y!
+
+		e\moveTowards 5, 5, 2
+		assert.are.equal 5, e\x!
+		assert.are.equal 4, e\y!
+
+		e\moveTowards 5, 5, 2
+		assert.are.equal 5, e\x!
+		assert.are.equal 5, e\y!
+
+		e\moveTowards 7, 7, 1
+		assert.are.equal 6, e\x!
+		assert.are.equal 6, e\y!
 
 	it "clamp hitbox", ->
 		e = with Entity 0, 0
