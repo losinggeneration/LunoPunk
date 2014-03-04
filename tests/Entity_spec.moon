@@ -203,6 +203,56 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
+	it "moveBy", ->
+		e = Entity 0, 0
+
+		-- Sanity check
+		assert.are.equal 0, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveBy 1, 0
+		assert.are.equal 1, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveBy 0, 1
+		assert.are.equal 1, e\x!
+		assert.are.equal 1, e\y!
+
+		e\moveBy 1, 1
+		assert.are.equal 2, e\x!
+		assert.are.equal 2, e\y!
+
+		e\moveBy -1, -1
+		assert.are.equal 1, e\x!
+		assert.are.equal 1, e\y!
+
+		e\moveBy 0, 0
+		assert.are.equal 1, e\x!
+		assert.are.equal 1, e\y!
+
+		pending "Entity\\moveBy solidType and sweep"
+
+	it "moveTo", ->
+		e = Entity 0, 0
+
+		-- Sanity check
+		assert.are.equal 0, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTo 5, 0
+		assert.are.equal 5, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveTo 0, 5
+		assert.are.equal 0, e\x!
+		assert.are.equal 5, e\y!
+
+		e\moveTo 0, 0
+		assert.are.equal 0, e\x!
+		assert.are.equal 0, e\y!
+
+		pending "Entity\\moveTo solidType and sweep"
+
 	it "clamp hitbox", ->
 		e = with Entity 0, 0
 			.width = 25

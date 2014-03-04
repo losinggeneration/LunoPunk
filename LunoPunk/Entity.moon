@@ -544,7 +544,7 @@ class Entity extends Tweener
 	-- @param	y			Y position.
 	-- @param	solidType	An optional collision type to stop flush against upon collision.
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
-	moveTo: (x, y, solidType, sweep) => moveBy x - @x!, y - @y!, solidType, sweep
+	moveTo: (x, y, solidType, sweep) => @moveBy x - @x!, y - @y!, solidType, sweep
 
 	-- Moves towards the target position, retaining integer values for its x and y.
 	-- @param	x			X target.
