@@ -31,8 +31,11 @@ class Point
 	-- interpolate: (p1, p2) =>
 
 	-- scales the line between (0,0) and current point to a set length
-	-- TODO
-	-- normalize: (thinkness) =>
+	normalize: (length) =>
+		l = @length!
+		return if l == 0
+		@x = length * @x / l
+		@y = length * @y / l
 
 	-- offsets the point by an amount
 	offset: (dx, dy) =>
