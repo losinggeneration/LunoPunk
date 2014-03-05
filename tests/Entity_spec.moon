@@ -282,6 +282,24 @@ describe "Entity", ->
 		assert.are.equal 6, e\x!
 		assert.are.equal 6, e\y!
 
+	it "moveAtAngle", ->
+		e\moveAtAngle 0, 1
+		assert.are.equal 1, e\x!
+		assert.are.equal 0, e\y!
+
+		e\moveAtAngle 90, 1
+		assert.are.equal 1, e\x!
+		assert.are.equal 1, e\y!
+
+		e\moveAtAngle 30, 2
+		assert.are.equal 3, e\x!
+		assert.are.equal 2, e\y!
+
+		e\moveAtAngle -90, 1
+		assert.are.equal 3, e\x!
+		assert.are.equal 1, e\y!
+
+
 	it "clamp hitbox", ->
 		e = with Entity 0, 0
 			.width = 25

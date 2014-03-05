@@ -12,7 +12,7 @@ class lp
 	DEG = -180 / math.pi
 	INT_MAX_VALUE = nil
 	NUMBER_MAX_VALUE = nil
-	RAD = math.pi / -180
+	RAD = math.pi / 180
 	VERSION = "0.0.1"
 	__scene = nil
 
