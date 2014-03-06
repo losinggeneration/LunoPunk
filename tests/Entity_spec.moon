@@ -299,6 +299,10 @@ describe "Entity", ->
 		assert.are.equal 3, e\x!
 		assert.are.equal 1, e\y!
 
+		e\moveAtAngle 180, 1
+		assert.are.equal 2, e\x!
+		assert.are.equal 1, e\y!
+
 
 	it "clamp hitbox", ->
 		e = with Entity 0, 0
