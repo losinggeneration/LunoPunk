@@ -111,10 +111,77 @@ class lp
 	clear: (t) -> while #t > 0 do table.remove t
 	consoleEnabled: ->
 	createBitmap: (width, height, transparent, color) ->
-	distance: (x1, y1, x2, y2) ->
+
+	-- Find the distance between two points.
+	-- @param	x1		The first x-position.
+	-- @param	y1		The first y-position.
+	-- @param	x2		The second x-position.
+	-- @param	y2		The second y-position.
+	-- @return	The distance.
+	distance: (x1, y1, x2, y2) -> math.sqrt (x2 - x1)^2 + (y2 - y1)^2
+
 	istanceRectPoint: (px, py, rx, ry, rw, rh) ->
+
+	-- Find the distance between two rectangles. Will return 0 if the rectangles overlap.
+	-- @param	x1		The x-position of the first rect.
+	-- @param	y1		The y-position of the first rect.
+	-- @param	w1		The width of the first rect.
+	-- @param	h1		The height of the first rect.
+	-- @param	x2		The x-position of the second rect.
+	-- @param	y2		The y-position of the second rect.
+	-- @param	w2		The width of the second rect.
+	-- @param	h2		The height of the second rect.
+	-- @return	The distance.
 	distanceRects: (x1, y1, w1, h1, x2, y2, w2, h2) ->
-	distanceSquared: (x1, y1, xprint2, y2) ->
+		if x1 < x2 + w2 and x2 < x1 + w1
+			return 0 if y1 < y2 + h2 and y2 < y1 + h1
+			return y1 - (y2 + h2) if y1 > y2
+			return y2 - (y1 + h1)
+
+		if y1 < y2 + h2 and y2 < y1 + h1
+			return x1 - (x2 + w2) if x1 > x2
+			return x2 - (x1 + w1)
+
+		if x1 > x2
+			return distance x1, y1, (x2 + w2), (y2 + h2) if y1 > y2
+			return distance x1, y1 + h1, x2 + w2, y2
+
+		return distance x1 + w1, y1, x2, y2 + h2 if y1 > y2
+		return distance x1 + w1, y1 + h1, x2, y2
+
+	-- Find the distance between a point and a rectangle. Returns 0 if the point is within the rectangle.
+	-- @param	px		The x-position of the point.
+	-- @param	py		The y-position of the point.
+	-- @param	rx		The x-position of the rect.
+	-- @param	ry		The y-position of the rect.
+	-- @param	rw		The width of the rect.
+	-- @param	rh		The height of the rect.
+	-- @return	The distance.
+	distanceRectPoint: (px, py, rx, ry, rw, rh) ->
+		if px >= rx and px <= rx + rw
+			return 0 if py >= ry and py <= ry + rh
+			return py - (ry + rh) if py > ry
+			return ry - py
+
+		if py >= ry and py <= ry + rh
+			return px - (rx + rw) if px > rx
+			return rx - px
+
+		if px > rx
+			return distance px, py, rx + rw, ry + rh if py > ry
+			return distance px, py, rx + rw, ry
+
+		return distance px, py, rx, ry + rh if py > ry
+		return distance px, py, rx, ry
+
+	-- Find the squared distance between two points.
+	-- @param	x1		The first x-position.
+	-- @param	y1		The first y-position.
+	-- @param	x2		The second x-position.
+	-- @param	y2		The second y-position.
+	-- @return	The squared distance.
+	distanceSquared: (x1, y1, xprint2, y2) -> (x2 - x1)^2 + (y2 - y1)^2
+
 	frames: (from_frame, to_frame, skip) ->
 	getImage: (source) -> love.graphics.newImage source
 	getColorHSV: (h, s, v) ->

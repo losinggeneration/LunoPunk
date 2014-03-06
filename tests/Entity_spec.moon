@@ -211,6 +211,62 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
+	it "distanceFrom", ->
+		e2 = with Entity 20, 0
+			.width = 10
+			.height = 10
+
+		e.width, e.height = 10, 10
+
+		assert.are.equal 20, e\distanceFrom e2
+		assert.are.equal 20, e2\distanceFrom e
+
+		e2\moveTo 0, 20
+		assert.are.equal 20, e\distanceFrom e2
+		assert.are.equal 20, e2\distanceFrom e
+
+		e2\moveTo 0, 0
+		assert.are.equal 0, e\distanceFrom e2
+		assert.are.equal 0, e2\distanceFrom e
+		assert.are.equal 0, e\distanceFrom e2, true
+		assert.are.equal 0, e2\distanceFrom e, true
+
+		e2\moveTo 20, 0
+		assert.are.equal 10, e\distanceFrom e2, true
+		assert.are.equal 10, e2\distanceFrom e, true
+
+		e2\moveTo 0, 20
+		assert.are.equal 10, e\distanceFrom e2, true
+		assert.are.equal 10, e2\distanceFrom e, true
+
+	it "distanceToPoint", ->
+		e.width, e.height = 10, 10
+
+		assert.are.equal 20, e\distanceToPoint 20, 0
+		assert.are.equal 20, e\distanceToPoint 0, 20
+		assert.are.equal 0, e\distanceToPoint 0, 0
+
+		assert.are.equal 10, e\distanceToPoint 20, 0, true
+		assert.are.equal 10, e\distanceToPoint 0, 20, true
+		assert.are.equal 0, e\distanceToPoint 0, 0, true
+
+		assert.are.equal 10, e\distanceToPoint -10, 0
+		assert.are.equal 10, e\distanceToPoint 0, -10
+		assert.are.equal 10, e\distanceToPoint -10, 0, true
+		assert.are.equal 10, e\distanceToPoint 0, -10, true
+
+	it "distanceToRect", ->
+		e.width, e.height = 10, 10
+
+		assert.are.equal 10, e\distanceToRect 20, 0, 10, 10
+		assert.are.equal 10, e\distanceToRect 0, 20, 10, 10
+		assert.are.equal 0, e\distanceToRect 0, 0, 10, 10
+
+		assert.are.equal 10, e\distanceToRect -20, 0, 10, 10
+		assert.are.equal 10, e\distanceToRect 0, -20, 10, 10
+		assert.are.equal 10, e\distanceToRect -20, 0, 10, 10
+		assert.are.equal 10, e\distanceToRect 0, -20, 10, 10
+
 	it "toString", ->
 		assert.are.equal e\toString!, "Entity"
 		assert.are.equal tostring(e), "Entity"

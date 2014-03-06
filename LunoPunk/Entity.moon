@@ -467,16 +467,16 @@ class Entity extends Tweener
 	-- @param	e				The other Entity.
 	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
 	-- @return	The distance.
-	distanceFrom: (e, useHitboxes) =>
-		return math.sqrt (@x! - e.x) * (@x! - e.x) + (@y! - e.y) * (@y - e.y) if not useHitboxes
-		LP.distanceRects @x! - @originX, @y! - @originY, @width, @height, e.x - e.originX, e.y - e.originY, e.width, e.height
+	distanceFrom: (e, useHitboxes = false) =>
+		return math.sqrt (@x! - e\x!) * (@x! - e\x!) + (@y! - e\y!) * (@y! - e\y!) if not useHitboxes
+		LP.distanceRects @x! - @originX, @y! - @originY, @width, @height, e\x! - e.originX, e\y! - e.originY, e.width, e.height
 
 	-- Calculates the distance from this Entity to the point.
 	-- @param	px				X position.
 	-- @param	py				Y position.
 	-- @param	useHitboxes		If hitboxes should be used to determine the distance. If not, the Entities' x/y positions are used.
 	-- @return	The distance.
-	distanceToPoint: (px, py, useHitbox) =>
+	distanceToPoint: (px, py, useHitbox = false) =>
 		return math.sqrt (@x! - px) * (@x! - px) + (@y! - py) * (@y! - py) if not useHitbox
 		LP.distanceRectPoint px, py, @x! - @originX, @y! - @originY, @width, @height
 
