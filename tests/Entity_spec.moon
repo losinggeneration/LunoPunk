@@ -282,6 +282,8 @@ describe "Entity", ->
 		assert.are.equal 6, e\x!
 		assert.are.equal 6, e\y!
 
+		pending "Entity\\moveTowards solidType and sweep"
+
 	it "moveAtAngle", ->
 		e\moveAtAngle 0, 1
 		assert.are.equal 1, e\x!
@@ -302,6 +304,8 @@ describe "Entity", ->
 		e\moveAtAngle 180, 1
 		assert.are.equal 2, e\x!
 		assert.are.equal 1, e\y!
+
+		pending "Entity\\moveAtAngle solidType and sweep"
 
 
 	it "clamp hitbox", ->
