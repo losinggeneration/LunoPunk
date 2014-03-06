@@ -211,6 +211,16 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
+	it "toString", ->
+		assert.are.equal e\toString!, "Entity"
+		assert.are.equal tostring(e), "Entity"
+
+		class Ball extends Entity
+		b = Ball!
+		assert.are.equal b\toString!, "Ball"
+		-- The metatable for __tostring is on the parent, not the child
+		assert.are_not.equal tostring(b), "Ball"
+
 	it "moveBy", ->
 		e\moveBy 1, 0
 		assert.are.equal 1, e\x!

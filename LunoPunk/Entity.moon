@@ -493,6 +493,7 @@ class Entity extends Tweener
 	-- @return	A string representing the class name.
 	toString: => @@.__name
 
+	-- This metamethod only applies to Entity and not subclasses
 	__tostring: => @toString!
 
 	-- Moves the Entity by the amount, retaining integer values for its x and y.
