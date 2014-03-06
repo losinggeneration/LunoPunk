@@ -17,9 +17,11 @@ install:
     - sudo luarocks install luajson
     - cd $TRAVIS_BUILD_DIR
 
-# Fix an error with busted/core and custom output file loading
 before_script:
+    # Fix an error with busted/core and custom output file loading
     - sudo sed -i 's/opath, output/opath or "", output/' /usr/local/share/lua/5.1/busted/core.lua
+    # Fix an issue with table.concat getting nil instead of a number
+    - sudo sed -i 's/1, last_j)$/1, last_j or 0)/' /usr/local/share/lua/5.1/busted/core.lua
 
 script:
     - make ci
