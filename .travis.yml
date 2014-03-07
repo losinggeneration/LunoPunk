@@ -1,7 +1,11 @@
 language: erlang
 
 env:
-    - LUA="luajit-2.0.2"
+    - LUA="luajit"
+
+cache:
+    - apt
+    - /usr/local/share/lua
 
 install:
     - sudo apt-get update -qq
