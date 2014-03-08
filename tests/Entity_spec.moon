@@ -211,6 +211,15 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
+	it "centerOrigin", ->
+		e.width, e.height = 10, 10
+		assert.are.equal 0, e.originX
+		assert.are.equal 0, e.originY
+
+		e\centerOrigin!
+		assert.are.equal 5, e.originX
+		assert.are.equal 5, e.originY
+
 	it "distanceFrom", ->
 		e2 = with Entity 20, 0
 			.width = 10
