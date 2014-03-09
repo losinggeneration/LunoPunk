@@ -8,7 +8,7 @@ class AtlasRegion
 		@rotated = false
 
 	tileIndex: => @__tileIndex
-	width: => @rect\width!
-	height: => @rect\height!
+	width: => @rect.width
+	height: => @rect.height
 
 	clip: =>

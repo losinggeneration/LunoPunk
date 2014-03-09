@@ -6,7 +6,4 @@ class Rectangle
 		clone = require "LunoPunk.utils.mixins.clone"
 		clone @
 		@x, @y = x, y
-		@w, @h = w, h
-
-	width: => @w
-	height: => @h
+		@width, @height = w, h

@@ -71,11 +71,10 @@ class Image extends Graphic
 			assert false, "Invalid source image." if @__source == nil and @__region == nil
 
 		if clipRect != nil
-			clipRect.width = @__sourceRect\width! if clipRect\width! == 0
-			clipRect.height = @__sourceRect\height! if clipRect\height! == 0
+			clipRect.width = @__sourceRect\width if clipRect\width == 0
+			clipRect.height = @__sourceRect\height if clipRect\height == 0
 			@__region = @__region\clip clipRect if not @__blit -- creat a new clipped region
 			@__sourceRect = clipRect
-
 
 	__setAtlasRegion: (region) =>
 		@__blit = false
