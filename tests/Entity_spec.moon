@@ -5,6 +5,7 @@ require "LunoPunk.Entity"
 require "LunoPunk.Graphic"
 require "LunoPunk.Mask"
 require "LunoPunk.utils.moonscript"
+require "LunoPunk.geometry.Rectangle"
 
 entity_sanity_check = ->
 	e = Entity!
@@ -211,7 +212,33 @@ describe "Entity", ->
 		assert.is.Nil e\collide "Entity", 16, 16
 		assert.are.equal c, e\collide "Entity", 15, 15
 
-	it "centerOrigin", ->
+	it "setHitbox/setHitboxTo", ->
+		e.width, e.height = 5, 5
+
+		c = (w, h, x, y) ->
+			assert.are.equal w, e.width
+			assert.are.equal h, e.height
+			assert.are.equal x, e.originX
+			assert.are.equal y, e.originY
+
+		-- Default
+		c 5, 5, 0, 0
+
+		e\setHitbox 5, 5
+		c 5, 5, 0, 0
+
+		e\setHitbox 10, 10, 2, 2
+		c 10, 10, 2, 2
+
+		r = Rectangle 2, 2, 5, 5
+		e\setHitboxTo r
+		c 5, 5, -2, -2
+
+		r = { width: 10, height: 10, originX: 0, originY: 0}
+		e\setHitboxTo r
+		c 10, 10, 0, 0
+
+	it "centerOrigin/setOrigin", ->
 		e.width, e.height = 10, 10
 		assert.are.equal 0, e.originX
 		assert.are.equal 0, e.originY
@@ -219,6 +246,10 @@ describe "Entity", ->
 		e\centerOrigin!
 		assert.are.equal 5, e.originX
 		assert.are.equal 5, e.originY
+
+		e\setOrigin 0, 0
+		assert.are.equal 0, e.originX
+		assert.are.equal 0, e.originY
 
 	it "distanceFrom", ->
 		e2 = with Entity 20, 0
