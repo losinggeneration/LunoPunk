@@ -452,8 +452,7 @@ class Entity extends Tweener
 		if o.originX and o.originY
 			@originX, @originY = o.originX, o.originY
 		else
-			@originX, @originY = o.x, o.y
-			@originX, @originY = -@originX, -@originY
+			@originX, @originY = -o.x, -o.y
 
 	-- Sets the origin of the Entity.
 	-- @param	x		X origin.
