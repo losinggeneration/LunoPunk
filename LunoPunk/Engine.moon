@@ -18,7 +18,7 @@ class Engine
 	-- @param fixed      If a fixed-framerate should be used.
 	-- @param renderMode Overrides the default render mode for this target
 	new: (width = 0, height = 0, frameRate = 0, fixed = false, renderMode) =>
-		LP.bounds = Rectangle(0, 0, width, height)
+		LP.bounds = Rectangle 0, 0, width, height
 		LP.assignedFrameRate = frameRate
 		LP.fixed = fixed
 
