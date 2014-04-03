@@ -1,10 +1,31 @@
+-- Try a few different json libraries and return one that loads
 require_json = ->
-	r, json = pcall require, "dkjson"
-	return json if r
-	r, json = pcall require, "lua2json"
-	return json if r
-	r, json = pcall require, "cjson"
-	return json if r
+	json = nil
+	rj = (s) -> pcall -> json = require s
+	if not (rj("dkjson") or rj("lua2json") or rj("cjson"))
+		error "Cannot find a json library to use"
+
+	json
+
+-- Extract the Löve version information for later use
+extract_love_version = (version) ->
+	major, minor, patch = string.match version, "^(%d+)%.(%d+)%.(%d+)$"
+	release = string.match version, '^%d+%.%d+'
+	export LunoPunk = {love_version: {:release, :major, :minor, :patch}}
+
+-- Sets the window title of the engine
+set_love_title = (title, release = false) ->
+	development = " (development)" if not release
+
+	if title == nil
+		title = string.format "%s%s", "LunoPunk", development
+	else
+		title = string.format "%s%s", title, development
+
+	if LunoPunk.love_version.release == "0.9"
+		love.window.setTitle title
+	else
+		love.graphics.setCaption title
 
 -- This should be called from conf.lua from the main directory of your project
 -- The filename is actualy very important. Your entire project and LunoPunk
@@ -18,7 +39,9 @@ require_json = ->
 -- @param height The window height
 -- @param fullscreen If the engine should switch to fullscreen mode
 -- @param title The application title
-export config = (options) ->
+-- @param author Likely you or your team's name
+-- @param release Setting this to true so the engine doesn't display back traces to the user
+config = (options) ->
 	if options and type(options.cfg) == "string"
 		json = require_json!
 		if json == nil
@@ -26,18 +49,31 @@ export config = (options) ->
 		else
 			f, err = io.open options.cfg
 			if f == nil
-				print err
+				print "I/O Error:", err
 			else
 				tmp_options, err = json.decode f\read "*a"
 				f\close!
 				if tmp_options == nil
-					print err
+					error string.format "Parse error in %s: %s", options.cfg, err
 				else
 					options[k] = v for k,v in pairs tmp_options
 
+	-- This is the actual callback Löve will call upon loading conf.lua
 	love.conf = (t) ->
+		extract_love_version t.version
+
 		if options != nil
-			t.window.width = options.width if options.width != nil
-			t.window.height = options.height if options.height != nil
-			t.window.fullscreen = options.fullscreen if options.fullscreen != nil
-			t.title = options.title if options.title != nil
+			window = nil
+			if t.version == "0.9.0"
+				window = t.window
+			else
+				window = t.screen
+
+			window.width = options.width if options.width != nil
+			window.height = options.height if options.height != nil
+			window.fullscreen = options.fullscreen if options.fullscreen != nil
+			set_love_title options.title, options.release
+		else
+			set_love_title!
+
+{:config, :extract_love_version, :set_love_title}

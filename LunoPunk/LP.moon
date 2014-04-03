@@ -315,9 +315,15 @@ class lp
 	-- Used to determine the Löve version that's being used
 	-- @param	version		The string containing the major.minor Löve version
 	-- @return	true if version matches the Löve version
-	__love: (version) -> version == string.format "%d.%d", love._version_major, love._version_minor
+	__love: (version) -> version == LunoPunk.love_version.release
 
 LP = lp!
+
+-- Setup some initial things since the user didn't
+if not LunoPunk
+	import extract_love_version, set_love_title from require "LunoPunk.Config"
+	extract_love_version love._version
+	set_love_title!
 
 -- Don't allow unknown Löve versions
 if not (LP.__love("0.8") or LP.__love("0.9"))
