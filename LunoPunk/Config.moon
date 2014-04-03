@@ -22,10 +22,12 @@ set_love_title = (title, release = false) ->
 	else
 		title = string.format "%s%s", title, development
 
-	if LunoPunk.love_version.release == "0.9"
+	if LunoPunk.love_version.release == "0.9" and love.window
 		love.window.setTitle title
-	else
+	elseif love.graphics
 		love.graphics.setCaption title
+
+	title
 
 -- This should be called from conf.lua from the main directory of your project
 -- The filename is actualy very important. Your entire project and LunoPunk
@@ -72,8 +74,8 @@ config = (options) ->
 			window.width = options.width if options.width != nil
 			window.height = options.height if options.height != nil
 			window.fullscreen = options.fullscreen if options.fullscreen != nil
-			set_love_title options.title, options.release
+			t.title = set_love_title options.title, options.release
 		else
-			set_love_title!
+			t.title = set_love_title!
 
 {:config, :extract_love_version, :set_love_title}
