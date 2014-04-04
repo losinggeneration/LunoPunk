@@ -1,4 +1,5 @@
 import LP from require "LunoPunk.LP"
+import Entity from require "LunoPunk.Entity"
 import Tweener from require "LunoPunk.Tweener"
 
 class Scene extends Tweener
