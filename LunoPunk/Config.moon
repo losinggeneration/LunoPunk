@@ -1,6 +1,6 @@
 -- Try a few different json libraries and return one that loads
 require_json = ->
-	json = nil
+	local json
 	rj = (s) -> pcall -> json = require s
 	if not (rj("dkjson") or rj("lua2json") or rj("cjson"))
 		error "Cannot find a json library to use"
