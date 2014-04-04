@@ -1,8 +1,6 @@
-require "LunoPunk.LP"
-require "LunoPunk.Scene"
-require "entities.Player"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Scene from require "LunoPunk.Scene"
+import Player from require "entities.Player"
 
 class GameScene extends Scene
 	begin: =>
@@ -10,3 +8,5 @@ class GameScene extends Scene
 
 	update: =>
 		super!
+
+{ :GameScene }

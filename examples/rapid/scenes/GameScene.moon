@@ -1,7 +1,5 @@
-require "LunoPunk.Scene"
-require "LunoPunk.graphics.Image"
-
-export ^
+import Scene from require "LunoPunk.Scene"
+import Image from require "LunoPunk.graphics.Image"
 
 class GameScene extends Scene
 	new: =>
@@ -9,3 +7,5 @@ class GameScene extends Scene
 
 	begin: =>
 		@addGraphic Image "graphics/block.png"
+
+{ :GameScene }

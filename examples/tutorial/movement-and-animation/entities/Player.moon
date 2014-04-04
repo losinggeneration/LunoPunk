@@ -1,9 +1,7 @@
-require "LunoPunk.Entity"
-require "LunoPunk.graphics.Spritemap"
-require "LunoPunk.utils.Input"
-require "LunoPunk.utils.Key"
-
-export ^
+import Entity from require "LunoPunk.Entity"
+import Spritemap from require "LunoPunk.graphics.Spritemap"
+import Input from require "LunoPunk.utils.Input"
+import Key from require "LunoPunk.utils.Key"
 
 class Player extends Entity
 	new: (x, y) =>
@@ -54,3 +52,5 @@ class Player extends Entity
 		setAnimations @
 
 		super!
+
+{ :Player }

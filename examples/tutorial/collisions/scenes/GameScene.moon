@@ -1,9 +1,7 @@
-require "LunoPunk.LP"
-require "LunoPunk.Scene"
-require "entities.Player"
-require "entities.Bullet"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Scene from require "LunoPunk.Scene"
+import Player from require "entities.Player"
+import Bullet from require "entities.Bullet"
 
 class GameScene extends Scene
 	begin: =>
@@ -14,3 +12,5 @@ class GameScene extends Scene
 		super!
 
 		@add Bullet! if LP.rand(50) % 10 == 0
+
+{ :GameScene }

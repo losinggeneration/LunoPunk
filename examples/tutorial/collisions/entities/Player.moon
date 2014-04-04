@@ -1,9 +1,7 @@
-require "LunoPunk.Entity"
-require "LunoPunk.graphics.prototype.Rect"
-require "LunoPunk.utils.Input"
-require "LunoPunk.utils.Key"
-
-export ^
+import Entity from require "LunoPunk.Entity"
+import Rect from require "LunoPunk.graphics.prototype.Rect"
+import Input from require "LunoPunk.utils.Input"
+import Key from require "LunoPunk.utils.Key"
 
 class Player extends Entity
 	new: (x, y) =>
@@ -21,3 +19,5 @@ class Player extends Entity
 		b\destroy! if b
 
 		super!
+
+{ :Player }

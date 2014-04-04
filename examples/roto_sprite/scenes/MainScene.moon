@@ -1,10 +1,9 @@
-require "LunoPunk.Graphic"
-require "LunoPunk.Scene"
-require "LunoPunk.utils.Draw"
-require "LunoPunk.graphics.Image"
-require "LunoPunk.geometry.Point"
-
-export ^
+import Graphic from require "LunoPunk.Graphic"
+import Scene from require "LunoPunk.Scene"
+import Draw from require "LunoPunk.utils.Draw"
+import Image from require "LunoPunk.graphics.Image"
+import Point from require "LunoPunk.geometry.Point"
+import Entity from require "LunoPunk.Entity"
 
 class MainScene extends Scene
 	begin: =>
@@ -30,3 +29,5 @@ class MainScene extends Scene
 		e\setHitbox 25, 25, 50, 50
 		Draw.hitbox e, true, 0xFF00FF
 -- 		e\render!
+
+{ :MainScene }

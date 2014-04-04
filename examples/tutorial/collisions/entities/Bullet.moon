@@ -1,8 +1,7 @@
-require "LunoPunk.LP"
-require "LunoPunk.Entity"
-require "LunoPunk.graphics.prototype.Rect"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Entity from require "LunoPunk.Entity"
+import Rect from require "LunoPunk.graphics.prototype.Rect"
+import Image from require "LunoPunk.graphics.Image"
 
 class Bullet extends Entity
 	new: =>
@@ -21,3 +20,5 @@ class Bullet extends Entity
 
 	destroy: =>
 		@scene!\remove @
+
+{ :Bullet }

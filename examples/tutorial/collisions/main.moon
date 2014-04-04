@@ -1,6 +1,6 @@
-require "LunoPunk.LP"
-require "LunoPunk.Engine"
-require "scenes.GameScene"
+import LP  from require "LunoPunk.LP"
+import Engine from require "LunoPunk.Engine"
+import GameScene from require "scenes.GameScene"
 
 LP.scene = GameScene!
 
