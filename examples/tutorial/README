@@ -1,1 +1,5 @@
-These are ports of the HaxePunk tutorials
+These are ports of the HaxePunk tutorials. They also help gage what portions of the engine that still need work.
+
+* basics (works)
+* collisions (currently broken)
+* movement-and-animations (currently broken)
