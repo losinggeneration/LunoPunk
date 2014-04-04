@@ -1,6 +1,4 @@
--- Auto-generated with ./create_everything.sh on 2014-01-30 23:40:09
-
-export ^
+-- Auto-generated with ./create_everything.sh on 2014-04-04 01:34:08
 
 -- We tell Moonscript to export classes globally. Thus, we prevent collisions
 -- based on namespace since we don't know what is going to be used.
@@ -9,6 +7,8 @@ export ^
 -- assigning it to a local variable. Alternatively, the namespaced version can
 -- be used.
 
+import mixin_table from require "moon"
+
 LunoPunk = {}
 LunoPunk.debug = {}
 LunoPunk.geometry = {}
@@ -16,6 +16,7 @@ LunoPunk.graphics = {}
 LunoPunk.graphics.atlas = {}
 LunoPunk.graphics.prototype = {}
 LunoPunk.masks = {}
+LunoPunk.math = {}
 LunoPunk.tweens = {}
 LunoPunk.tweens.misc = {}
 LunoPunk.tweens.motion = {}
@@ -24,80 +25,86 @@ LunoPunk.utils = {}
 LunoPunk.utils.mixins = {}
 
 -- Now load each file to the correctly namespaced table
-LunoPunk.debug.Console = require "LunoPunk.debug.Console"
-LunoPunk.debug.LayerList = require "LunoPunk.debug.LayerList"
-LunoPunk.Engine = require "LunoPunk.Engine"
-LunoPunk.Entity = require "LunoPunk.Entity"
-LunoPunk.geometry.Matrix = require "LunoPunk.geometry.Matrix"
-LunoPunk.geometry.Point = require "LunoPunk.geometry.Point"
-LunoPunk.geometry.Rectangle = require "LunoPunk.geometry.Rectangle"
-LunoPunk.Graphic = require "LunoPunk.Graphic"
-LunoPunk.graphics.Animation = require "LunoPunk.graphics.Animation"
-LunoPunk.graphics.atlas.AtlasData = require "LunoPunk.graphics.atlas.AtlasData"
-LunoPunk.graphics.atlas.AtlasRegion = require "LunoPunk.graphics.atlas.AtlasRegion"
-LunoPunk.graphics.atlas.Atlas = require "LunoPunk.graphics.atlas.Atlas"
-LunoPunk.graphics.atlas.TextureAtlas = require "LunoPunk.graphics.atlas.TextureAtlas"
-LunoPunk.graphics.atlas.TileAtlas = require "LunoPunk.graphics.atlas.TileAtlas"
-LunoPunk.graphics.Backdrop = require "LunoPunk.graphics.Backdrop"
-LunoPunk.graphics.Canvas = require "LunoPunk.graphics.Canvas"
-LunoPunk.graphics.Emitter = require "LunoPunk.graphics.Emitter"
-LunoPunk.graphics.Graphiclist = require "LunoPunk.graphics.Graphiclist"
-LunoPunk.graphics.Image = require "LunoPunk.graphics.Image"
-LunoPunk.graphics.Particle = require "LunoPunk.graphics.Particle"
-LunoPunk.graphics.ParticleType = require "LunoPunk.graphics.ParticleType"
-LunoPunk.graphics.PreRotation = require "LunoPunk.graphics.PreRotation"
-LunoPunk.graphics.prototype.Circle = require "LunoPunk.graphics.prototype.Circle"
-LunoPunk.graphics.prototype.Rect = require "LunoPunk.graphics.prototype.Rect"
-LunoPunk.graphics.Spritemap = require "LunoPunk.graphics.Spritemap"
-LunoPunk.graphics.Stamp = require "LunoPunk.graphics.Stamp"
-LunoPunk.graphics.Text = require "LunoPunk.graphics.Text"
-LunoPunk.graphics.TiledImage = require "LunoPunk.graphics.TiledImage"
-LunoPunk.graphics.TiledSpritemap = require "LunoPunk.graphics.TiledSpritemap"
-LunoPunk.graphics.Tilemap = require "LunoPunk.graphics.Tilemap"
-LunoPunk.LP = require "LunoPunk.LP"
-LunoPunk.Mask = require "LunoPunk.Mask"
-LunoPunk.masks.Circle = require "LunoPunk.masks.Circle"
-LunoPunk.masks.Grid = require "LunoPunk.masks.Grid"
-LunoPunk.masks.Hitbox = require "LunoPunk.masks.Hitbox"
-LunoPunk.masks.Imagemask = require "LunoPunk.masks.Imagemask"
-LunoPunk.masks.Masklist = require "LunoPunk.masks.Masklist"
-LunoPunk.masks.Pixelmask = require "LunoPunk.masks.Pixelmask"
-LunoPunk.masks.Polygon = require "LunoPunk.masks.Polygon"
-LunoPunk.masks.SlopedGrid = require "LunoPunk.masks.SlopedGrid"
-LunoPunk.RenderMode = require "LunoPunk.RenderMode"
-LunoPunk.Scene = require "LunoPunk.Scene"
-LunoPunk.Screen = require "LunoPunk.Screen"
-LunoPunk.Sfx = require "LunoPunk.Sfx"
-LunoPunk.Tweener = require "LunoPunk.Tweener"
-LunoPunk.Tween = require "LunoPunk.Tween"
-LunoPunk.tweens.misc.Alarm = require "LunoPunk.tweens.misc.Alarm"
-LunoPunk.tweens.misc.AngleTween = require "LunoPunk.tweens.misc.AngleTween"
-LunoPunk.tweens.misc.ColorTween = require "LunoPunk.tweens.misc.ColorTween"
-LunoPunk.tweens.misc.MultiVarTween = require "LunoPunk.tweens.misc.MultiVarTween"
-LunoPunk.tweens.misc.NumTween = require "LunoPunk.tweens.misc.NumTween"
-LunoPunk.tweens.misc.VarTween = require "LunoPunk.tweens.misc.VarTween"
-LunoPunk.tweens.motion.CircularMotion = require "LunoPunk.tweens.motion.CircularMotion"
-LunoPunk.tweens.motion.CubicMotion = require "LunoPunk.tweens.motion.CubicMotion"
-LunoPunk.tweens.motion.LinearMotion = require "LunoPunk.tweens.motion.LinearMotion"
-LunoPunk.tweens.motion.LinearPath = require "LunoPunk.tweens.motion.LinearPath"
-LunoPunk.tweens.motion.Motion = require "LunoPunk.tweens.motion.Motion"
-LunoPunk.tweens.motion.QuadMotion = require "LunoPunk.tweens.motion.QuadMotion"
-LunoPunk.tweens.motion.QuadPath = require "LunoPunk.tweens.motion.QuadPath"
-LunoPunk.tweens.sound.Fader = require "LunoPunk.tweens.sound.Fader"
-LunoPunk.tweens.sound.SfxFader = require "LunoPunk.tweens.sound.SfxFader"
-LunoPunk.tweens.TweenEvent = require "LunoPunk.tweens.TweenEvent"
-LunoPunk.utils.Color = require "LunoPunk.utils.Color"
-LunoPunk.utils.Data = require "LunoPunk.utils.Data"
-LunoPunk.utils.Draw = require "LunoPunk.utils.Draw"
-LunoPunk.utils.Ease = require "LunoPunk.utils.Ease"
-LunoPunk.utils.EventListener = require "LunoPunk.utils.EventListener"
-LunoPunk.utils.Event = require "LunoPunk.utils.Event"
-LunoPunk.utils.Input = require "LunoPunk.utils.Input"
-LunoPunk.utils.Joystick = require "LunoPunk.utils.Joystick"
-LunoPunk.utils.Key = require "LunoPunk.utils.Key"
-LunoPunk.utils.List = require "LunoPunk.utils.List"
-LunoPunk.utils.Math = require "LunoPunk.utils.Math"
-LunoPunk.utils.mixins.clone = require "LunoPunk.utils.mixins.clone"
-LunoPunk.utils.moonscript = require "LunoPunk.utils.moonscript"
-LunoPunk.utils.Touch = require "LunoPunk.utils.Touch"
-LunoPunk.World = require "LunoPunk.World"
+-- mixin_table LunoPunk, if t = assert(require "LunoPunk.Config") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.debug, if t = assert(require "LunoPunk.debug.Console") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.debug, if t = assert(require "LunoPunk.debug.LayerList") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.geometry, if t = assert(require "LunoPunk.geometry.Matrix") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.geometry, if t = assert(require "LunoPunk.geometry.Point") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.geometry, if t = assert(require "LunoPunk.geometry.Rectangle") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.atlas, if t = assert(require "LunoPunk.graphics.atlas.AtlasData") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.atlas, if t = assert(require "LunoPunk.graphics.atlas.AtlasRegion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.atlas, if t = assert(require "LunoPunk.graphics.atlas.Atlas") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.atlas, if t = assert(require "LunoPunk.graphics.atlas.TextureAtlas") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.atlas, if t = assert(require "LunoPunk.graphics.atlas.TileAtlas") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Animation") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Backdrop") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Canvas") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Emitter") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Graphiclist") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Image") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Particle") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.ParticleType") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.PreRotation") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Spritemap") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Stamp") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Text") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.TiledImage") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.TiledSpritemap") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics, if t = assert(require "LunoPunk.graphics.Tilemap") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.prototype, if t = assert(require "LunoPunk.graphics.prototype.Circle") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.graphics.prototype, if t = assert(require "LunoPunk.graphics.prototype.Rect") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Config") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Engine") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Entity") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Graphic") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.LP") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Mask") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.RenderMode") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Scene") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Screen") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Sfx") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Tweener") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.Tween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk, if t = assert(require "LunoPunk.World") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Circle") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Grid") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Hitbox") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Imagemask") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Masklist") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Pixelmask") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.Polygon") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.masks, if t = assert(require "LunoPunk.masks.SlopedGrid") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.math, if t = assert(require "LunoPunk.math.Projection") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.math, if t = assert(require "LunoPunk.math.Vector") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens, if t = assert(require "LunoPunk.tweens.TweenEvent") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.Alarm") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.AngleTween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.ColorTween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.MultiVarTween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.NumTween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.misc, if t = assert(require "LunoPunk.tweens.misc.VarTween") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.CircularMotion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.CubicMotion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.LinearMotion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.LinearPath") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.Motion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.QuadMotion") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.motion, if t = assert(require "LunoPunk.tweens.motion.QuadPath") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.sound, if t = assert(require "LunoPunk.tweens.sound.Fader") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.tweens.sound, if t = assert(require "LunoPunk.tweens.sound.SfxFader") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Color") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Data") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Draw") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Ease") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.EventListener") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Event") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Input") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Joystick") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Key") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.List") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Math") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.moonscript") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils, if t = assert(require "LunoPunk.utils.Touch") then t if type(t) == "table" else {} else {}
+mixin_table LunoPunk.utils.mixins, if t = assert(require "LunoPunk.utils.mixins.clone") then t if type(t) == "table" else {} else {}
+
+{ :LunoPunk }

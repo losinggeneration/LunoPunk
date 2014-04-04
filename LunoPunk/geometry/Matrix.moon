@@ -1,5 +1,3 @@
-export ^
-
 class Matrix
 	-- If no arguments are given, it creates an identity matrix:
 	-- [a c tx]   [1 0 0]
@@ -15,3 +13,5 @@ class Matrix
 		@d = d
 		@tx = tx
 		@ty = ty
+
+{ :Matrix }

@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 -- Tweens a numeric value.
 class NumTween extends Tween
@@ -30,3 +28,5 @@ class NumTween extends Tween
 	update: =>
 		super!
 		@value = @__start + @__range * @t
+
+{ :NumTween }

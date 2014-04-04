@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 -- Tweens a numeric public property of an Object.
 class VarTween extends Tween
@@ -43,3 +41,5 @@ class VarTween extends Tween
 	update: =>
 		super!
 		@__object[@__property] = @__start + @__range * @t
+
+{ :VarTween }

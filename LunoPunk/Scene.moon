@@ -1,6 +1,5 @@
-require "LunoPunk.Tweener"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Tweener from require "LunoPunk.Tweener"
 
 class Scene extends Tweener
 	new: =>
@@ -784,3 +783,5 @@ class Scene extends Tweener
 
 		return squarePoints px, py, rx, ry + rh if py > ry
 		return squarePoints px, py, rx, ry
+
+{ :Scene }

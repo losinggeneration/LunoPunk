@@ -1,6 +1,4 @@
-require "LunoPunk.utils.List"
-
-export ^
+import List from require "LunoPunk.utils.List"
 
 class eventlistener
 	new: =>
@@ -33,3 +31,5 @@ EventListener = eventlistener!
 AddEventListener = (type, f) -> EventListener\add type, f
 RemoveEventListener = (type, f) -> EventListener\remove type, f
 DispatchEvent = (event, ...) -> EventListener\dispatch event\type!, ... if event.type != nil
+
+{ :EventListener, :AddEventListener, :RemoveEventListener, :DispatchEvent }

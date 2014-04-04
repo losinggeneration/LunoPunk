@@ -1,5 +1,3 @@
-export ^
-
 class Tweener
 	new: =>
 		@active = true
@@ -15,6 +13,8 @@ class Tweener
 	--
 	-- @return The added tween.
 	addTween: (t, start) =>
+		import Tween from require "LunoPunk.Tween"
+
 		assert t.__parent == nil, "Cannot add a Tween object more than once."
 
 		t.__parent = @ if t.__class == Tween
@@ -67,3 +67,5 @@ class Tweener
 			t = t.__next
 
 	hasTween: => @__tween != nil
+
+{ :Tweener }

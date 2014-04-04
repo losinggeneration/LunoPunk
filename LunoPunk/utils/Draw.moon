@@ -1,7 +1,5 @@
-require "LunoPunk.graphics.Text"
-require "LunoPunk.utils.Color"
-
-export ^
+import Text from require "LunoPunk.graphics.Text"
+import Color from require "LunoPunk.utils.Color"
 
 if love._version_major == 0 and love._version_minor == 8
 	love.graphics._getLineWidth = love.graphics.getLineWidth
@@ -64,3 +62,5 @@ class draw
 			love.graphics.setLineWidth old_thick
 
 Draw = draw!
+
+{ :Draw }

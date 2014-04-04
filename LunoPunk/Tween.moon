@@ -1,8 +1,5 @@
-require "LunoPunk.LP"
-require "LunoPunk.utils.EventListener"
-require "LunoPunk.tweens.TweenEvent"
-
-export ^
+import AddEventListener, DispatchEvent from require "LunoPunk.utils.EventListener"
+import TweenEvent from require "LunoPunk.tweens.TweenEvent"
 
 TweenType = {
 	Persist: "Persist"
@@ -34,6 +31,7 @@ class Tween
 
 	-- Updates the Tween, called by World.
 	update: =>
+		import LP from require "LunoPunk.LP"
 		-- Only update the Tween if active
 		return if not @active
 		@__time += if LP.fixed then 1 else LP.elapsed
@@ -91,3 +89,5 @@ class Tween
 		@__time
 
 	scale: => @__scale
+
+{ :TweenType, :Tween }

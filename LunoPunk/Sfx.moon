@@ -1,6 +1,4 @@
-require "LunoPunk.LP"
-
-export ^
+import LP from require "LunoPunk.LP"
 
 -- Sound effect object used to play embedded sounds.
 class Sfx
@@ -230,3 +228,5 @@ class Sfx
 
 		if @@__typePlaying.exists type
 			sfx.volume sfx.volume! for sfx in @@__typePlaying.get type
+
+{ :Sfx }

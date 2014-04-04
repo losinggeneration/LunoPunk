@@ -1,7 +1,10 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.Tween"
+import LP from require "LunoPunk.LP"
+import Tween, TweenType from require "LunoPunk.Tween"
+import TweenEvent from require "LunoPunk.tweens.TweenEvent"
+import AddEventListener, RemoveEventListener, DispatchEvent from require "LunoPunk.utils.EventListener"
 
 -- This is how the Tweener updates
 class tween extends Tween

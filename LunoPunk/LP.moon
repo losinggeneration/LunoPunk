@@ -1,10 +1,9 @@
-require "LunoPunk.geometry.Point"
-require "LunoPunk.geometry.Rectangle"
-require "LunoPunk.geometry.Matrix"
-require "LunoPunk.Scene"
-require "LunoPunk.Tweener"
+import Point from require "LunoPunk.geometry.Point"
+import Rectangle from require "LunoPunk.geometry.Rectangle"
+import Matrix from require "LunoPunk.geometry.Matrix"
+import Tweener from require "LunoPunk.Tweener"
 
-export ^
+local LP
 
 class lp
 	-- Private
@@ -55,7 +54,7 @@ class lp
 
 		value
 
-	scene: Scene!
+	scene: nil
 	screen: nil
 	sprite: nil
 	tweener: Tweener!
@@ -328,3 +327,5 @@ if not LunoPunk
 -- Don't allow unknown Löve versions
 if not (LP.__love("0.8") or LP.__love("0.9"))
 	assert false, "Unsupported Löve version"
+
+{ :LP }

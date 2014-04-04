@@ -1,7 +1,7 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.utils.EventListener"
+import EventListener from require "LunoPunk.utils.EventListener"
 
 describe "EventListener", ->
 	e = EventListener

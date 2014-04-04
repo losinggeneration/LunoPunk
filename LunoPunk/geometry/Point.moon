@@ -1,5 +1,3 @@
-export ^
-
 -- Implementation of the AS3 Point. The API interface was used for function
 -- names, but the code is original work.
 class Point
@@ -55,3 +53,5 @@ class Point
 	toString: => string.format "(%f, %f)", @x, @y
 
 	__tostring: => @toString!
+
+{ :Point }

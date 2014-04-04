@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 class Motion extends Tween
 	-- @param	duration	Duration of the Tween.
@@ -10,3 +8,5 @@ class Motion extends Tween
 	new: (duration, complete = nil, type = TweenType.Persist, ease = nil) =>
 		@x, @y = 0, 0
 		super duration, type, complete, ease
+
+{ :Motion }

@@ -1,7 +1,7 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.utils.Math"
+import Math from require "LunoPunk.utils.Math"
 
 describe "math", ->
 	describe "round", ->

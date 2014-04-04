@@ -1,4 +1,4 @@
-export ^
-
 class TextureAtlas
 	new: =>
+
+{ :TextureAtlas }

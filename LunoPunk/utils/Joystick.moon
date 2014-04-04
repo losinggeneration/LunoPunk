@@ -1,4 +1,4 @@
-export ^
+import LP from require "LunoPunk.LP"
 
 class JoyButtonState
 	BUTTON_ON: 1
@@ -127,3 +127,5 @@ class Joystick extends loveJoystick
 	updateBalls = =>
 
 	updateHats = =>
+
+{ :JoyButtonState, :Joystick }

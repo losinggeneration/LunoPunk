@@ -1,7 +1,5 @@
-require "LunoPunk.Graphic"
-require "LunoPunk.graphics.Image"
-
-export ^
+import Graphic from require "LunoPunk.Graphic"
+import Image from require "LunoPunk.graphics.Image"
 
 class Rect extends Graphic
 	new: (width, height, color = 0xFFFFFF) =>
@@ -34,3 +32,5 @@ class Rect extends Graphic
 		return @__color if value == nil or value == @__color
 		@__color = value
 		@__img = createImage @
+
+{ :Rect }

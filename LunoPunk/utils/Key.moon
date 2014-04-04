@@ -1,5 +1,3 @@
-export ^
-
 class key
 	ANY: ""
 
@@ -100,3 +98,5 @@ class key
 	NUMPAD_SUBTRACT: "kp-"
 
 Key = key!
+
+{ :Key }

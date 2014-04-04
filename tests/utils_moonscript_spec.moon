@@ -1,8 +1,8 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.utils.moonscript"
-require "LunoPunk.Tween"
+import instance from require "LunoPunk.utils.moonscript"
+import Tween  from require "LunoPunk.Tween"
 moon = require "moon"
 
 c = class

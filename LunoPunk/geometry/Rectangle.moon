@@ -1,5 +1,3 @@
-export ^
-
 class Rectangle
 	new: (x = 0, y = 0, w = 0, h = 0) =>
 		-- Add the clone mixin
@@ -7,3 +5,5 @@ class Rectangle
 		clone @
 		@x, @y = x, y
 		@width, @height = w, h
+
+{ :Rectangle }

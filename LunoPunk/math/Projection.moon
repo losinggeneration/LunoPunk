@@ -1,5 +1,3 @@
-export ^
-
 class Projection
 	new: =>
 		@max, @min = 0, 0
@@ -27,3 +25,5 @@ class Projection
 	toString: => string.format "[%f, %f]", @min, @max
 
 	__tostring: => @toString!
+
+{ :Projection }

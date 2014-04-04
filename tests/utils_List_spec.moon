@@ -1,7 +1,7 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.utils.List"
+import List from require "LunoPunk.utils.List"
 
 describe "list", ->
 	l = nil

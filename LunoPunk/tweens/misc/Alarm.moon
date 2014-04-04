@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 -- A simple alarm, useful for timed events, etc.
 class Alarm extends Tween
@@ -29,3 +27,5 @@ class Alarm extends Tween
 	update: =>
 		super!
 		value = _start + _range * _t
+
+{ :Alarm }

@@ -1,5 +1,5 @@
-require "LunoPunk.tweens.motion.Motion"
-require "LunoPunk.geometry.Point"
+import Motion from require "LunoPunk.tweens.motion.Motion"
+import Point  from require "LunoPunk.geometry.Point"
 
 -- Determines motion along a cubic curve.
 class CubicMotion extends Motion
@@ -43,3 +43,5 @@ class CubicMotion extends Motion
 		tt = @t^2
 		@x = ttt * (@__toX + 3 * (@__aX - @__bX) - @__fromX) + 3 * tt * (@__fromX - 2 * @__aX + @__bX) + 3 * @t * (@__aX - @__fromX) + @__fromX
 		@y = ttt * (@__toY + 3 * (@__aY - @__bY) - @__fromY) + 3 * tt * (@__fromY - 2 * @__aY + @__bY) + 3 * @t * (@__aY - @__fromY) + @__fromY
+
+{ :CubicMotion }

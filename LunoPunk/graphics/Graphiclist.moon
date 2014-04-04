@@ -1,3 +1,3 @@
-export ^
-
 class Graphiclist
+
+{ :Graphiclist }

@@ -1,7 +1,5 @@
-require "LunoPunk.graphics.Image"
-require "LunoPunk.geometry.Rectangle"
-
-export ^
+import Image from require "LunoPunk.graphics.Image"
+import Rectangle from require "LunoPunk.geometry.Rectangle"
 
 -- Performance-optimized animated Image. Can have multiple animations,
 -- which draw frames from the provided source image to the screen.
@@ -33,3 +31,5 @@ class Spritemap extends Image
 	-- @param	reset		If the animation should force-restart if it is already playing.
 	-- @return	Anim object representing the played animation.
 	play: (name = "", reset = false) =>
+
+{ :Spritemap }

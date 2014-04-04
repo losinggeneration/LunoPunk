@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 -- Global volume fader.
 class Fader extends Tween
@@ -28,3 +26,5 @@ class Fader extends Tween
 	update: ()  =>
 		super!
 		LP.volume = @__start + @__range * @t
+
+{ :Fader }

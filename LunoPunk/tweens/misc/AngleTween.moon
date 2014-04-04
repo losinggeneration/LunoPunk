@@ -1,6 +1,4 @@
-require "LunoPunk.Tween"
-
-export ^
+import Tween from require "LunoPunk.Tween"
 
 -- Tweens from one angle to another.
 class AngleTween extends Tween
@@ -37,3 +35,5 @@ class AngleTween extends Tween
 		super!
 		@angle = (@__start + @__range * @t) % 360
 		@angle += 360 if angle < 0
+
+{ :AngleTween }

@@ -1,5 +1,3 @@
-export ^
-
 class Event
 	@ACTIVATE: "Event.activate"
 	@DEACTIVATE: "Event.deactivate"
@@ -9,3 +7,5 @@ class Event
 		@__type = type
 
 	type: => @__type
+
+{ :Event }

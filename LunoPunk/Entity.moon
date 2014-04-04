@@ -1,11 +1,9 @@
-require "LunoPunk.graphics.Graphiclist"
-require "LunoPunk.LP"
-require "LunoPunk.Mask"
-require "LunoPunk.Tweener"
-require "LunoPunk.utils.moonscript"
-require "LunoPunk.utils.Math"
-
-export ^
+import Graphiclist from require "LunoPunk.graphics.Graphiclist"
+import LP from require "LunoPunk.LP"
+import Mask from require "LunoPunk.Mask"
+import Tweener from require "LunoPunk.Tweener"
+import moon_type from require "LunoPunk.utils.moonscript"
+import Math from require "LunoPunk.utils.Math"
 
 class Entity extends Tweener
 	-- Constructor. Can be usd to place the Entity and assign a graphic and mask.
@@ -593,3 +591,5 @@ class Entity extends Tweener
 	-- Center graphic inside bounding rect.
 	centerGraphicInRect: =>
 		@__graphic.x, @__graphic.y = @halfWidth!, @halfHeight! if @__graphic != nil
+
+{ :Entity }

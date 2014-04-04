@@ -1,6 +1,4 @@
-require "LunoPunk.geometry.Point"
-
-export ^
+import Point from require "LunoPunk.geometry.Point"
 
 class atlasdata
 	new: =>
@@ -23,3 +21,5 @@ class atlasdata
 	height: => @__height
 
 AtlasData = atlasdata!
+
+{ :AtlasData }

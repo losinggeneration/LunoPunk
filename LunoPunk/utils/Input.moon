@@ -1,5 +1,3 @@
-export ^
-
 class input
 	__defines = {}
 
@@ -32,3 +30,5 @@ class input
 	mouseY: -> love.mouse.getY!
 
 Input = input!
+
+{ :Input }

@@ -1,6 +1,4 @@
-require "LunoPunk.tween.motion.Motion"
-
-export ^
+import Motion from require "LunoPunk.tweens.motion.Motion"
 
 -- Determines motion along a line, from one point to another.
 class LinearMotion extends Motion
@@ -64,3 +62,5 @@ class LinearMotion extends Motion
 		return @__distance if @__distance >= 0
 		@__distance = math.sqrt @__moveX * @__moveX + @__moveY * @__moveY
 		return @__distance
+
+{ :LinearMotion }

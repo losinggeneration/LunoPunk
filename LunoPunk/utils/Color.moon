@@ -1,5 +1,3 @@
-export ^
-
 class Color
 	new: (color) =>
 		{@r, @g, @b} = LP.convertColor color
@@ -7,3 +5,5 @@ class Color
 
 	rgb: =>
 		{ @r, @g, @b }
+
+{ :Color }

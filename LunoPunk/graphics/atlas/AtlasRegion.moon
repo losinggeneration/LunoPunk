@@ -1,5 +1,3 @@
-export ^
-
 class AtlasRegion
 	new: (parent, tileindex, rect) =>
 		@__parent = parent
@@ -12,3 +10,5 @@ class AtlasRegion
 	height: => @rect.height
 
 	clip: =>
+
+{ :AtlasRegion }

@@ -1,5 +1,3 @@
-export ^
-
 class List
 	new: =>
 		@__list = {}
@@ -70,3 +68,5 @@ class List
 			n -= 1
 			return nil if n < 1
 			n, @__list[n]
+
+{ :List }

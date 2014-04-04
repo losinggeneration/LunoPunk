@@ -1,7 +1,6 @@
-require "LunoPunk.geometry.Matrix"
-require "LunoPunk.utils.EventListener"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Matrix from require "LunoPunk.geometry.Matrix"
+import EventListener from require "LunoPunk.utils.EventListener"
 
 class Screen
 	new: =>
@@ -171,3 +170,5 @@ class Screen
 	-- @return	A new Image object.
 	capture: =>
 	-- TODO return LunoPunk.graphics.Image
+
+{ :Screen }

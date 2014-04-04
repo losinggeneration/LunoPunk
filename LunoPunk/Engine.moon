@@ -1,13 +1,12 @@
-require "LunoPunk.Entity"
-require "LunoPunk.RenderMode"
-require "LunoPunk.Screen"
-require "LunoPunk.geometry.Rectangle"
-require "LunoPunk.utils.Draw"
-require "LunoPunk.utils.Event"
-require "LunoPunk.utils.EventListener"
-require "LunoPunk.utils.Input"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Entity from require "LunoPunk.Entity"
+import RenderMode from require "LunoPunk.RenderMode"
+import Screen from require "LunoPunk.Screen"
+import Rectangle from require "LunoPunk.geometry.Rectangle"
+import Draw from require "LunoPunk.utils.Draw"
+import Event from require "LunoPunk.utils.Event"
+import AddEventListener, DispatchEvent from require "LunoPunk.utils.EventListener"
+import Input from require "LunoPunk.utils.Input"
 
 -- The main class which manages the game loop
 class Engine
@@ -192,3 +191,5 @@ class Engine
 			LP.camera = LP.scene.camera
 			LP.scene\begin!
 			LP.scene\updateLists!
+
+{ :Engine }

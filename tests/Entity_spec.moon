@@ -1,11 +1,13 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.Entity"
-require "LunoPunk.Graphic"
-require "LunoPunk.Mask"
-require "LunoPunk.utils.moonscript"
-require "LunoPunk.geometry.Rectangle"
+import LP from require "LunoPunk.LP"
+import Scene from require "LunoPunk.Scene"
+import Entity from require "LunoPunk.Entity"
+import Graphic from require "LunoPunk.Graphic"
+import Mask from require "LunoPunk.Mask"
+import instance from require "LunoPunk.utils.moonscript"
+import Rectangle from require "LunoPunk.geometry.Rectangle"
 
 entity_sanity_check = ->
 	e = Entity!

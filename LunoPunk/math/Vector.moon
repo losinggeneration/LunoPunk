@@ -1,6 +1,4 @@
-require "LunoPunk.geometry.Point"
-
-export ^
+import Point from require "LunoPunk.geometry.Point"
 
 class Vector extends Point
 	new: (x = 0, y = 0) =>
@@ -20,3 +18,5 @@ class Vector extends Point
 	toString: => string.format "<%f, %f>", @x, @y
 
 	__tostring: => @toString!
+
+{ :Vector }

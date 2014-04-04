@@ -1,8 +1,8 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.Tweener"
-require "LunoPunk.Tween"
+import Tween from require "LunoPunk.Tween"
+import Tweener from require "LunoPunk.Tweener"
 
 describe "Tweener", ->
 	it "construct", ->
@@ -16,6 +16,7 @@ describe "Tweener", ->
 		t = tweener\addTween tween, true
 		assert.is.True, tween.active
 		assert.are.same tween, t
+		assert.are.same tweener, t.__parent
 		-- A tween instance can only be added once
 		assert.has.errors -> tweener\addTween tween, true
 		-- A new tween can be added

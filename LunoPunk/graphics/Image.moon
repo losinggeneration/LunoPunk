@@ -1,12 +1,12 @@
-require "LunoPunk.Graphic"
-require "LunoPunk.RenderMode"
-require "LunoPunk.graphics.atlas.Atlas"
-require "LunoPunk.graphics.atlas.AtlasRegion"
-require "LunoPunk.graphics.atlas.TextureAtlas"
-require "LunoPunk.geometry.Rectangle"
-require "LunoPunk.utils.Draw"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Graphic from require "LunoPunk.Graphic"
+import RenderMode from require "LunoPunk.RenderMode"
+import Atlas from require "LunoPunk.graphics.atlas.Atlas"
+import AtlasRegion from require "LunoPunk.graphics.atlas.AtlasRegion"
+import TextureAtlas from require "LunoPunk.graphics.atlas.TextureAtlas"
+import Rectangle from require "LunoPunk.geometry.Rectangle"
+import Draw from require "LunoPunk.utils.Draw"
+import instance from require "LunoPunk.utils.moonscript"
 
 -- Performance-optimized non-animated image. Can be drawn to the screen with transformations.
 class Image extends Graphic
@@ -168,3 +168,5 @@ class Image extends Graphic
 
 	width: => @__source\getWidth!
 	height: => @__source\getHeight!
+
+{ :Image }

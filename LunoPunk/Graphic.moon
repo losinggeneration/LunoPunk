@@ -1,7 +1,5 @@
-require "LunoPunk.LP"
-require "LunoPunk.geometry.Point"
-
-export ^
+import LP from require "LunoPunk.LP"
+import Point from require "LunoPunk.geometry.Point"
 
 class Graphic
 	new: =>
@@ -52,3 +50,5 @@ class Graphic
 
 	-- The layer to use for rendering, should only be set by the Entity
 	layer: => @__layer
+
+{ :Graphic }

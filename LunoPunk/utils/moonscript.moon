@@ -1,6 +1,5 @@
 moon = require "moon"
 
-export instance, moon_type, moon_class
 
 moon_check = (c, b) ->
 	moon.type(c) == moon.type(b)
@@ -47,3 +46,6 @@ moon_class = (name, init, parent, base = {}) ->
 	parent.__inherited parent, cls if parent and parent.__inherited
 
 	return cls
+
+
+{ :instance, :moon_type, :moon_class }

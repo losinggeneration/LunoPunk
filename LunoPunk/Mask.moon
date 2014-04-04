@@ -1,6 +1,4 @@
-require "LunoPunk.masks.Masklist"
-
-export ^
+import Masklist from require "LunoPunk.masks.Masklist"
 
 class Mask
 	new: =>
@@ -77,3 +75,5 @@ class Mask
 		max = cur if cur > max
 
 		{ :min, :max }
+
+{ :Mask }

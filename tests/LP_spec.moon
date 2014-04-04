@@ -1,7 +1,7 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.LP"
+import LP from require "LunoPunk.LP"
 
 -- We only need to setup some Coveralls options once
 require "coveralls.coveralls"

@@ -1,5 +1,3 @@
-export ^
-
 -- Static class with useful easer functions that can be used by Tweens.
 --
 -- Operation of in/out easers:
@@ -151,3 +149,5 @@ class ease
 		return (1 - (t + 1) * (t) * (-2.70158 * t - 1.70158)) / 2 + .5
 
 Ease = ease!
+
+{ :Ease }

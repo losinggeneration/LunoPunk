@@ -1,9 +1,9 @@
 require "busted"
 require "tests.mock_love"
 
-require "LunoPunk.Mask"
-require "LunoPunk.masks.Masklist"
-require "LunoPunk.Entity"
+import Mask from require "LunoPunk.Mask"
+import Masklist from require "LunoPunk.masks.Masklist"
+import Entity from require "LunoPunk.Entity"
 
 describe "Mask", ->
 	it "Construct", ->
