@@ -1,4 +1,4 @@
--- Auto-generated with ./create_everything.sh on 2014-04-04 01:34:08
+-- Auto-generated with ./create_everything.sh on 2014-04-04 23:27:36
 
 -- We tell Moonscript to export classes globally. Thus, we prevent collisions
 -- based on namespace since we don't know what is going to be used.
@@ -9,23 +9,27 @@
 
 import mixin_table from require "moon"
 
-LunoPunk = {}
-LunoPunk.debug = {}
-LunoPunk.geometry = {}
-LunoPunk.graphics = {}
-LunoPunk.graphics.atlas = {}
-LunoPunk.graphics.prototype = {}
-LunoPunk.masks = {}
-LunoPunk.math = {}
-LunoPunk.tweens = {}
-LunoPunk.tweens.misc = {}
-LunoPunk.tweens.motion = {}
-LunoPunk.tweens.sound = {}
-LunoPunk.utils = {}
-LunoPunk.utils.mixins = {}
+export LunoPunk
+LunoPunk = LunoPunk or {}
+LunoPunk.math = LunoPunk.math or {}
+LunoPunk.debug = LunoPunk.debug or {}
+LunoPunk.masks = LunoPunk.masks or {}
+LunoPunk.tweens = LunoPunk.tweens or {}
+LunoPunk.tweens.misc = LunoPunk.tweens.misc or {}
+LunoPunk.tweens.sound = LunoPunk.tweens.sound or {}
+LunoPunk.tweens.motion = LunoPunk.tweens.motion or {}
+LunoPunk.graphics = LunoPunk.graphics or {}
+LunoPunk.graphics.prototype = LunoPunk.graphics.prototype or {}
+LunoPunk.graphics.atlas = LunoPunk.graphics.atlas or {}
+LunoPunk.utils = LunoPunk.utils or {}
+LunoPunk.utils.mixins = LunoPunk.utils.mixins or {}
+LunoPunk.geometry = LunoPunk.geometry or {}
+
+import extract_love_version, set_love_title from require "LunoPunk.Config"
+extract_love_version love._version
+set_love_title!
 
 -- Now load each file to the correctly namespaced table
--- mixin_table LunoPunk, if t = assert(require "LunoPunk.Config") then t if type(t) == "table" else {} else {}
 mixin_table LunoPunk.debug, if t = assert(require "LunoPunk.debug.Console") then t if type(t) == "table" else {} else {}
 mixin_table LunoPunk.debug, if t = assert(require "LunoPunk.debug.LayerList") then t if type(t) == "table" else {} else {}
 mixin_table LunoPunk.geometry, if t = assert(require "LunoPunk.geometry.Matrix") then t if type(t) == "table" else {} else {}

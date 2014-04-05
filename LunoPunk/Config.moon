@@ -9,9 +9,12 @@ require_json = ->
 
 -- Extract the Löve version information for later use
 extract_love_version = (version) ->
+	import mixin_table from require "moon"
+
 	major, minor, patch = string.match version, "^(%d+)%.(%d+)%.(%d+)$"
 	release = string.match version, '^%d+%.%d+'
-	export LunoPunk = {love_version: {:release, :major, :minor, :patch}}
+	export LunoPunk = LunoPunk or {}
+	mixin_table LunoPunk, {love_version: {:release, :major, :minor, :patch}}
 
 -- Sets the window title of the engine
 set_love_title = (title, release = false) ->
