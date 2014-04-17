@@ -12,13 +12,15 @@ extract_love_version = (version) ->
 	import mixin_table from require "moon"
 
 	major, minor, patch = string.match version, "^(%d+)%.(%d+)%.(%d+)$"
+	major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch)
 	release = string.match version, '^%d+%.%d+'
 	export LunoPunk = LunoPunk or {}
 	mixin_table LunoPunk, {love_version: {:release, :major, :minor, :patch}}
+	LunoPunk
 
 -- Sets the window title of the engine
 set_love_title = (title, release = false) ->
-	development = " (development)" if not release
+	development = if release then "" else " (development)"
 
 	if title == nil
 		title = string.format "%s%s", "LunoPunk", development
