@@ -33,7 +33,7 @@ class Tween
 	update: =>
 		import LP from require "LunoPunk.LP"
 		-- Only update the Tween if active
-		return if not @active
+		return unless @active
 		@__time += if LP.fixed then 1 else LP.elapsed
 		@t = @__time/@__target
 		if @ease != nil and @t > 0 and @t < 1
@@ -76,6 +76,7 @@ class Tween
 
 		@__finish = false
 		DispatchEvent TweenEvent TweenEvent.FINISH
+		return
 
 	-- Immediately stops the Tween and removes it from its Tweener without calling the complete callback.
 	cancel: =>
