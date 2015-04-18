@@ -25,7 +25,6 @@ install:
   - luarocks install busted
   # for coveralls
   - luarocks install luasec    # To send request
-  - luarocks install penlight  # To get files
   - luarocks install luajson
 
 script:
