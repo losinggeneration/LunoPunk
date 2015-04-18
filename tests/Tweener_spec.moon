@@ -69,10 +69,16 @@ describe "Tweener", ->
 		assert.is.False tweener\hasTween!
 
 	it "updateTweens", ->
+		import LP from require "LunoPunk.LP"
+
 		tweener = Tweener!
 		tweens = {i, tweener\addTween Tween i for i=1, 10}
 
+
 		t\start! for t in *tweens
+
+		-- simplate a world tick
+		LP.elapsed += 1
 
 		tweener\updateTweens!
 
