@@ -25,7 +25,7 @@ print_tbl = (t, indent = 0) ->
 
 fprint file, string.format [[-- Busted mock for Löve %s
 
-require "busted"
+busted = require "busted"
 
 loveTbl = {]], love._version
 
@@ -33,7 +33,7 @@ print_tbl love, 1
 
 fprint file, "}"
 
-fprint file, [[export love = mock loveTbl
+fprint file, [[export love = busted.mock loveTbl
 love]]
 
 file\close!
