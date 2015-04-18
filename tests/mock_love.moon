@@ -1,6 +1,6 @@
 -- Busted mock for Löve 11.1
 
-busted = require "busted"
+require "busted"
 
 loveTbl = {
   createhandlers: ->
@@ -474,5 +474,5 @@ loveTbl = {
   }
   _version_major: '11'
 }
-export love = busted.mock loveTbl
+export love = mock loveTbl
 love

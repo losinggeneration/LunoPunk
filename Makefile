@@ -1,5 +1,6 @@
 MOONCFLAGS=
 BUSTEDFLAGS=
+BUSTED_LUA=luajit
 DISTDIR=
 
 LOVEPUNK_SRCS = $(shell find LunoPunk -iname '*.moon')
@@ -8,10 +9,13 @@ LOVEPUNK_OBJS = $(patsubst %.moon,%.lua,$(LOVEPUNK_SRCS))
 all: $(LOVEPUNK_OBJS)
 
 test: tests/mock_love.moon
-	busted tests
+	busted -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
-ci: tests/mock_love.moon
-	busted -o plainTerminal -c tests
+tap: tests/mock_love.moon
+	busted -o TAP -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
+
+ci: tests/mock_love.moon coveralls/busted.lua
+	busted -o coveralls/busted.lua -m LunoPunk/?.moon -l $(BUSTED_LUA) -p _spec.moon$$ tests
 
 # Dependencies
 tests/mock_love.moon:
@@ -21,6 +25,9 @@ tests/mock_love.moon:
 	@love tmp
 	@mv mock_love.moon tests
 	@rm -fr tmp
+
+coveralls/busted.lua: coveralls/busted.moon
+	moonc coveralls/busted.moon
 
 %.lua: %.moon
 	moonc ${MOONCFLAGS} -p $< > $@

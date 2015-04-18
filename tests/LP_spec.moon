@@ -3,6 +3,10 @@ require "tests.mock_love"
 
 import LP from require "LunoPunk.LP"
 
+-- We only need to setup some Coveralls options once
+require "coveralls.coveralls"
+Coveralls.dirname = './LunoPunk'
+
 describe "LP", ->
 	it "sign", ->
 		-- Negative
