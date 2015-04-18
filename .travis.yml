@@ -21,15 +21,11 @@ before_install:
   - source .travis/setenv_lua.sh
 
 install:
-  - apt-get install -qq libev-dev libssl-dev
   - luarocks install moonscript
   - luarocks install busted
   # for coveralls
-  - luarocks install luasocket
-  - luarocks install luasec 0.4.1-2 OPENSSL_DIR=/usr OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
-  - luarocks install luafilesystem
-  - luarocks install copas
-  - luarocks install lua-ev
+  - luarocks install luasec    # To send request
+  - luarocks install penlight  # To get files
   - luarocks install luajson
 
 script:
