@@ -296,9 +296,9 @@ class lp
 	-- @param	y			Y position to step towards.
 	-- @param	distance	The distance to step (will not overshoot target).
 	stepTowards: (object, x, y, distance) ->
-		assert object.x != nil and object.y != nil, "Object must have x and y components"
-		object.x = LP.approach object.x, x, distance
-		object.y = LP.approach object.y, y, distance
+		assert object\x != nil or object\y != nil, "Object must have x and y components"
+		object\x LP.approach object\x!, x, distance
+		object\y LP.approach object\y!, y, distance
 
 	-- Swaps the current item between a and b. Useful for quick state/string/value swapping.
 	-- @param	current		The currently selected item.
