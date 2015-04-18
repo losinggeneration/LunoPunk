@@ -44,7 +44,7 @@ class Entity extends Tweener
 		-- Collision information.
 		@__hitbox = Mask!
 		-- An optional Mask component, used for specialized collision. If this is not assigned, collision checks will use the Entity's hitbox by default.
-		@mask mask if mask != nil
+		@mask mask unless mask == nil
 		@__moveX, @__moveY = 0, 0
 		@__collide_x, @__collide_y = 0, 0
 
@@ -52,13 +52,13 @@ class Entity extends Tweener
 		@__layer = LP.BASELAYER!
 
 		-- Graphical component to render to the screen.
-		@graphic graphic if graphic != nil
+		@graphic graphic unless graphic == nil
 
 		@__hitbox\assignTo @
 
 	-- X position of the Entity in the Scene.
 	x: (value) =>
-		if value != nil
+		unless value == nil
 			@__x = value
 			return @__x
 
@@ -69,9 +69,10 @@ class Entity extends Tweener
 
 	-- Y position of the Entity in the Scene.
 	y: (value) =>
-		if value != nil
+		unless value == nil
 			@__y = value
 			return @__y
+
 		if @followCamera
 			@__y + LP.camera.y
 		else
@@ -104,7 +105,7 @@ class Entity extends Tweener
 	layer: (value) =>
 		return @__layer if value == nil or value == @__layer
 
-		@__graphic.layer = value if @__graphic != nil
+		@__graphic.layer = value unless @__graphic == nil
 
 		if @__scene == nil
 			-- Reset to the default on false
@@ -124,16 +125,16 @@ class Entity extends Tweener
 			@__type = value
 			return @__type
 
-		@__scene\__removeType(@) if @__type != ""
+		@__scene\__removeType(@) unless @__type == ""
 		@__type = value
-		@__scene\__addType(@) if @__type != ""
+		@__scene\__addType(@) unless @__type == ""
 
 		@__type
 
 	mask: (value) =>
 		return @__mask if value == nil or @__mask == value
 
-		@__mask\assignTo(nil) if @__mask != nil
+		@__mask\assignTo(nil) unless @__mask == nil
 		@__mask = if value then value else nil
 		@__mask\assignTo(@) if value
 
@@ -147,7 +148,7 @@ class Entity extends Tweener
 		@__graphic
 
 	scene: (value) =>
-		@__scene = value if value != nil and @__scene != value
+		@__scene = value unless value == nil or @__scene == value
 		-- Special case to unset @__scene
 		@__scene = nil if value == false
 		@__scene
@@ -155,7 +156,7 @@ class Entity extends Tweener
 	-- The World object is deprecated for FlashPunk-like compatibility
 	-- TODO give a massage about this kept for porting compatibility
 	world: (value) =>
-		@__scene = value if value != nil
+		@__scene = value unless value == nil
 		@__scene
 
 	-- Override this, called when the Entity is added to a Scene.
@@ -222,7 +223,7 @@ class Entity extends Tweener
 					c4 = x - @originX <= e\x! - e.originX + e.width
 					c5 = y - @originY <= e\y! - e.originY + e.height
 					c1 and c2 and c3 and c4 and c5
-				if e.__mask\collide (if e.__mask != nil then e.__mask else e.HITBOX)
+				if e.__mask\collide (if e.__mask == nil then e.HITBOX else e.__mask)
 					@x @__collide_x
 					@y @__collide_y
 					return e
@@ -245,10 +246,10 @@ class Entity extends Tweener
 		if type(types) == "string"
 			return @collide types, x, y
 		else
-			if types != nil
+			unless types == nil
 				for t in *types
 					e = @collide t, x, y
-					return e if e != nil
+					return e unless e == nil
 
 		return nil
 
@@ -280,7 +281,7 @@ class Entity extends Tweener
 				return nil
 
 
-			if (if @__mask\collide(e.__mask) != nil then e.__mask else e.__hitbox)
+			if (if @__mask\collide(e.__mask) == nil then e.__hitbox else e.__mask)
 				@x @__collide_x
 				@y @__collide_y
 				return e
@@ -397,7 +398,7 @@ class Entity extends Tweener
 				c5 = y - @originY < e.y - e.originY + e.height
 				c1 and c2 and c3 and c4 and c5
 			if c
-				array[#array+1] = e if (if @__mask\collide(e.__mask) != nil then e.__mask else e.__hitbox)
+				array[#array+1] = e if (if @__mask\collide(e.__mask) == nil then e.__hitbox else e.__mask)
 
 			e = e.__typeNext
 
@@ -426,7 +427,7 @@ class Entity extends Tweener
 			@graphic!\add g
 		else
 			list = Graphiclist!
-			list\add graphic if @graphic! != nil
+			list\add graphic unless @graphic! == nil
 			list\add g
 			@graphic list
 			list\setEntity @
@@ -505,37 +506,37 @@ class Entity extends Tweener
 		@__moveX -= x
 		@__moveY -= y
 
-		if solidType != nil
-			if x != 0
+		if solidType == nil
+			@x @x! + x
+			@y @y! + y
+		else
+			unless x == 0
 				if @collidable and (sweep or @collideTypes(solidType, @x! + x, @y!) != nil)
 					sign = if x > 0 then 1 else -1
 					while x != 0
 						e = @collideTypes solidType, @x! + sign, @y!
-						if e != nil
-							break if @moveCollideX e
+						if e == nil
 							@x @x! + sign
 						else
+							break if @moveCollideX e
 							@x @x! + sign
 
 						x -= sign
 				else
 					@x @x! + x
 
-			if y != 0
+			unless y == 0
 				if @collidable and (sweep or @collideTypes(solidType, @x!, @y! + y) != nil)
 					sign = if y > 0 then 1 else -1
 					while y != 0
 						e = @collideTypes solidType, @x!, @y! + sign
-						if e != nil
-							break if @moveCollideY e
+						if e == nil
 							@y @y! + sign
 						else
+							break if @moveCollideY e
 							@y @y! + sign
 
 						y -= sign
-		else
-			@x @x! + x
-			@y @y! + y
 
 	-- Moves the Entity to the position, retaining integer values for its x and y.
 	-- @param	x			X position.
@@ -590,6 +591,6 @@ class Entity extends Tweener
 
 	-- Center graphic inside bounding rect.
 	centerGraphicInRect: =>
-		@__graphic.x, @__graphic.y = @halfWidth!, @halfHeight! if @__graphic != nil
+		@__graphic.x, @__graphic.y = @halfWidth!, @halfHeight! unless @__graphic == nil
 
 { :Entity }
