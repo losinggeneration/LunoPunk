@@ -71,38 +71,40 @@ describe "LP", ->
 
 	it "stepTowards", ->
 		class xy
-			new: => @x, @y = 0, 0
+			new: => @__x, @__y = 0, 0
+			x: (v) => if v == nil then @__x else @__x = v
+			y: (v) => if v == nil then @__y else @__y = v
 
 		-- No step
 		c = xy!
 		LP.stepTowards c, 1, 1, 0
-		assert.are.equal 0, c.x
-		assert.are.equal 0, c.y
+		assert.are.equal 0, c\x!
+		assert.are.equal 0, c\y!
 
 		-- Contained step
 		LP.stepTowards c, 2, 2, 1
-		assert.are.equal 1, c.x
-		assert.are.equal 1, c.y
+		assert.are.equal 1, c\x!
+		assert.are.equal 1, c\y!
 
 		-- Bounds step
 		LP.stepTowards c, 2, 2, 1
-		assert.are.equal 2, c.x
-		assert.are.equal 2, c.y
+		assert.are.equal 2, c\x!
+		assert.are.equal 2, c\y!
 
 		-- Over step
 		LP.stepTowards c, 2, 2, 1
-		assert.are.equal 2, c.x
-		assert.are.equal 2, c.y
+		assert.are.equal 2, c\x!
+		assert.are.equal 2, c\y!
 
 		-- Different x and y
 		LP.stepTowards c, 2, 3, 1
-		assert.are.equal 2, c.x
-		assert.are.equal 3, c.y
+		assert.are.equal 2, c\x!
+		assert.are.equal 3, c\y!
 
 		-- Under step (changed bounds)
 		LP.stepTowards c, 1, 2, 1
-		assert.are.equal 1, c.x
-		assert.are.equal 2, c.y
+		assert.are.equal 1, c\x!
+		assert.are.equal 2, c\y!
 
 	it "swap", ->
 		a, b = 1, 2
