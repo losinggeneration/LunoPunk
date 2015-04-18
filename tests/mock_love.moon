@@ -1,6 +1,6 @@
 -- Busted mock for Löve 0.8.0
 
-require "busted"
+busted = require "busted"
 
 loveTbl = {
   _modules: {
@@ -285,5 +285,5 @@ loveTbl = {
     wait: ->
   }
 }
-export love = mock loveTbl
+export love = busted.mock loveTbl
 love

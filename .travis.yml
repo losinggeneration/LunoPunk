@@ -1,31 +1,32 @@
-language: erlang
+language: c
+
+sudo: false
 
 env:
-    - LUA="luajit"
+  global:
+    - LUAROCKS=2.2.1
+  matrix:
+    - LUA=lua5.1
+    - LUA=lua5.2
+    - LUA=lua5.3
+    - LUA=luajit # latest stable version (2.0.3)
+    - LUA=luajit2.0 # current head of 2.0 branch
+    - LUA=luajit2.1 # current head of 2.1 branch
+
 
 cache:
-    - apt
-    - /usr/local/share/lua
+  - apt
+  - /usr/local/share/lua
 
-install:
-    - sudo apt-get update -qq
-    - sudo apt-get install -qq git luajit luarocks libev-dev libssl-dev make
-    - sudo ln -s /usr/bin/luajit-2.0.0-beta9 /usr/bin/luajit
-    - sudo luarocks install luasocket
-    - sudo luarocks install luasec 0.4.1-2 OPENSSL_DIR=/usr OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
-    - sudo luarocks install luafilesystem
-    - sudo luarocks install copas
-    - sudo luarocks install moonscript
-    - sudo luarocks install lua-ev
-    - sudo luarocks install busted
-    - sudo luarocks install luajson
-    - cd $TRAVIS_BUILD_DIR
-
-before_script:
-    # Fix an error with busted/core and custom output file loading
-    - sudo sed -i 's/opath, output/opath or "", output/' /usr/local/share/lua/5.1/busted/core.lua
-    # Fix an issue with table.concat getting nil instead of a number
-    - sudo sed -i 's/1, last_j)$/1, last_j or 0)/' /usr/local/share/lua/5.1/busted/core.lua
+before_install:
+  - source .travis/setenv_lua.sh
+  - luarocks install luacov-coveralls
+  - luarocks install Lua-cURL
+  - luarocks install busted
+  - luarocks install moonscript
 
 script:
-    - make ci
+  - make ci
+
+after_success:
+  - luacov-coveralls -v
