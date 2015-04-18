@@ -1,3 +1,4 @@
+import LP  from require "LunoPunk.LP"
 import Entity from require "LunoPunk.Entity"
 import Rect from require "LunoPunk.graphics.prototype.Rect"
 import Input from require "LunoPunk.utils.Input"
@@ -15,7 +16,7 @@ class Player extends Entity
 		@moveBy -5, 0 if Input.check(Key.LEFT) and @x! - 5 >= 0
 		@moveBy 5, 0 if Input.check(Key.RIGHT) and @x! + 5 + @width <= LP.width
 
-		b = @collide "bullet"
+		b = @collide "bullet", @x!, @y!
 		b\destroy! if b
 
 		super!
