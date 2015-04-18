@@ -179,7 +179,7 @@ class Engine
 	checkScene = =>
 		return if not LP\sceneIsNull!
 
-		if LP.scene != nil
+		unless LP.scene == nil
 			LP.scene\endScene!
 			LP.scene\updateLists!
 			LP.scene\clearTweens! if LP.scene.autoClear and LP.scene\hasTween!

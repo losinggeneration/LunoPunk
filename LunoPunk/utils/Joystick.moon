@@ -17,7 +17,7 @@ if LP.__love "0.8"
 		__loveOpen: =>
 			i = 1
 			for k, v in pairs @@joysticks
-				break if k != i
+				break unless k == i
 				i += 1
 
 			return if i > love.joystick.getNumJoysticks!
@@ -43,7 +43,7 @@ else if LP.__love "0.9"
 		__loveOpen: =>
 			i = 1
 			for k, v in pairs @@opened
-				break if k != i
+				break unless k == i
 				i += 1
 
 			return if i > #@@joysticks

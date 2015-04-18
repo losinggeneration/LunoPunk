@@ -70,7 +70,7 @@ class Image extends Graphic
 
 			assert false, "Invalid source image." if @__source == nil and @__region == nil
 
-		if clipRect != nil
+		unless clipRect == nil
 			clipRect.width = @__sourceRect\width if clipRect\width == 0
 			clipRect.height = @__sourceRect\height if clipRect\height == 0
 			@__region = @__region\clip clipRect if not @__blit -- creat a new clipped region
@@ -109,7 +109,7 @@ class Image extends Graphic
 -- 				@__matrix.d = sy
 -- 				@__matrix.tx = -@originX * sx
 -- 				@__matrix.ty = -@originY * sy
--- 				@__matrix\rotate @angle * LP.RAD! if @angle != 0
+-- 				@__matrix\rotate @angle * LP.RAD! unless @angle == 0
 -- 				@__matrix.tx += @originX + @__point.x
 -- 				@__matrix.ty += @originY + @__point.y
 

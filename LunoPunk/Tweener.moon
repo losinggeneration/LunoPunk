@@ -20,7 +20,7 @@ class Tweener
 		t.__parent = @ if t.__class == Tween
 		t.__next = @__tween
 
-		@__tween.__prev = t if @__tween != nil
+		@__tween.__prev = t unless @__tween == nil
 		@__tween = t
 
 		@__tween\start! if start
@@ -35,12 +35,12 @@ class Tweener
 	removeTween: (t) =>
 		assert t.__parent == @, "Core object does not contain Tween."
 
-		t.__next.__prev = t.__prev if t.__next != nil
+		t.__next.__prev = t.__prev unless t.__next == nil
 
-		if t.__prev != nil
-			t.__prev.__next = t.__prev
-		else
+		if t.__prev == nil
 			@__tween = if t.__next == nil then nil else t.__next
+		else
+			t.__prev.__next = t.__prev
 
 		t.__next, t.__prev = nil, nil
 		t.active = false

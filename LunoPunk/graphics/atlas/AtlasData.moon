@@ -13,7 +13,7 @@ class atlasdata
 	-- @return The new AtlasRegion object.
 	createRegion: (rect, center) =>
 		r = rect\clone!
-		p = Point center.x, center.y if center != nil
+		p = Point center.x, center.y unless center != nil
 -- 		tileIndex = @__tilesheet\addTileRect r, p
 		AtlasRegion @, tileIndex, rect
 

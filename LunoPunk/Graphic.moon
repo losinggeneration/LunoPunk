@@ -37,10 +37,10 @@ class Graphic
 
 	setEntity: (entity) =>
 		@__entity = entity
-		layer = if entity != nil
-				entity.layer
-			else
+		layer = if entity == nil
 				LP.BASELAYER!
+			else
+				entity.layer
 
 	-- Pause updating this graphic.
 	pause: => @active = false

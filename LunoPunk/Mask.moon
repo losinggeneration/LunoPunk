@@ -23,10 +23,10 @@ class Mask
 	collide: (mask) =>
 		assert @parent != nil, "Mask must be attached to a parent Entity"
 		cb = @__check[mask.__class]
-		return cb mask if cb != nil
+		return cb mask unless cb == nil
 
 		cb = mask.__check[@@]
-		return cb @ if cb != nil
+		return cb @ unless cb == nil
 		false
 
 	-- @private Collide against an Entity.
@@ -46,7 +46,7 @@ class Mask
 	-- @private Assigns the mask to the parent.
 	assignTo: (parent) =>
 		@parent = parent
-		@update! if parent != nil
+		@update! unless parent == nil
 
 	-- Override this
 	debugDraw: (graphics, scaleX, scaleY) =>

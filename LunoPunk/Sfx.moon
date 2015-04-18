@@ -106,7 +106,7 @@ class Sfx
 			@stop!
 
 		@__position = 0
-		@complete! if @complete != nil
+		@complete! unless @complete == nil
 
 	-- @private Add the sound to the global list.
 	addPlaying = =>

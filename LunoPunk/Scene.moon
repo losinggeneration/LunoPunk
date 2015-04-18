@@ -123,7 +123,7 @@ class Scene extends Tweener
 	addGraphic: (graphic, layer = LP.BASELAYER!, x = 0, y = 0) =>
 		e = Entity x, y, graphic
 
-		e.layer = layer if layer != LP.BASELAYER!
+		e.layer = layer unless layer == LP.BASELAYER!
 		e.active = false
 
 		@add e
@@ -137,7 +137,7 @@ class Scene extends Tweener
 	addMask: (mask, type, x = 0, y = 0) =>
 		e = Entity x, y, nil, mask
 
-		e.type = type if type != ""
+		e.type = type unless type == ""
 		e.active, e.visable = false, false
 
 		@add e
@@ -150,11 +150,11 @@ class Scene extends Tweener
 	create: (classType, addToScene = true, ...) =>
 		className = classType.__class.__name
 		e = @__recycle[className]
-		if e != nil
+		if e == nil
+			e = classType ...
+		else
 			@__recycle[className] = e.__recycleNext
 			e.__recycleNext = nil
-		else
-			e = classType ...
 
 		return @add e if addToScene
 
@@ -597,15 +597,14 @@ class Scene extends Tweener
 					table.remove @__add, idx if idx >= 0
 					continue
 
-				if e.__scene != @
-					continue
+				continue unless e.__scene == @
 
 				e\removed!
 				e.__scene = nil
 				@__removeUpdate e
 				@__removeRender e
-				@__removeType e if e.__type != ""
-				@__unregisterName e if e.__name != ""
+				@__removeType e unless e.__type == ""
+				@__unregisterName e unless e.__name == ""
 				e\clearTweens! if e.autoClear and e.hasTween
 
 			LP.clear @__remove
@@ -613,12 +612,12 @@ class Scene extends Tweener
 		-- add entities
 		if shouldAdd and #@__add > 0
 			for e in *@__add
-				continue if e.__scene != nil
+				continue unless e.__scene == nil
 				e\scene @
 				@__addUpdate e
 				@__addRender e
-				@__addType e if e.__type != ""
-				@__registerName e if e.__name != ""
+				@__addType e unless e.__type == ""
+				@__registerName e unless e.__name == ""
 				e\added!
 
 			LP.clear @__add
@@ -644,11 +643,11 @@ class Scene extends Tweener
 	-- @private Adds Entity to the update list.
 	__addUpdate: (e) =>
 		-- add to update list
-		if @__updateFirst != nil
+		if @__updateFirst == nil
+			e.__updateNext = nil
+		else
 			@__updateFirst.__updatePrev = e
 			e.__updateNext = @__updateFirst
-		else
-			e.__updateNext = nil
 
 		e.__updatePrev = nil
 		@__updateFirst = e
@@ -660,8 +659,8 @@ class Scene extends Tweener
 	__removeUpdate: (e) =>
 		-- remove from the update list
 		@__updateFirst = e.__updateNext if @__updateFirst == e
-		e.__updateNext.__updatePrev = e.__updatePrev if e.__updateNext != nil
-		e.__updatePrev.__updateNext = e.__UpdateNext if e.__updatePrev != nil
+		e.__updateNext.__updatePrev = e.__updatePrev unless e.__updateNext == nil
+		e.__updatePrev.__updateNext = e.__UpdateNext unless e.__updatePrev == nil
 		e.__updateNext, e.__updatePrev = nil, nil
 		@__count -= 1
 		@__classCount[e.__class] -= 1
@@ -669,32 +668,30 @@ class Scene extends Tweener
 	-- @private Adds Entity to the render list.
 	__addRender: (e) =>
 		r = @__renderFirst[e.__layer]
-		if r != nil
-			-- Append entity to existing layer.
-			e.__renderNext = r
-			r.__renderPrev = e
-			@__layerCount[e.__layer] += 1
-		else
+		if r == nil
 			-- Create new layer with entity.
 			@__renderLast[e.__layer] = e
 			@__layerList[#@__layerList + 1] = e.__layer
 			@__layerSort = true
 			e.__renderNext = nil
 			@__layerCount[e.__layer] = 1
+		else
+			-- Append entity to existing layer.
+			e.__renderNext = r
+			r.__renderPrev = e
+			@__layerCount[e.__layer] += 1
 
 		@__renderFirst[e.__layer] = e
 		e.__renderPrev = nil
 
 	-- @private Removes Entity from the render list.
 	__removeRender: (e) =>
-		if e.__renderNext != nil
-			e.__renderNext.__renderPrev = e.__renderPrev
-		else
+		if e.__renderNext == nil
 			@__renderLast[e.__layer] = e.__renderPrev
-
-		if e.__renderPrev != nil
-			e.__renderPrev.__renderNext = e.__renderNext
 		else
+			e.__renderNext.__renderPrev = e.__renderPrev
+
+		if e.__renderPrev == nil
 			-- Remove this entity from the layer.
 			@__renderFirst[e.__layer] = e.__renderNext
 			if e.__renderNext == nil
@@ -704,8 +701,10 @@ class Scene extends Tweener
 					@__layerSort = true
 
 				table.remove @__layerList
+		else
+			e.__renderPrev.__renderNext = e.__renderNext
 
-		e\graphic!\destroy! if e\graphic! != nil
+		e\graphic!\destroy! unless e\graphic! == nil
 
 		if @__layerCount[e.__layer]
 			@__layerCount[e.__layer] -= 1
@@ -717,13 +716,13 @@ class Scene extends Tweener
 	-- @private Adds Entity to the type list.
 	__addType: (e) =>
 		-- add to type list
-		if @__typeFirst[e.__type] != nil
+		if @__typeFirst[e.__type] == nil
+			e.__typeNext = nil
+			@__typeCount[e.__type] = 1
+		else
 			@__typeFirst[e.__type].__typePrev = e
 			e.__typeNext = @__typeFirst[e.__type]
 			@__typeCount[e.__type] += 1
-		else
-			e.__typeNext = nil
-			@__typeCount[e.__type] = 1
 
 		e.__typePrev = nil
 		@__typeFirst[e.__type] = e
@@ -732,8 +731,8 @@ class Scene extends Tweener
 	__removeType: (e) =>
 		-- remove from the type list
 		@__typeFirst[e.__type] = e.__typeNext if @__typeFirst[e.__type] == e
-		e.__typeNext.__typePrev = e.__typePrev if e.__typeNext != nil
-		e.__typePrev.__typeNext = e.__typeNext if e.__typePrev != nil
+		e.__typeNext.__typePrev = e.__typePrev unless e.__typeNext == nil
+		e.__typePrev.__typeNext = e.__typeNext unless e.__typePrev == nil
 		e.__typeNext, e.__typePrev = nil, nil
 		@__typeCount[e.__type] -= 1
 

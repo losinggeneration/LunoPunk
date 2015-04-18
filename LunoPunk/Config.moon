@@ -69,18 +69,18 @@ config = (options) ->
 	love.conf = (t) ->
 		extract_love_version t.version
 
-		if options != nil
+		if options == nil
+			t.title = set_love_title!
+		else
 			window = nil
 			if t.version == "0.9.0"
 				window = t.window
 			else
 				window = t.screen
 
-			window.width = options.width if options.width != nil
-			window.height = options.height if options.height != nil
-			window.fullscreen = options.fullscreen if options.fullscreen != nil
+			window.width = options.width unless options.width == nil
+			window.height = options.height unless options.height == nil
+			window.fullscreen = options.fullscreen unless options.fullscreen == nil
 			t.title = set_love_title options.title, options.release
-		else
-			t.title = set_love_title!
 
 {:config, :extract_love_version, :set_love_title}

@@ -46,7 +46,7 @@ class Screen
 		@__matrix.a, @__matrix.d = @fullScaleX!, @fullScaleY!
 		@__matrix.tx = -@originX! * @__matrix.a
 		@__matrix.ty = -@originY! * @__matrix.d
-		@__matrix\rotate @__angle if @__angle != 0
+		@__matrix\rotate @__angle unless @__angle == 0
 		@__matrix.tx += @originX! * @fullScaleX! + @x!
 		@__matrix.ty += @originY! * @fullScaleY! + @y!
 		-- TODO
@@ -151,7 +151,7 @@ class Screen
 	-- return bool
 	smoothing = (value) =>
 		-- TODO
-		@__smoothing = value if value != nil
+		@__smoothing = value unless value == nil
 		@__smoothing
 
 	-- Width of the screen.

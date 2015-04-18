@@ -26,7 +26,7 @@ class Tween
 		@t = 0
 		@__time = 0
 
-		if complete != nil
+		unless complete == nil
 			AddEventListener TweenEvent.FINISH, complete
 
 	-- Updates the Tween, called by World.
@@ -72,7 +72,7 @@ class Tween
 			when "OneShot"
 				@__time = @__target
 				@active = false
-				@__parent\removeTween @ if @__parent != nil
+				@__parent\removeTween @ unless @__parent == nil
 
 		@__finish = false
 		DispatchEvent TweenEvent TweenEvent.FINISH
@@ -80,7 +80,7 @@ class Tween
 	-- Immediately stops the Tween and removes it from its Tweener without calling the complete callback.
 	cancel: =>
 		@active = false
-		@__parent\removeTween @ if @__parent != nil
+		@__parent\removeTween @ unless @__parent == nil
 		return
 
 	percent: (value) =>
