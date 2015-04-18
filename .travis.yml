@@ -29,4 +29,4 @@ script:
   - make ci
 
 after_success:
-  - luacov-coveralls -v
+  - luacov-coveralls -i "%.moon" -e "tests
