@@ -18,7 +18,6 @@ cache:
   - /usr/local/share/lua
 
 before_install:
-  - apt-get update -qq
   - source .travis/setenv_lua.sh
 
 install:
