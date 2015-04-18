@@ -5,6 +5,9 @@ import Tweener from require "LunoPunk.Tweener"
 
 local LP
 
+-- for Lua 5.3 compatibility
+table.unpack = unpack if table.unpack == nil
+
 class lp
 	-- Private
 	BASELAYER = 10
@@ -253,7 +256,7 @@ class lp
 			f[1] = d[1] * t
 			f[2] = d[2] * t
 			f[3] = d[3] * t
-			LP.getColorRGB unpack f
+			LP.getColorRGB table.unpack f
 
 	next: (current, options, loop) ->
 	prev: (current, options, loop) ->
