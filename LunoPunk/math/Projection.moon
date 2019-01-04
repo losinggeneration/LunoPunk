@@ -15,9 +15,9 @@ class Projection
 	--
 	-- @return	The overlap value.
 	getOverlap: (other) => if @max > other.max
-			@max - other.min
-		else
-			other.max - @min
+		@max - other.min
+	else
+		other.max - @min
 
 	-- Prints the projection as a string
 	--

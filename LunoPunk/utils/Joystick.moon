@@ -1,4 +1,5 @@
 import LP from require "LunoPunk.LP"
+import Point from require "LunoPunk.geometry.Point"
 
 class JoyButtonState
 	BUTTON_ON: 1
@@ -34,7 +35,7 @@ if LP.__love "0.8"
 		__loveButton: (button) => love.joystick.isDown @joystick button
 
 
-else if LP.__love "0.9"
+else if LP.__love "0.9", "12.0"
 	loveJoystick = class
 		new: =>
 			@@joysticks = love.joystick.getJoysticks! if @@joysticks == nil

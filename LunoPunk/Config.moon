@@ -10,10 +10,17 @@ require_json = ->
 -- Extract the Löve version information for later use
 extract_love_version = (version) ->
 	import mixin_table from require "moon"
+	local major, minor, patch
 
-	major, minor, patch = string.match version, "^(%d+)%.(%d+)%.(%d+)$"
-	major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch)
-	release = string.match version, '^%d+%.%d+'
+	if love.getVersion != nil and love.getVersion() != nil
+		major, minor, patch = love.getVersion()
+	elseif love._version_major != nil and love._version_minor != nil
+		major, minor, patch = love._version_major, love._version_minor, love._version_patch
+	else
+		major, minor, patch = string.match version, "^(%d+)%.(%d+)%.?(%d+)$"
+		major, minor, patch = tonumber(major), tonumber(minor), tonumber(patch)
+
+	release = string.format "%d.%d", major, minor
 	export LunoPunk = LunoPunk or {}
 	mixin_table LunoPunk, {love_version: {:release, :major, :minor, :patch}}
 	LunoPunk
@@ -27,7 +34,7 @@ set_love_title = (title, release = false) ->
 	else
 		title = string.format "%s%s", title, development
 
-	if LunoPunk.love_version.release == "0.9" and love.window
+	if tonumber(LunoPunk.love_version.release) >= 0.9 and love.window
 		love.window.setTitle title
 	elseif love.graphics
 		love.graphics.setCaption title
@@ -67,13 +74,13 @@ config = (options) ->
 
 	-- This is the actual callback Löve will call upon loading conf.lua
 	love.conf = (t) ->
-		extract_love_version t.version
+		lp = extract_love_version t.version
 
 		if options == nil
 			t.title = set_love_title!
 		else
 			window = nil
-			if t.version == "0.9.0"
+			if tonumber(LunoPunk.love_version.release) >= 0.9
 				window = t.window
 			else
 				window = t.screen

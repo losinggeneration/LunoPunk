@@ -87,13 +87,12 @@ class lp
 	-- @param	target	The target that you want value to approach.
 	-- @param	amount	How much you want the value to approach target by.
 	-- @return	The new value.
-	approach: (value, target, amount) ->
-		if value < target - amount
-			value + amount
-		else if value > target + amount
-			value - amount
-		else
-			target
+	approach: (value, target, amount) -> if value < target - amount
+		value + amount
+	else if value > target + amount
+		value - amount
+	else
+		target
 
 	choose: (objs) ->
 
@@ -103,11 +102,11 @@ class lp
 	-- @param	max			The maximum range.
 	-- @return	The clamped value.
 	clamp: (value, min, max) -> if value < min
-			min
-		else if value > max
-			max
-		else
-			value
+		min
+	else if value > max
+		max
+	else
+		value
 
 	clampInRect: (object, x, y, width, height, padding) ->
 	clear: (t) -> while #t > 0 do table.remove t
@@ -287,11 +286,11 @@ class lp
 	-- @param	value		The Float to evaluate.
 	-- @return	1 if value > 0, -1 if value < 0, and 0 when value == 0.
 	sign: (value) -> if value < 0
-			-1
-		elseif value == 0
-			0
-		else
-			1
+		-1
+	elseif value == 0
+		0
+	else
+		1
 
 	-- Steps the object towards a point.
 	-- @param	object		Object to move (must have an x and y property).
@@ -314,10 +313,17 @@ class lp
 	timeFlag: ->
 	tween: (object, values, duration, options) ->
 
-	-- Used to determine the Löve version that's being used
+	-- Used to determine the Löve version is exactly a version or if it's within the
+	-- acceptable range of [version..range)
 	-- @param	version		The string containing the major.minor Löve version
+	-- @param	range		The string containing the major.minor max Löve version
 	-- @return	true if version matches the Löve version
-	__love: (version) -> version == LunoPunk.love_version.release
+	__love: (version, range) ->
+		if range
+			release = tonumber(LunoPunk.love_version.release)
+			release >= tonumber(version) and release < tonumber(range)
+		else
+			version == LunoPunk.love_version.release
 
 LP = lp!
 
@@ -328,7 +334,7 @@ if not LunoPunk
 	set_love_title!
 
 -- Don't allow unknown Löve versions
-if not (LP.__love("0.8") or LP.__love("0.9"))
-	assert false, "Unsupported Löve version"
+if not (LP.__love "0.8", "12.0")
+	assert false, "Unsupported Löve version" .. LunoPunk.love_version.release
 
 { :LP }

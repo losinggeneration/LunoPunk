@@ -22,7 +22,7 @@ class Screen
 	resize: =>
 		if LP.__love "0.8"
 			love.graphics.setMode LP.width, LP.height
-		elseif LP.__love "0.9"
+		elseif LP.__love "0.9", "12.0"
 			love.window.setMode LP.width, LP.height
 
 	-- Swaps screen buffers.

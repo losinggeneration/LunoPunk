@@ -48,10 +48,10 @@ class ease
 
 	-- Quart in and out.
 	quartInOut: (t) -> if t <= .5
-			t^4 * 8
-		else
-			t = t * 2 - 2
-			(1 - t^4) / 2 + .5
+		t^4 * 8
+	else
+		t = t * 2 - 2
+		(1 - t^4) / 2 + .5
 
 	-- Quint in.
 	quintIn: (t) -> t^5
@@ -117,9 +117,9 @@ class ease
 
 	-- Circle in and out.
 	circInOut: (t) -> if t <= .5
-			(math.sqrt(1 - t^2 * 4) - 1) / -2
-		else
-			(math.sqrt(1 - (t * 2 - 2)^2) + 1) / 2
+		(math.sqrt(1 - t^2 * 4) - 1) / -2
+	else
+		(math.sqrt(1 - (t * 2 - 2)^2) + 1) / 2
 
 	-- Exponential in.
 	expoIn: (t) -> math.pow(2, 10 * (t - 1))
@@ -129,9 +129,9 @@ class ease
 
 	-- Exponential in and out.
 	expoInOut: (t) -> if t < .5
-			math.pow(2, 10 * (t * 2 - 1)) / 2
-		else
-			(-math.pow(2, -10 * (t * 2 - 1)) + 2) / 2
+		math.pow(2, 10 * (t * 2 - 1)) / 2
+	else
+		(-math.pow(2, -10 * (t * 2 - 1)) + 2) / 2
 
 	-- Back in.
 	backIn: (t) -> t^2 * (2.70158 * t - 1.70158)

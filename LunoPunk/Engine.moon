@@ -55,7 +55,7 @@ class Engine
 				DispatchEvent Event Event.DEACTIVATE
 -- 				@focusLost!
 
-		if love._version_major >= 0 and love._version_minor >= 9
+		if LP.__love "0.9", "12.0"
 			love.resize = (w, h) -> DispatchEvent Event(Event.RESIZE), w, h
 
 		-- call some more setup from here
@@ -117,10 +117,9 @@ class Engine
 
 	-- Sets the game's graphics properties. Override this to set them differently.
 	setGraphicsProperties: =>
-		if love._version_major >= 0 and love._version_minor >= 9
+		if LP.__love "0.9", "12.0"
 			-- love.window is Löve >= 0.9
-			LP.windowWidth = love.window.getWidth!
-			LP.windowHeight = love.window.getHeight!
+			LP.windowWidth, LP.windowHeight = love.window.getMode!
 		else
 			LP.windowWidth = love.graphics.getWidth!
 			LP.windowHeionStageght = love.graphics.getHeight!
@@ -146,10 +145,9 @@ class Engine
 		LP.height = love.graphics.getHeight! if LP.height == 0
 
 		-- calculate scale from width/height values
-		if love._version_major >= 0 and love._version_minor >= 9
+		if LP.__love "0.9", "12.0"
 			-- love.window is Löve >= 0.9
-			LP.windowWidth = love.window.getWidth!
-			LP.windowHeight = love.window.getHeight!
+			LP.windowWidth, LP.windowHeight = love.window.getMode!
 		else
 			LP.windowWidth = love.graphics.getWidth!
 			LP.windowHeight = love.graphics.getHeight!
