@@ -14,8 +14,8 @@ test: tests/mock_love.moon
 tap: tests/mock_love.moon
 	busted -o TAP -p _spec.moon$$ tests
 
-ci: tests/mock_love.moon coveralls/busted.lua
-	busted -o coveralls/busted.lua -p _spec.moon$$ tests
+ci: tests/mock_love.moon coveralls/busted_coverage.lua
+	busted -o coveralls/busted_coverage.lua -p _spec.moon$$ tests
 
 # Dependencies
 tests/mock_love.moon:
@@ -26,8 +26,8 @@ tests/mock_love.moon:
 	@mv mock_love.moon tests
 	@rm -fr tmp
 
-coveralls/busted.lua: coveralls/busted.moon
-	moonc coveralls/busted.moon
+coveralls/busted_coverage.lua: coveralls/busted_coverage.moon
+	moonc coveralls/busted_coverage.moon
 
 %.lua: %.moon
 	moonc ${MOONCFLAGS} -p $< > $@
