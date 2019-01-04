@@ -1,289 +1,478 @@
--- Busted mock for Löve 0.8.0
+-- Busted mock for Löve 11.1
 
 busted = require "busted"
 
 loveTbl = {
+  createhandlers: ->
+  getVersion: ->
+  _os: 'Linux'
   _modules: {
-    joystick: nil
-    audio: nil
-    keyboard: nil
-    event: nil
-    thread: nil
-    physics: nil
-    filesystem: nil
     font: nil
-    graphics: nil
-    timer: nil
     mouse: nil
-    sound: nil
     image: nil
-  }
-  keyboard: {
-    setKeyRepeat: ->
-    getKeyRepeat: ->
-    isDown: ->
+    system: nil
+    audio: nil
+    touch: nil
+    physics: nil
+    joystick: nil
+    math: nil
+    timer: nil
+    graphics: nil
+    filesystem: nil
+    thread: nil
+    data: nil
+    event: nil
+    window: nil
+    keyboard: nil
+    video: nil
+    sound: nil
   }
   boot: ->
-  image: {
-    newImageData: ->
-  }
-  _version_codename: 'Rubber Piggy'
-  handlers: {
-    joystickreleased: ->
-    quit: ->
-    joystickpressed: ->
-    focus: ->
-    keypressed: ->
-    keyreleased: ->
-    mousereleased: ->
-    mousepressed: ->
-  }
-  sound: {
-    newDecoder: ->
-    newSoundData: ->
-  }
-  joystick: {
-    getAxes: ->
-    getNumBalls: ->
-    getAxis: ->
-    getNumAxes: ->
-    getName: ->
-    close: ->
-    getNumJoysticks: ->
-    open: ->
-    isDown: ->
-    getNumHats: ->
-    getBall: ->
-    isOpen: ->
-    getNumButtons: ->
-    getHat: ->
-  }
   init: ->
-  _exe: 'true'
-  font: {
-    newRasterizer: ->
-    newGlyphData: ->
-  }
-  timer: {
-    sleep: ->
-    getDelta: ->
-    getMicroTime: ->
-    getFPS: ->
-    step: ->
-    getTime: ->
-  }
+  threaderror: ->
   arg: {
-    parse_option: ->
-    getLow: ->
+    parseOption: ->
+    optionIndices: {
+      "true"
+    }
     options: {
-      game: {
-        a: '1'
-        arg: {
-          "tmp"
-        }
-        set: 'true'
+      fused: {
+        a: '0'
       }
       console: {
         a: '0'
       }
+      game: {
+        arg: {
+          "tmp"
+        }
+        a: '1'
+        set: 'true'
+      }
     }
-    parse_options: ->
+    parseOptions: ->
+    parseGameArguments: ->
+    getLow: ->
   }
-  _version: '0.8.0'
-  path: {
-    normalslashes: ->
-    leaf: ->
-    abs: ->
-    getfull: ->
-    endslash: ->
-  }
-  _version_major: '0'
-  thread: {
-    getThreads: ->
-    getThread: ->
-    newThread: ->
-  }
-  _os: 'Linux'
-  errhand: ->
-  _version_revision: '0'
-  nogame: ->
-  physics: {
-    newCircleShape: ->
-    newFixture: ->
-    newMouseJoint: ->
-    newWeldJoint: ->
-    newDistanceJoint: ->
-    newWorld: ->
-    newRevoluteJoint: ->
-    newWheelJoint: ->
-    setMeter: ->
-    newRectangleShape: ->
-    newFrictionJoint: ->
-    newBody: ->
-    getMeter: ->
-    newGearJoint: ->
-    newChainShape: ->
-    getDistance: ->
-    newRopeJoint: ->
-    newPulleyJoint: ->
-    newPrismaticJoint: ->
-    newEdgeShape: ->
-    newPolygonShape: ->
-  }
-  _curthread: nil
-  run: ->
-  releaseerrhand: ->
-  createhandlers: ->
-  filesystem: {
-    getAppdataDirectory: ->
-    newFile: ->
-    getWorkingDirectory: ->
-    remove: ->
-    setRelease: ->
-    isDirectory: ->
-    getSaveDirectory: ->
-    setIdentity: ->
-    write: ->
-    init: ->
-    isFile: ->
-    newFileData: ->
-    setSource: ->
-    getLastModified: ->
-    read: ->
-    exists: ->
-    getUserDirectory: ->
-    lines: ->
-    enumerate: ->
-    load: ->
-    mkdir: ->
-  }
-  _version_compat: {
-    "0.8.0"
-  }
-  graphics: {
-    getFont: ->
-    getColorMode: ->
-    isCreated: ->
-    setIcon: ->
-    getMaxPointSize: ->
-    setCaption: ->
-    checkMode: ->
-    getScissor: ->
-    newPixelEffect: ->
-    _transformGLSLErrorMessages: ->
-    newQuad: ->
-    drawTest: ->
-    reset: ->
-    setLineWidth: ->
-    present: ->
-    setPointSize: ->
-    newImageFont: ->
-    getPointSize: ->
-    getColor: ->
-    shear: ->
-    setScissor: ->
-    getLineStyle: ->
-    clear: ->
-    setInvertedStencil: ->
-    setLineStyle: ->
-    draw: ->
-    getLineWidth: ->
-    toggleFullscreen: ->
-    getMode: ->
-    newCanvas: ->
-    setMode: ->
-    setNewFont: ->
-    triangle: ->
-    print: ->
-    getModes: ->
-    isSupported: ->
-    setPoint: ->
-    newImage: ->
-    newSpriteBatch: ->
-    _effectCodeToGLSL: ->
-    newScreenshot: ->
-    newStencil: ->
-    getCanvas: ->
-    newFont1: ->
-    point: ->
-    arc: ->
-    polygon: ->
-    rotate: ->
-    hasFocus: ->
-    setColor: ->
-    translate: ->
-    scale: ->
-    getBackgroundColor: ->
-    pop: ->
-    push: ->
-    setPixelEffect: ->
-    circle: ->
-    quad: ->
-    rectangle: ->
-    line: ->
-    newFont: ->
-    getWidth: ->
-    setLine: ->
-    getBlendMode: ->
-    setDefaultImageFilter: ->
-    getCaption: ->
-    setCanvas: ->
-    setBlendMode: ->
-    getHeight: ->
-    setStencil: ->
-    printf: ->
-    setFont: ->
-    printf1: ->
-    setPointStyle: ->
-    print1: ->
-    newParticleSystem: ->
-    getDefaultImageFilter: ->
-    getPointStyle: ->
-    drawq: ->
-    getPixelEffect: ->
-    setBackgroundColor: ->
-    setColorMode: ->
-  }
-  audio: {
-    rewind: ->
-    getVolume: ->
-    getNumSources: ->
-    setDistanceModel: ->
-    getOrientation: ->
-    setPosition: ->
-    newSource1: ->
-    setOrientation: ->
-    play: ->
-    setVelocity: ->
-    newSource: ->
-    getDistanceModel: ->
-    stop: ->
-    resume: ->
-    getPosition: ->
-    setVolume: ->
-    pause: ->
-    getVelocity: ->
-  }
-  mouse: {
-    isVisible: ->
-    getX: ->
-    setGrab: ->
-    setPosition: ->
-    setVisible: ->
-    isGrabbed: ->
-    isDown: ->
-    getPosition: ->
-    getY: ->
-  }
-  _version_minor: '8'
+  setDeprecationOutput: ->
+  _deprecation: nil
   event: {
+    clear: ->
+    pump: ->
     poll: ->
     push: ->
-    quit: ->
-    pump: ->
-    clear: ->
     wait: ->
+    poll_i: ->
+    quit: ->
   }
+  _version_minor: '1'
+  _exe: 'true'
+  hasDeprecationOutput: ->
+  physics: {
+    newMouseJoint: ->
+    newPulleyJoint: ->
+    newFixture: ->
+    setMeter: ->
+    getMeter: ->
+    newWheelJoint: ->
+    newRectangleShape: ->
+    newFrictionJoint: ->
+    getDistance: ->
+    newMotorJoint: ->
+    newRopeJoint: ->
+    newBody: ->
+    newRevoluteJoint: ->
+    newEdgeShape: ->
+    newWorld: ->
+    newPrismaticJoint: ->
+    newPolygonShape: ->
+    newWeldJoint: ->
+    newGearJoint: ->
+    newDistanceJoint: ->
+    newCircleShape: ->
+    newChainShape: ->
+  }
+  _version_compat: {
+    "11.1"
+    "11.0"
+  }
+  math: {
+    randomNormal: ->
+    isConvex: ->
+    setRandomState: ->
+    compress: ->
+    triangulate: ->
+    newTransform: ->
+    noise: ->
+    getRandomSeed: ->
+    newRandomGenerator: ->
+    setRandomSeed: ->
+    linearToGamma: ->
+    gammaToLinear: ->
+    getRandomState: ->
+    random: ->
+    _getRandomGenerator: ->
+    decompress: ->
+    newBezierCurve: ->
+  }
+  thread: {
+    getChannel: ->
+    newThread: ->
+    newChannel: ->
+  }
+  window: {
+    restore: ->
+    isMaximized: ->
+    setFullscreen: ->
+    updateMode: ->
+    isMinimized: ->
+    requestAttention: ->
+    getDisplayCount: ->
+    minimize: ->
+    isVisible: ->
+    fromPixels: ->
+    getDisplayName: ->
+    toPixels: ->
+    isOpen: ->
+    isDisplaySleepEnabled: ->
+    setMode: ->
+    hasMouseFocus: ->
+    getTitle: ->
+    setIcon: ->
+    setTitle: ->
+    getDesktopDimensions: ->
+    getFullscreenModes: ->
+    getDPIScale: ->
+    getFullscreen: ->
+    getPosition: ->
+    close: ->
+    setDisplaySleepEnabled: ->
+    getIcon: ->
+    setPosition: ->
+    showMessageBox: ->
+    getMode: ->
+    maximize: ->
+    hasFocus: ->
+  }
+  run: ->
+  mouse: {
+    setX: ->
+    getSystemCursor: ->
+    isGrabbed: ->
+    isVisible: ->
+    newCursor: ->
+    setVisible: ->
+    getRelativeMode: ->
+    setGrabbed: ->
+    setCursor: ->
+    getPosition: ->
+    getCursor: ->
+    isCursorSupported: ->
+    setY: ->
+    setPosition: ->
+    getX: ->
+    getY: ->
+    isDown: ->
+    setRelativeMode: ->
+  }
+  image: {
+    newCubeFaces: ->
+    isCompressed: ->
+    newImageData: ->
+    newCompressedData: ->
+  }
+  isVersionCompatible: ->
+  errhand: ->
+  font: {
+    newImageRasterizer: ->
+    newGlyphData: ->
+    newTrueTypeRasterizer: ->
+    newBMFontRasterizer: ->
+    newRasterizer: ->
+  }
+  _version: '11.1'
+  audio: {
+    stop: ->
+    setVelocity: ->
+    getSourceCount: ->
+    getActiveEffects: ->
+    getActiveSourceCount: ->
+    setVolume: ->
+    getDopplerScale: ->
+    setMixWithSystem: ->
+    play: ->
+    setOrientation: ->
+    isEffectsSupported: ->
+    getMaxSourceEffects: ->
+    getMaxSceneEffects: ->
+    getEffect: ->
+    newSource: ->
+    pause: ->
+    setDistanceModel: ->
+    getRecordingDevices: ->
+    getVelocity: ->
+    newQueueableSource: ->
+    getDistanceModel: ->
+    getOrientation: ->
+    setPosition: ->
+    setEffect: ->
+    getPosition: ->
+    getVolume: ->
+    setDopplerScale: ->
+  }
+  system: {
+    hasBackgroundMusic: ->
+    setClipboardText: ->
+    vibrate: ->
+    openURL: ->
+    getPowerInfo: ->
+    getClipboardText: ->
+    getOS: ->
+    getProcessorCount: ->
+  }
+  filesystem: {
+    unmount: ->
+    write: ->
+    setIdentity: ->
+    setCRequirePath: ->
+    _setAndroidSaveExternal: ->
+    getExecutablePath: ->
+    getCRequirePath: ->
+    init: ->
+    newFileData: ->
+    isSymlink: ->
+    append: ->
+    getUserDirectory: ->
+    createDirectory: ->
+    getInfo: ->
+    areSymlinksEnabled: ->
+    exists: ->
+    newFile: ->
+    getSaveDirectory: ->
+    mount: ->
+    getRequirePath: ->
+    getWorkingDirectory: ->
+    getSize: ->
+    setRequirePath: ->
+    isFused: ->
+    getDirectoryItems: ->
+    setSource: ->
+    getLastModified: ->
+    isFile: ->
+    isDirectory: ->
+    getIdentity: ->
+    setFused: ->
+    getAppdataDirectory: ->
+    lines: ->
+    load: ->
+    remove: ->
+    getSource: ->
+    getRealDirectory: ->
+    read: ->
+    setSymlinksEnabled: ->
+    getSourceBaseDirectory: ->
+  }
+  touch: {
+    getPressure: ->
+    getTouches: ->
+    getPosition: ->
+  }
+  _version_codename: 'Mysterious Mysteries'
+  joystick: {
+    saveGamepadMappings: ->
+    setGamepadMapping: ->
+    loadGamepadMappings: ->
+    getJoystickCount: ->
+    getJoysticks: ->
+  }
+  _version_revision: '0'
+  timer: {
+    step: ->
+    getDelta: ->
+    getTime: ->
+    getAverageDelta: ->
+    sleep: ->
+    getFPS: ->
+  }
+  graphics: {
+    getTextureTypes: ->
+    setDefaultMipmapFilter: ->
+    getStats: ->
+    newParticleSystem: ->
+    setFont: ->
+    newQuad: ->
+    getDefaultFilter: ->
+    inverseTransformPoint: ->
+    getStackDepth: ->
+    setDefaultFilter: ->
+    shear: ->
+    translate: ->
+    print: ->
+    newShader: ->
+    getPixelWidth: ->
+    getBlendMode: ->
+    newMesh: ->
+    getMeshCullMode: ->
+    present: ->
+    drawLayer: ->
+    newVolumeImage: ->
+    scale: ->
+    getLineStyle: ->
+    setBlendMode: ->
+    getImageFormats: ->
+    getLineJoin: ->
+    draw: ->
+    getFont: ->
+    setMeshCullMode: ->
+    getDepthMode: ->
+    newVideo: ->
+    getFrontFaceWinding: ->
+    getDPIScale: ->
+    getCanvasFormats: ->
+    discard: ->
+    setStencilTest: ->
+    _shaderCodeToGLSL: ->
+    newImageFont: ->
+    origin: ->
+    push: ->
+    newArrayImage: ->
+    clear: ->
+    getHeight: ->
+    setFrontFaceWinding: ->
+    reset: ->
+    newSpriteBatch: ->
+    newImage: ->
+    rectangle: ->
+    isCreated: ->
+    stencil: ->
+    getShader: ->
+    setNewFont: ->
+    pop: ->
+    flushBatch: ->
+    getScissor: ->
+    polygon: ->
+    arc: ->
+    ellipse: ->
+    circle: ->
+    _newVideo: ->
+    newCubeImage: ->
+    setColor: ->
+    line: ->
+    points: ->
+    setBackgroundColor: ->
+    setColorMask: ->
+    setLineStyle: ->
+    getStencilTest: ->
+    _transformGLSLErrorMessages: ->
+    getRendererInfo: ->
+    isActive: ->
+    rotate: ->
+    intersectScissor: ->
+    setScissor: ->
+    printf: ->
+    getPixelHeight: ->
+    getDimensions: ->
+    replaceTransform: ->
+    captureScreenshot: ->
+    getWidth: ->
+    isGammaCorrect: ->
+    setPointSize: ->
+    getPixelDimensions: ->
+    drawInstanced: ->
+    getColorMask: ->
+    transformPoint: ->
+    setLineWidth: ->
+    newCanvas: ->
+    setDepthMode: ->
+    getColor: ->
+    validateShader: ->
+    getDefaultMipmapFilter: ->
+    getSystemLimits: ->
+    applyTransform: ->
+    setShader: ->
+    setLineJoin: ->
+    newFont: ->
+    setCanvas: ->
+    getLineWidth: ->
+    newText: ->
+    getPointSize: ->
+    getBackgroundColor: ->
+    setWireframe: ->
+    isWireframe: ->
+    _setDefaultShaderCode: ->
+    getCanvas: ->
+    getSupported: ->
+  }
+  path: {
+    getFull: ->
+    endslash: ->
+    abs: ->
+    normalslashes: ->
+    leaf: ->
+  }
+  _setGammaCorrect: ->
+  data: {
+    newByteData: ->
+    encode: ->
+    hash: ->
+    compress: ->
+    getPackedSize: ->
+    decode: ->
+    unpack: ->
+    newDataView: ->
+    decompress: ->
+    pack: ->
+  }
+  handlers: {
+    gamepadreleased: ->
+    focus: ->
+    touchpressed: ->
+    lowmemory: ->
+    quit: ->
+    textinput: ->
+    wheelmoved: ->
+    resize: ->
+    directorydropped: ->
+    touchreleased: ->
+    joystickhat: ->
+    joystickaxis: ->
+    joystickpressed: ->
+    threaderror: ->
+    gamepadpressed: ->
+    visible: ->
+    joystickreleased: ->
+    joystickremoved: ->
+    gamepadaxis: ->
+    textedited: ->
+    mousefocus: ->
+    filedropped: ->
+    mousepressed: ->
+    keyreleased: ->
+    touchmoved: ->
+    mousemoved: ->
+    joystickadded: ->
+    mousereleased: ->
+    keypressed: ->
+  }
+  sound: {
+    newSoundData: ->
+    newDecoder: ->
+  }
+  keyboard: {
+    setTextInput: ->
+    hasTextInput: ->
+    getScancodeFromKey: ->
+    hasScreenKeyboard: ->
+    setKeyRepeat: ->
+    getKeyFromScancode: ->
+    isDown: ->
+    hasKeyRepeat: ->
+    isScancodeDown: ->
+  }
+  video: {
+    newVideoStream: ->
+  }
+  _version_major: '11'
 }
 export love = busted.mock loveTbl
 love

@@ -5,17 +5,21 @@ import config, extract_love_version, set_love_title from require "LunoPunk.Confi
 
 LunoPunk = nil
 
-check_love = (str, release, major, minor, patch) ->
+setVersion = (str) ->
+	love.getVersion = -> string.match str, "(%d+).(%d+).?(%d+)"
 	LunoPunk = extract_love_version str
+
+check_love = (str, release, major, minor, patch) ->
+	setVersion str
 	assert.are.equal release, LunoPunk.love_version.release
-	assert.are.equal major, LunoPunk.love_version.major
-	assert.are.equal minor, LunoPunk.love_version.minor
-	assert.are.equal patch, LunoPunk.love_version.patch
+	assert.are.equal tonumber(major), tonumber(LunoPunk.love_version.major)
+	assert.are.equal tonumber(minor), tonumber(LunoPunk.love_version.minor)
+	assert.are.equal tonumber(patch), tonumber(LunoPunk.love_version.patch)
 
 describe "Config", ->
 
 	before_each ->
-		LunoPunk = extract_love_version "0.8.0"
+		setVersion "0.8.0"
 
 	it "extract_love_version", ->
 		check_love "0.8.0", "0.8", 0, 8, 0
@@ -24,7 +28,7 @@ describe "Config", ->
 
 	it "set_love_title", ->
 		versiond_check = (version) ->
-			LunoPunk = extract_love_version version
+			setVersion version
 			t = set_love_title!
 			assert.are.equal "LunoPunk (development)", t
 			t = set_love_title nil, true
@@ -35,8 +39,9 @@ describe "Config", ->
 			t = set_love_title "FuBar", true
 			assert.are.equal "FuBar", t
 
+		love.graphics.setCaption = ->
 		versiond_check "0.8.0"
 		versiond_check "0.9.0"
-	
+
 	pending "config"
 
