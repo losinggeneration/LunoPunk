@@ -83,8 +83,6 @@ fi
 
 cd $TRAVIS_BUILD_DIR
 
-lua -v
-
 LUAROCKS_BASE=luarocks-$LUAROCKS
 
 curl --location http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz | tar xz
