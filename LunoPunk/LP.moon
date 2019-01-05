@@ -16,6 +16,7 @@ class lp
 	NUMBER_MAX_VALUE = nil
 	RAD = math.pi / 180
 	VERSION = "0.0.1"
+	HAXEPUNK_VERSION = "2.5.1"
 	__scene = nil
 
 	_gameTime: nil
