@@ -1,6 +1,7 @@
 import Tween from require "LunoPunk.Tween"
 
 -- A simple alarm, useful for timed events, etc.
+-- TODO
 class Alarm extends Tween
 	-- Constructor.
 	-- @param	complete	Optional completion callback.

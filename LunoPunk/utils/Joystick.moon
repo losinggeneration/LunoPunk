@@ -64,6 +64,7 @@ else if LP.__love "0.9", "12.0"
 
 		__loveButton: (button) => @joystick\isDown button
 
+-- TODO verify Joystick works
 class Joystick extends loveJoystick
 	new: =>
 		super!

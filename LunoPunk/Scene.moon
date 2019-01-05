@@ -63,6 +63,7 @@ class Scene extends Tweener
 		if @__layerSort
 			@__layerList\sort @__layerSort if #@__layerList > 1
 
+		-- TODO
 		-- if LP.renderMode == RenderMode.Hardware
 			-- clearSprites!
 			-- AtlasData.setScene(@)
@@ -73,6 +74,7 @@ class Scene extends Tweener
 				e\render! if e.visible
 				e = e.__renderPrev
 
+		-- TODO
 		-- AtlasData\render! if LP.renderMode == RenderMode.Hardware
 
 	-- X position of the mouse in the Scene.
@@ -492,7 +494,7 @@ class Scene extends Tweener
 	-- Gets the sprite for the associated layer.  Used for hardware rendering.
 	-- @param	layer		The layer to get the sprite for.
 	-- @return	The sprite for the specified layer.
-	getSpriteByLayer: (layer) => --TODO
+	getSpriteByLayer: (layer) => -- TODO
 
 	-- The Entity that will be rendered first by the Scene.
 	getFarthest: =>
@@ -638,6 +640,7 @@ class Scene extends Tweener
 		return 0
 
 	__clearSprites: =>
+		-- TODO
 -- 		@__layerSprites\get(sprite).graphics.clear! for sprite in *@__layerSprites
 
 	-- @private Adds Entity to the update list.

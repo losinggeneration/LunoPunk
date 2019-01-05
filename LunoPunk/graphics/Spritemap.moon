@@ -3,6 +3,7 @@ import Rectangle from require "LunoPunk.geometry.Rectangle"
 
 -- Performance-optimized animated Image. Can have multiple animations,
 -- which draw frames from the provided source image to the screen.
+-- TODO
 class Spritemap extends Image
 	-- @param	source			Source image.
 	-- @param	frameWidth		Frame width.

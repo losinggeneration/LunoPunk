@@ -1,5 +1,6 @@
 import Point from require "LunoPunk.geometry.Point"
 
+-- TODO
 class atlasdata
 	new: =>
 

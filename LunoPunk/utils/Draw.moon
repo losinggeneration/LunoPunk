@@ -18,8 +18,11 @@ class draw
 		love.graphics.circle (if fill == true then "fill" else "line"), x, y, radius
 		restore!
 
+	-- TODO
 	curve: (x1, y1, x2, y2, x3, y3, thick = 1, color = 0, alpha = 1) ->
+	-- TODO
 	entity: (e, x = 0, y = 0, addEntityPosition = false) ->
+	-- TODO
 	graphic: (g, x = 0, y = 0) ->
 	hitbox: (e, outline = true, color = 0xFFFFFF, alpha = 1) ->
 		draw.rect e.originX, e.originY, e.height, e.width, color, alpha, not outline, 1
@@ -34,6 +37,7 @@ class draw
 		love.graphics.rectangle (if fill == true then "fill" else "line"), x, y, width, height
 		restore!
 
+	-- TODO
 	resetTarget: ->
 	setTarget: (target, camera = nil, blend = nil) ->
 

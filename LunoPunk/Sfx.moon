@@ -1,6 +1,7 @@
 import LP from require "LunoPunk.LP"
 
 -- Sound effect object used to play embedded sounds.
+-- TODO
 class Sfx
 	-- Creates a sound effect from an embedded source. Store a reference to
 	-- this object so that you can play the sound using play() or loop().
@@ -9,6 +10,7 @@ class Sfx
 	new: (source, complete = nil) =>
 		-- Optional callback function for when the sound finishes playing.
 		@complete = complete
+		-- TODO
 		-- @__transform = SoundTransform!
 		@__volume = 1
 		@__pan = 0

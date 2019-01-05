@@ -10,6 +10,7 @@ class Rect extends Graphic
 		@__color = color
 		createImage @
 
+	-- TODO renderMode
 	render: (point, camera) =>
 		@__point.x = point.x + @x
 		@__point.y = point.y + @y

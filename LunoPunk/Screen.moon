@@ -102,6 +102,7 @@ class Screen
 		@__scaleX = value
 		@fullScaleX = => @scaleX! * @scale!
 		@__update!
+		-- TODO How does setting this ever set it back?
 		@needsResize = => true
 		@__scaleX
 
@@ -113,6 +114,7 @@ class Screen
 		@__scaleY = value
 		@fullScaleY = => @scaleY! * @scale!
 		@__update!
+		-- TODO How does setting this ever set it back?
 		@needsResize = => true
 		@__scaleY
 
@@ -126,6 +128,7 @@ class Screen
 		@fullScaleX = => @scaleX! * @scale!
 		@fullScaleY = => @scaleY! * @scale!
 		@__update!
+		-- TODO How does setting this ever set it back?
 		@needsResize = => true
 		@__scale
 

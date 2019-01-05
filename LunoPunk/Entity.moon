@@ -355,12 +355,12 @@ class Entity extends Tweener
 
 		return false
 
-	-- Populates an array with all collided Entities of a type.
+	-- Populates an array with all collided Entities of a type. This
+	-- function does not empty the array, that responsibility is left to the user.
 	-- @param	type		The Entity type to check for.
 	-- @param	x			Virtual x position to place this Entity.
 	-- @param	y			Virtual y position to place this Entity.
 	-- @param	array		The Array or Vector object to populate.
-	-- @return	The array, populated with all collided Entities.
 	collideInto: (type, x, y, array) =>
 		return if @__scene == nil
 
@@ -406,12 +406,12 @@ class Entity extends Tweener
 		@y @__collide_y
 		return
 
-	-- Populates an array with all collided Entities of multiple types.
+	-- Populates an array with all collided Entities of multiple types.This
+	-- function does not empty the array, that responsibility is left to the user.
 	-- @param	types		An array of Entity types to check for.
 	-- @param	x			Virtual x position to place this Entity.
 	-- @param	y			Virtual y position to place this Entity.
 	-- @param	array		The Array or Vector object to populate.
-	-- @return	The array, populated with all collided Entities.
 	collideTypesInto: (types, x, y, array) =>
 		return if @__scene == nil
 		for t in *types
@@ -563,7 +563,7 @@ class Entity extends Tweener
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveAtAngle: (angle, amount, solidType, sweep) =>
 		angle *= LP.RAD!
-		@moveBy math.cos(angle) * amount, math.sin(angle) * amount, solidType, sweep
+		@moveBy math.cos(angle) * amount @x!, math.sin(angle) * amount + @y!, solidType, sweep
 
 	-- When you collide with an Entity on the x-axis with moveTo() or moveBy().
 	-- @param	e		The Entity you collided with.

@@ -92,6 +92,7 @@ class Image extends Graphic
 		sy = @scale * @scaleY
 
 		-- determine drawing location
+		-- TODO
 -- 		@__point.x = point.x + @x - @originX - camera.x * @scrollY
 -- 		@__point.y = point.y + @y - @originY - camera.y * @scrollY
 		@__point.x = point.x + @x - camera.x * @scrollX
@@ -166,7 +167,19 @@ class Image extends Graphic
 
 		Image img
 
+	-- TODO createCircle
+	-- TODO updateBuffer
+	-- TODO clear
+	-- TODO setting alpha
+	-- TODO setting color
+	-- TODO setting flipped
+	-- TODO centerOrigin
+	-- TODO centerOO
+
 	width: => @__source\getWidth!
 	height: => @__source\getHeight!
+
+	-- TODO get scaledWidth
+	-- TODO get scaledHeight
 
 { :Image }

@@ -1,5 +1,6 @@
 import AtlasData from require "LunoPunk.graphics.atlas.AtlasData"
 
+-- TODO
 class Atlas
 	new: =>
 
