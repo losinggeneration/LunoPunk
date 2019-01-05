@@ -8,6 +8,7 @@ local LP
 -- for Lua 5.3 compatibility
 table.unpack = unpack if table.unpack == nil
 
+-- TODO fair amount of missing functionality here
 class lp
 	-- Private
 	BASELAYER = 10
@@ -16,7 +17,7 @@ class lp
 	NUMBER_MAX_VALUE = nil
 	RAD = math.pi / 180
 	VERSION = "0.0.1"
-	HAXEPUNK_VERSION = "2.5.1"
+	HAXEPUNK_VERSION = "2.3.0"
 	__scene = nil
 
 	_gameTime: nil
