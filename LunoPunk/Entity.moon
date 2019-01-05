@@ -563,7 +563,7 @@ class Entity extends Tweener
 	-- @param	sweep		If sweeping should be used (prevents fast-moving objects from going through solidType).
 	moveAtAngle: (angle, amount, solidType, sweep) =>
 		angle *= LP.RAD!
-		@moveBy math.cos(angle) * amount @x!, math.sin(angle) * amount + @y!, solidType, sweep
+		@moveBy math.cos(angle) * amount, math.sin(angle) * amount, solidType, sweep
 
 	-- When you collide with an Entity on the x-axis with moveTo() or moveBy().
 	-- @param	e		The Entity you collided with.
