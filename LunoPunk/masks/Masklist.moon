@@ -1,4 +1,1 @@
--- TODO
-class Masklist
-
-{ :Masklist }
+-- TODO Masklist
