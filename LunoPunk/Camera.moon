@@ -58,7 +58,7 @@ class Camera
 		@anchorY = anchorY
 
 	-- TODO verify this
-	onCamera(entity) =>
+	onCamera: (entity) =>
 		entity\collideRect(entity.x, entity.y, x, y, LP.width, LP.height)
 
 	-- Cause the screen to shake for a specified length of time.

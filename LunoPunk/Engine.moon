@@ -1,67 +1,96 @@
-import LP from require "LunoPunk.LP"
+import App from require 'LunoPunk.App'
+import Console from require 'LunoPunk.debug.Console'
 import Entity from require "LunoPunk.Entity"
-import RenderMode from require "LunoPunk.RenderMode"
-import Screen from require "LunoPunk.Screen"
 import Rectangle from require "LunoPunk.geometry.Rectangle"
-import Draw from require "LunoPunk.utils.Draw"
+import LP from require "LunoPunk.LP"
+import Scene from require "LunoPunk.Scene"
+import Screen from require "LunoPunk.Screen"
 import Event from require "LunoPunk.utils.Event"
 import AddEventListener, DispatchEvent from require "LunoPunk.utils.EventListener"
 import Input from require "LunoPunk.utils.Input"
 
--- The main class which manages the game loop
+-- Main game Sprite class, added to the Stage.
+-- Manages the game loop.
+--
+-- Your main class **needs** to extends this.
 class Engine
+	console: nil
+
+	-- If the game should stop updating/rendering.
+	paused: false
+
+	-- Cap on the elapsed time (default at 30 FPS). Raise this to allow for lower framerates (eg. 1 / 10).
+	maxElapsed: 0.0333
+
+	-- The max amount of frames that can be skipped in fixed framerate mode.
+	maxFrameSkip: 5
+
+	-- Invoked before the update cycle begins each frame.
+	preUpdate: =>
+	-- Invoked after update cycle.
+	postUpdate: =>
+	-- Invoked before rendering begins each frame.
+	preRender: =>
+	-- Invoked after rendering completes.
+	postRender: =>
+	-- Invoked after the screen is resized.
+	onResize: =>
+	-- Invoked when input is received.
+	onInputPressed: =>
+	-- Invoked when input is received.
+	onInputReleased: =>
+	-- Invoked after the scene is switched.
+	onSceneSwitch: =>
+	-- Invoked when the application is closed.
+	onClose: =>
+
 	-- Constructor. Defines startup information about your game.
 	-- @param width      The width of your game.
 	-- @param height     The height of your game.
 	-- @param frameRate  The game framerate, in frames per second.
 	-- @param fixed      If a fixed-framerate should be used.
-	-- @param renderMode Overrides the default render mode for this target
-	new: (width = 0, height = 0, frameRate = 60, fixed = false, renderMode) =>
+	new: (width = 0, height = 0, frameRate = 60, fixed = false) =>
 		LP.bounds = Rectangle 0, 0, width, height
 		LP.assignedFrameRate = frameRate
 		LP.fixed = fixed
 
-		LP.renderMode renderMode or RenderMode.Hardware
-
 		LP.engine = @
-		LP.screen = Screen!
 		LP.width = width
 		LP.height = height
 
-		LP.randomizeSeed! unless LP.randomSeed
+		LP.screen = Screen!
+		@app = @createApp!
+		LP.app = @app
+
+		-- TODO
+		--Random.randomizeSeed! unless Random.randomSeed
 
 		LP.entity = Entity!
 		LP.time = love.timer.getTime!
 
-		-- Cap on the elapsed time (default at 30 FPS). Raise this to allow for lower framerates (eg. 1 / 10).
-		@maxElapsed = 0.0333
-		-- The max amount of frames that can be skipped in fixed framerate mode.
-		@maxFrameSkip = 0
-		-- If the game should stop updating/rendering.
-		@paused = false
-		-- The amount of milliseconds between ticks in fixed framerate mode.
-		@tickRate = 4
-
 		@__frameList = {}
-		@__frameLast = 0
-		@__frameListSum = 0
+
+		-- TODO
+		--@__iterator = VisibleSceneIterator!
+
+		@app\init!
 
 		-- Do something with the Löve functions...
-		love.draw = @\render
-		love.update = @\update
+		love.draw = @\onRender
+		love.update = @\onUpdate
 		love.focus = (f) ->
 			if f
 				DispatchEvent Event Event.ACTIVATE
--- 				@focusGained!
 			else
 				DispatchEvent Event Event.DEACTIVATE
--- 				@focusLost!
 
 		if LP.__love "0.9", "12.0"
 			love.resize = (w, h) -> DispatchEvent Event(Event.RESIZE), w, h
 
 		-- call some more setup from here
 		setup @
+
+	createApp: => App @
 
 	-- Override this, called after Engine has been added to the stage.
 	init: =>
@@ -74,49 +103,182 @@ class Engine
 
 	-- Updates the game, updating the Scene and Entities.
 	update: =>
-		LP.scene\updateLists!
-		checkScene! if LP\sceneIsNull!
-		LP.tweener\updateTweens! if LP.tweener.active and LP.tweener\hasTween!
+		LP.resize LP.windowWidth, LP.windowHeight if LP.needsResize
 
-		if LP.scene.active
-			LP.scene\updateTweens! if LP.scene\hasTween!
-			LP.scene\update!
+		@_scene\updateLists!
+		@checkScene!
 
-		LP.scene\updateLists false
+		@preUpdate!
+		-- TODO
+		--@_scene\preUpdate!
+
+		LP.tweener\updateTweens LP.elapsed if LP.tweener.active and LP.tweener\hasTween!
+
+		if @_scene.active
+			@_scene\updateTweens LP.elapsed if @_scene\hasTween!
+			@_scene\update!
+
+		@_scene\updateLists false
+
+		-- TODO
+		--@_scene.postUpdate!
+		@postUpdate!
 
 	-- Renders the game, rendering the Scene and Entities.
-	render: =>
-		if LP.screen.needsResize!
-			LP.resize LP.windowWidth, LP.windowHeight
-			LP.screen.needsResize = => false
-
+	onRender: =>
 		-- timing stuff
-		t = love.timer.getDelta!
+		t = @app\getTimeMillis!
 
-		@__frameLast = t if @__frameLast == 0
+		if @paused
+			@_frameLast = t
+			return if not Console.enabled
 
-		-- render loop
-		if LP.renderMode == RenderMode.Buffer
-			LP.screen\swap!
-			LP.screen\refresh!
+		@_frameLast = t if @_frameLast == 0
 
-		Draw.resetTarget!
+		@preRender!
 
-		LP.scene\render! if LP.scene.visible
+		-- TODO
+		--@_renderer\startFrame!
 
-		LP.screen\redraw! if LP.renderMode == RenderMode.Buffer
+		for scene in *@_iterator
+			-- TODO
+			-- @_renderer\startScene scene
+			LP.renderingScene = scene
+			scene\render!
+			-- TODO
+			--for commands in *scene.batch
+				--@_renderer\render commands
+
+			-- TODO
+			--@_renderer\flushScene scene
+
+		LP.renderingScene = nil
+		-- TODO
+		--@_renderer\endFrame!
+
+		@postRender!
 
 		-- more timionStageng stuff
-		t = love.timer.getTime!
-		@__frameList[#@__frameList] = t - @__frameLast
-		@__frameListSum += @__frameList[#@__frameList]
-		if #@__frameList > 10
-			@__frameListSum -= @__frameList[#@__frameList]
-			@__frameList = [frame for frame in *@__frameList[2,]]
+		t = @app\getTimeMillis!
+		@_frameList[#@_frameList] = t - @_frameLast
+		@_frameListSum += @_frameList[#@_frameList]
+		if #@_frameList > 10
+			@_frameListSum -= @_frameList[#@_frameList]
+			@_frameList = [frame for frame in *@_frameList[2,]]
 
-		LP.frameRate = 1000 / (@__frameListSum / #@__frameList)
-		@__frameLast = t
+		LP.frameRate = 1000 / (@_frameListSum / #@_frameList)
+		@_frameLast = t
 
+	onUpdate: =>
+		@_time = @app\getTimeMillis!
+		@_gameTime = @_time
+		LP._systemTime = @_time - @_systemTime
+		@_updateTime = @_time
+
+		-- update timer
+		elapsed = @_time - @_last / 1000
+		if LP.fixed
+			@_elapsed += elapsed
+			LP.elapsed = 1 / LP.assignedFrameRate
+			@_elapsed = LP.elapsed * @maxFrameSkip if @_elapsed > LP.elapsed * @maxFrameSkip
+			while @_elapsed > LP.elapsed
+				@_elapsed -= LP.elapsed
+				@step!
+
+		else
+			LP.elapsed = elapsed
+			LP.elapsed = @maxElapsed if LP.elapsed > @maxElapsed
+			LP.elapsed *= LP.rate
+			@step!
+
+		@_last = @_time
+
+		-- update timer
+		@_time = @app\getTimeMillis!
+		LP._updateTime = @_time - @_updateTime
+
+		-- update timer
+		@_time = @app\getTimeMillis!
+		@_systemTime = @_timer
+		LP._gameTime = @_time - @_gameTime
+
+	step: =>
+		-- update input
+		-- TODO
+		--Input.update!
+
+		-- update loop
+		@update! if not @paused
+
+		-- update console
+		-- TODO
+		--@console\update! if @console
+
+		-- TODO
+		--Input.postUpdate!
+
+	-- @private Switch scenes if they've changed.
+	checkScene: =>
+		if @_scene != nil and #@_scenes > 0 and @_scenes[#@_scenes - 1] != @_scene
+			-- TODO
+			--Log.debug("ending scene: ", @_scene.__name)
+			@_scene\endScene!
+			@_scene\updateLists false
+			@_scene\clearTweens! if @_scene.autoClear and @_scene\hasTween!
+
+			@_scene = @_scenes[#@_scenes - 1]
+
+			@onSceneSwitch!
+
+			-- TODO
+			--Log.debug("starting scene: ", @_scene.__name)
+			@_scene.assetCache\enable!
+			@_scene\updateLists!
+			if @_scene.started
+				@_scene\resume!
+			else
+				@_scene\begin!
+			@_scene.started = true
+			@_scene\updateLists true
+
+	pushScene: (value) =>
+		-- TODO
+		--Log.debug("pushed scene: ", value.__name)
+		@_scenes[#@_scenes] = value
+
+	popScene: =>
+		-- TODO
+		--Log.debug("poped scene: ", value.__name)
+		scene = table.remove @_scenes, #@_scenes-1
+		scene.assetCache\dispose! if scene.assetCache.enabled
+		scene
+
+	app: nil
+
+	_scene: Scene!
+	_scenes: {}
+
+	_delta: 0
+	_time: 0
+	_last: 0
+	_rate: 0
+	_skip: 0
+	_prev: 0
+	_elapsed: 0
+
+	_updateTime: 0
+	_gameTime: 0
+	_systemTime: 0
+
+	_frameLast: 0
+	_frameListSum: 0
+	_frameList: {}
+
+	_render: nil
+
+	_iterator: {}
+
+	-- LunoPunk/Löve specific implementation from backend/flash/haxepunk/_internal/FlashApp
 	-- Sets the game's graphics properties. Override this to set them differently.
 	setGraphicsProperties: =>
 		if LP.__love "0.9", "12.0"
@@ -133,13 +295,13 @@ class Engine
 
 		AddEventListener Event.ACTIVATE, (e) ->
 			LP.focused = true
-			@focusGained!
-			LP.scene\focusGained!
+			--@focusGained!
+			--@_scene\focusGained!
 
 		AddEventListener Event.DEACTIVATE, (e) ->
 			LP.focused = false
-			@focusLost!
-			LP.scene\focusLost!
+			--@focusLost!
+			--@_scene\focusLost!
 
 	-- @private Event handler for window resize
 	resize: =>
@@ -167,29 +329,12 @@ class Engine
 		Input.enable!
 
 		-- switch scenes
-		@checkScene! if not LP\sceneIsNull!
+		@checkScene!
 
 		-- game start
 		@init!
 
 	-- @private Framerate independent game loop.
 	onEnterFrame = (e) =>
-
-	-- @private Switch scenes if they've changed.
-	checkScene = =>
-		return if not LP\sceneIsNull!
-
-		unless LP.scene == nil
-			LP.scene\endScene!
-			LP.scene\updateLists!
-			LP.scene\clearTweens! if LP.scene.autoClear and LP.scene\hasTween!
-			-- TODO
-			-- removeChild(LP.scene.sprite) if LP.scene.sprite
-			LP\swapScene!
-			-- TODO
-			-- addChild LP.scene.sprite
-			LP.camera = LP.scene.camera
-			LP.scene\begin!
-			LP.scene\updateLists!
 
 { :Engine }
